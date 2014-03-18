@@ -1,0 +1,14 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+           i18n_domain="bda.plone.discount">
+
+  <include package="Products.GenericSetup" file="meta.zcml"/>
+
+  <genericsetup:registerProfile
+    name="default"
+    title="bda.plone.discount"
+    directory="profiles/default"
+    description="bda.plone.discount"
+    provides="Products.GenericSetup.interfaces.EXTENSION"/>
+
+</configure>
