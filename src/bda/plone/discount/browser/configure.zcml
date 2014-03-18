@@ -12,4 +12,76 @@
     file="discount.css"
     layer="..interfaces.IDiscountExtensionLayer"/>
 
+  <!-- item discount view -->
+  <browser:page
+    for="..interfaces.IDiscountEnabled"
+    name="item_discount"
+    template="discount_view.pt"
+    class=".views.ItemDiscountView"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <!-- cart discount view -->
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="cart_discount"
+    template="discount_view.pt"
+    class=".views.CartDiscountView"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <!-- cart item discount forms -->
+  <browser:page
+    for="..interfaces.IDiscountEnabled"
+    name="cart_item_discount_form"
+    class=".forms.CartItemDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="cart_item_discount_form"
+    class=".forms.CartItemDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="..interfaces.IDiscountEnabled"
+    name="user_cart_item_discount_form"
+    class=".forms.UserCartItemDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="user_cart_item_discount_form"
+    class=".forms.UserCartItemDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="..interfaces.IDiscountEnabled"
+    name="group_cart_item_discount_form"
+    class=".forms.GroupCartItemDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="group_cart_item_discount_form"
+    class=".forms.GroupCartItemDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <!-- cart discount forms -->
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="cart_discount_form"
+    class=".forms.CartDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="user_cart_discount_form"
+    class=".forms.UserCartDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="group_cart_discount_form"
+    class=".forms.GroupCartDiscountForm"
+    permission="bda.plone.discount.ManageDiscount" />
+
 </configure>

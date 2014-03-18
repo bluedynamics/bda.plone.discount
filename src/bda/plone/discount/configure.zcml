@@ -9,7 +9,43 @@
 
   <i18n:registerTranslations directory="locales"/>
 
+  <include file="permissions.zcml"/>
   <include file="profiles.zcml"/>
   <include package=".browser"/>
+
+  <!-- cart item discount settings -->
+  <adapter factory=".settings.CartItemDiscountSettings"
+           for=".interfaces.IDiscountEnabled"
+           provides=".interfaces.ICartItemDiscountSettings" />
+
+  <adapter factory=".settings.CartItemDiscountSettings"
+           for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+           provides=".interfaces.ICartItemDiscountSettings" />
+
+  <adapter factory=".settings.UserCartItemDiscountSettings"
+           for=".interfaces.IDiscountEnabled"
+           provides=".interfaces.IUserCartItemDiscountSettings" />
+
+  <adapter factory=".settings.UserCartItemDiscountSettings"
+           for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+           provides=".interfaces.IUserCartItemDiscountSettings" />
+
+  <adapter factory=".settings.GroupCartItemDiscountSettings"
+           for=".interfaces.IDiscountEnabled"
+           provides=".interfaces.IGroupCartItemDiscountSettings" />
+
+  <adapter factory=".settings.GroupCartItemDiscountSettings"
+           for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+           provides=".interfaces.IGroupCartItemDiscountSettings" />
+
+  <!-- cart discount settings -->
+  <adapter factory=".settings.CartDiscountSettings"
+           provides=".interfaces.ICartDiscountSettings" />
+
+  <adapter factory=".settings.UserCartDiscountSettings"
+           provides=".interfaces.IUserCartDiscountSettings" />
+
+  <adapter factory=".settings.GroupCartDiscountSettings"
+           provides=".interfaces.IGroupCartDiscountSettings" />
 
 </configure>

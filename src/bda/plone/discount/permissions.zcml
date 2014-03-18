@@ -1,0 +1,9 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="bda.plone.discount">
+
+  <permission
+    id="bda.plone.discount.ManageDiscount"
+    title="bda.plone.discount: Manage Discount" />
+
+</configure>

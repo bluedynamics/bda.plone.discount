@@ -37,7 +37,7 @@ class GroupsJson(JsonBase, GroupsMixin):
         return self.response(ret)
 
 
-class DiscountFormBase(YamlForm):
+class DiscountFormBase(YAMLForm):
     """Abstract discount Form.
     """
     form_template = 'bda.plone.discount.browser:discount.yaml'
@@ -88,8 +88,8 @@ class GroupDiscountFormBase(DiscountFormBase, GroupsMixin):
     for_mode = 'edit'
 
 
-class ItemDiscountForm(DiscountFormBase):
-    action_resource = '@@item_discount_form'
+class CartItemDiscountForm(DiscountFormBase):
+    action_resource = '@@cart_item_discount_form'
 
     @property
     def discount_value(self):
@@ -102,8 +102,8 @@ class ItemDiscountForm(DiscountFormBase):
         pass
 
 
-class UserItemDiscountForm(UserDiscountFormBase, ItemDiscountForm):
-    action_resource = '@@user_item_discount_form'
+class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
+    action_resource = '@@user_cart_item_discount_form'
 
     @property
     def discount_value(self):
@@ -116,8 +116,8 @@ class UserItemDiscountForm(UserDiscountFormBase, ItemDiscountForm):
         pass
 
 
-class GroupItemDiscountForm(GroupDiscountFormBase, ItemDiscountForm):
-    action_resource = '@@group_item_discount_form'
+class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
+    action_resource = '@@group_cart_item_discount_form'
 
     @property
     def discount_value(self):
@@ -130,8 +130,8 @@ class GroupItemDiscountForm(GroupDiscountFormBase, ItemDiscountForm):
         pass
 
 
-class OverallDiscountForm(DiscountFormBase):
-    action_resource = '@@overall_discount_form'
+class CartDiscountForm(DiscountFormBase):
+    action_resource = '@@cart_discount_form'
 
     @property
     def discount_value(self):
@@ -144,8 +144,8 @@ class OverallDiscountForm(DiscountFormBase):
         pass
 
 
-class UserOverallDiscountForm(UserDiscountFormBase, OverallDiscountForm):
-    action_resource = '@@user_overall_discount_form'
+class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
+    action_resource = '@@user_cart_discount_form'
 
     @property
     def discount_value(self):
@@ -158,8 +158,8 @@ class UserOverallDiscountForm(UserDiscountFormBase, OverallDiscountForm):
         pass
 
 
-class GroupOverallDiscountForm(GroupDiscountFormBase, OverallDiscountForm):
-    action_resource = '@@group_overall_discount_form'
+class GroupCartDiscountForm(GroupDiscountFormBase, CartDiscountForm):
+    action_resource = '@@group_cart_discount_form'
 
     @property
     def discount_value(self):

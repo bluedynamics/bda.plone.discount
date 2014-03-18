@@ -20,7 +20,7 @@ Following cascading rules apply:
   calculated from canonical price)
 - If more than one general special price found (i.e if validity period
   overlaps), first one found applies
-- Special prices defined for groups are overrule a generic special price
+- Special prices defined for groups overrule a generic special price
 - Special prices defined for users overrule a generic special price and special
   prices defined for groups
 - Maybe we want to handle special prices accumulated if relative to the
