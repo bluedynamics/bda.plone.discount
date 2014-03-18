@@ -1,2 +1,3 @@
 *.pyc
 *.pyo
+/src/bda.plone.discount.egg-info/
