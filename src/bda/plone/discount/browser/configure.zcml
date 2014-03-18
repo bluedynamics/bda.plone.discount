@@ -1,4 +1,15 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser">
 
+  <!-- resources -->
+  <browser:resource
+    name="bda.plone.discount.js"
+    file="discount.js"
+    layer="..interfaces.IDiscountExtensionLayer"/>
+
+  <browser:resource
+    name="bda.plone.discount.css"
+    file="discount.css"
+    layer="..interfaces.IDiscountExtensionLayer"/>
+
 </configure>

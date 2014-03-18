@@ -1,0 +1,52 @@
+factory: form
+name: discount_form
+props:
+    action: expr:context.form_action
+widgets:
+- discount:
+    factory: array
+    value: expr:context.discount_value
+    props:
+        label: expr:context.discount_header
+    widgets:
+    - array_fields:
+        factory: compound
+        widgets:
+        - kind:
+            factory: field:select
+            props:
+                label: i18n:discount_form_label_kind:Kind
+                class: array_field kind
+                vocabulary: expr:context.kind_vocabulary
+        - value:
+            factory: field:error:number
+            props:
+                label: i18n:discount_form_label_value:Value
+                class: array_field value
+        - valid_from:
+            factory: field:error:datetime
+            props:
+                label: i18n:discount_form_label_valid_from:Valid From
+                class: array_field valid_from
+        - valid_to:
+            factory: field:error:datetime
+            props:
+                label: i18n:discount_form_label_valid_to:Valid To
+                class: array_field valid_to
+        - for:
+            factory: field:autocomplete
+            props:
+                label: expr:context.for_label
+                class: array_field for
+                source: expr:context.for_callback
+                minLength: 1
+                delay: 300
+            mode: expr:context.for_mode
+- save:
+    factory: submit
+    props:
+        action: save
+        expression: True
+        handler: context.save
+        next: context.next
+        label: i18n:discount_form_save:Save
