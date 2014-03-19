@@ -1,4 +1,13 @@
+from datetime import datetime
 from zope.interface import Interface
+
+
+FLOOR_DATETIME = datetime(1970, 1, 1, 0, 0, 0)
+CEILING_DATETIME = datetime(2100, 1, 1, 0, 0, 0)
+CATEGORY_CART_ITEM = 'cart_item'
+CATEGORY_CART = 'cart'
+FOR_USER = 'user'
+FOR_GROUP = 'group'
 
 
 class IDiscountExtensionLayer(Interface):

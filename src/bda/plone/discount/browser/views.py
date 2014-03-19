@@ -8,16 +8,11 @@ class DiscountView(BrowserView):
     related_forms = []
     default_form = None
 
-    @property
-    def recent_formname(self):
-        return self.request.form.get('discount_form_filter',
-                                     self.default_form)
-
     def rendered_filter(self):
         selection = factory(
             'label:select',
             name='discount_form_filter',
-            value=self.recent_formname,
+            value=self.default_form,
             props={
                 'vocabulary': self.related_forms,
                 'label': _('discount_rules', default=u'Discount Rules'),
@@ -26,7 +21,7 @@ class DiscountView(BrowserView):
         return selection(request=self.request)
 
     def rendered_form(self):
-        return self.context.restrictedTraverse(self.recent_formname)()
+        return self.context.restrictedTraverse(self.default_form)()
 
 
 class ItemDiscountView(DiscountView):

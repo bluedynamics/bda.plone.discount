@@ -1,3 +1,10 @@
+.discount_form_filter {
+    margin-top:1em;
+    margin-bottom:1em;
+}
+.discount_form_filter select {
+    margin-left:1em;
+}
 #array-discount_form-discount table .error {
     background-color:transparent;
     border:none;

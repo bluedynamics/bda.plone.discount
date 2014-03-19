@@ -4,9 +4,6 @@ props:
     action: context.form_action
     class: ajax
 widgets:
-- name:
-    factory: hidden
-    value: expr:context.action_resource
 - discount:
     factory: array
     value: expr:context.discount_value
