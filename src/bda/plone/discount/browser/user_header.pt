@@ -7,6 +7,13 @@
            i18n:translate="discount_form_label_kind">Kind</label>
   </div>
 
+  <div id="field-discount_form-discount-label_block"
+       class="block form_header">
+    <label for="input-discount_form-discount-label_block"
+           class="block form_header"
+           i18n:translate="discount_form_label_block">Block parental</label>
+  </div>
+
   <div id="field-discount_form-discount-label_value"
        class="value form_header">
     <label for="input-discount_form-discount-label_value"
