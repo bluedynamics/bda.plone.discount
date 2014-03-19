@@ -20,7 +20,8 @@
     <h1 class="documentFirstHeading"
         tal:content="view/title">Discount Rules</h1>
 
-    <div class="discount_form_filter">
+    <div class="discount_form_filter"
+         tal:attributes="ajax:target context/absolute_url">
       <tal:form replace="structure view/rendered_filter" />
     </div>
 

@@ -1,9 +1,25 @@
 (function ($) {
 
     $(document).ready(function () {
+        $('#input-discount_form_filter').bind(
+            'change', discount_form.switch_form);
     });
 
     discount_form = {
+
+        switch_form: function(event) {
+            event.preventDefault();
+            var selection = $(this);
+            var wrapper = selection.parent();
+            var target = bdajax.parsetarget(wrapper.attr('ajax:target'));
+            bdajax.action({
+                name: selection.val(),
+                selector: '.disount_form_wrapper',
+                mode: 'inner',
+                url: target.url,
+                params: target.params
+            });
+        },
 
         // set search criteria and execute source lookup
         _execute_source_lookup: function(request, callback, url) {
