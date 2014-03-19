@@ -9,7 +9,8 @@
     <value key="ui_draggable">True</value>
     <value key="ui_droppable">True</value>
     <value key="ui_resizable">True</value>
-    <value key="ui_datepicker">False</value>
+    <value key="ui_datepicker">True</value>
+    <value key="ui_autocomplete">True</value>
   </records>
 
   <!-- yafowil.widget.array -->
@@ -25,7 +26,7 @@
     <field type="plone.registry.field.Bool">
       <title>Autocomplete widget dependency resources</title>
     </field>
-    <value>True</value>
+    <value>False</value>
   </record>
 
   <record name="yafowil.widget.autocomplete.common">
@@ -40,7 +41,7 @@
     <field type="plone.registry.field.Bool">
       <title>Datetime widget datepicker resources</title>
     </field>
-    <value>True</value>
+    <value>False</value>
   </record>
 
   <record name="yafowil.widget.datetime.timepicker">

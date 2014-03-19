@@ -1,7 +1,10 @@
 import json
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from yafowil.plone.form import YAMLForm
+from yafowil.plone.form import YAMLBaseForm
+from bda.plone.ajax import AjaxMessage
+from bda.plone.ajax import ajax_continue
+from bda.plone.ajax import ajax_form_fiddle
 from bda.plone.discount import message_factory as _
 
 
@@ -24,7 +27,7 @@ class UsersJson(JsonBase, UsersMixin):
     def __call__(self):
         """search for user.
         """
-        ret = list()
+        ret = ['John', 'Sepp', 'Max']
         return self.response(ret)
 
 
@@ -33,11 +36,11 @@ class GroupsJson(JsonBase, GroupsMixin):
     def __call__(self):
         """search for group.
         """
-        ret = list()
+        ret = ['Retail', 'Trade', 'Dealer', 'Master Dealer']
         return self.response(ret)
 
 
-class DiscountFormBase(YAMLForm):
+class DiscountFormBase(YAMLBaseForm):
     """Abstract discount Form.
     """
     form_template = 'bda.plone.discount.browser:discount.yaml'
@@ -48,6 +51,10 @@ class DiscountFormBase(YAMLForm):
     for_label = ''
     for_callback = ''
     for_mode = 'skip'
+
+    def form_action(self, widget, data):
+        return '%s/ajaxform?form_name=%s' % \
+            (self.context.absolute_url(), self.action_resource)
 
     @property
     def discount_value(self):
@@ -71,8 +78,16 @@ class DiscountFormBase(YAMLForm):
                                   u'implement ``save``')
 
     def next(self, request):
-        raise NotImplementedError(u'Abstract ``DiscountFormBase`` does not '
-                                  u'implement ``next``')
+        message = _('changes_saved', default=u'Changes Saved')
+        continuation = [
+            AjaxMessage(message, 'info', None)
+        ]
+        ajax_continue(self.request, continuation)
+        return True
+
+    def __call__(self):
+        ajax_form_fiddle(self.request, 'div.disount_form_wrapper', 'inner')
+        return self.render_form()
 
 
 class UserDiscountFormBase(DiscountFormBase, UsersMixin):
@@ -99,9 +114,6 @@ class CartItemDiscountForm(DiscountFormBase):
     def save(self, widget, data):
         pass
 
-    def next(self):
-        pass
-
 
 class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
     action_resource = 'user_cart_item_discount_form'
@@ -111,9 +123,6 @@ class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
         return []
 
     def save(self, widget, data):
-        pass
-
-    def next(self):
         pass
 
 
@@ -127,9 +136,6 @@ class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
     def save(self, widget, data):
         pass
 
-    def next(self):
-        pass
-
 
 class CartDiscountForm(DiscountFormBase):
     action_resource = 'cart_discount_form'
@@ -139,9 +145,6 @@ class CartDiscountForm(DiscountFormBase):
         return []
 
     def save(self, widget, data):
-        pass
-
-    def next(self):
         pass
 
 
@@ -155,9 +158,6 @@ class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
     def save(self, widget, data):
         pass
 
-    def next(self):
-        pass
-
 
 class GroupCartDiscountForm(GroupDiscountFormBase, CartDiscountForm):
     action_resource = 'group_cart_discount_form'
@@ -167,7 +167,4 @@ class GroupCartDiscountForm(GroupDiscountFormBase, CartDiscountForm):
         return []
 
     def save(self, widget, data):
-        pass
-
-    def next(self):
         pass

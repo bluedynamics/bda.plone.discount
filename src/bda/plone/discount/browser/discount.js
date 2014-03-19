@@ -3,7 +3,7 @@
     $(document).ready(function () {
     });
 
-    var discount_form = {
+    discount_form = {
 
         // set search criteria and execute source lookup
         _execute_source_lookup: function(request, callback, url) {
@@ -30,7 +30,7 @@
                 url: url,
                 dataType: 'json',
                 success: success,
-                error: express_form.error,
+                error: discount_form.error,
                 cache: false
             });
         },

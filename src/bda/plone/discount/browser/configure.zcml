@@ -35,6 +35,19 @@
     class=".views.CartDiscountView"
     permission="bda.plone.discount.ManageDiscount" />
 
+  <!-- users and groups JSON views -->
+  <browser:page
+    for="*"
+    name="autocomplete_user"
+    class=".forms.UsersJson"
+    permission="bda.plone.discount.ManageDiscount" />
+
+  <browser:page
+    for="*"
+    name="autocomplete_group"
+    class=".forms.GroupsJson"
+    permission="bda.plone.discount.ManageDiscount" />
+
   <!-- cart item discount forms -->
   <browser:page
     for="..interfaces.IDiscountEnabled"

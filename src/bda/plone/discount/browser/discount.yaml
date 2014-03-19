@@ -1,7 +1,8 @@
 factory: form
 name: discount_form
 props:
-    action: expr:context.form_action
+    action: context.form_action
+    class: ajax
 widgets:
 - name:
     factory: hidden
@@ -31,7 +32,7 @@ widgets:
             props:
                 label: i18n:discount_form_label_valid_from:Valid From
                 class: array_field valid_from
-                datepicker: True
+                #datepicker: True
                 time: True
                 timepicker: True
                 locale: de
@@ -40,7 +41,7 @@ widgets:
             props:
                 label: i18n:discount_form_label_valid_to:Valid To
                 class: array_field valid_to
-                datepicker: True
+                #datepicker: True
                 time: True
                 timepicker: True
                 locale: de
