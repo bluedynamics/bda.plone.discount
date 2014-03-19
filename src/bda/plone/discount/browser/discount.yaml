@@ -3,6 +3,9 @@ name: discount_form
 props:
     action: expr:context.form_action
 widgets:
+- name:
+    factory: hidden
+    value: expr:context.action_resource
 - discount:
     factory: array
     value: expr:context.discount_value

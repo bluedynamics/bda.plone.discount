@@ -41,6 +41,7 @@ class DiscountFormBase(YAMLForm):
     """Abstract discount Form.
     """
     form_template = 'bda.plone.discount.browser:discount.yaml'
+    form_name = ''
     message_factory = _
     action_resource = ''
     header_template = 'general_header.pt'
@@ -89,7 +90,7 @@ class GroupDiscountFormBase(DiscountFormBase, GroupsMixin):
 
 
 class CartItemDiscountForm(DiscountFormBase):
-    action_resource = '@@cart_item_discount_form'
+    action_resource = 'cart_item_discount_form'
 
     @property
     def discount_value(self):
@@ -103,7 +104,7 @@ class CartItemDiscountForm(DiscountFormBase):
 
 
 class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
-    action_resource = '@@user_cart_item_discount_form'
+    action_resource = 'user_cart_item_discount_form'
 
     @property
     def discount_value(self):
@@ -117,7 +118,7 @@ class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
 
 
 class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
-    action_resource = '@@group_cart_item_discount_form'
+    action_resource = 'group_cart_item_discount_form'
 
     @property
     def discount_value(self):
@@ -131,7 +132,7 @@ class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
 
 
 class CartDiscountForm(DiscountFormBase):
-    action_resource = '@@cart_discount_form'
+    action_resource = 'cart_discount_form'
 
     @property
     def discount_value(self):
@@ -145,7 +146,7 @@ class CartDiscountForm(DiscountFormBase):
 
 
 class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
-    action_resource = '@@user_cart_discount_form'
+    action_resource = 'user_cart_discount_form'
 
     @property
     def discount_value(self):
@@ -159,7 +160,7 @@ class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
 
 
 class GroupCartDiscountForm(GroupDiscountFormBase, CartDiscountForm):
-    action_resource = '@@group_cart_discount_form'
+    action_resource = 'group_cart_discount_form'
 
     @property
     def discount_value(self):

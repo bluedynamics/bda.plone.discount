@@ -17,7 +17,16 @@
 <metal:main fill-slot="main">
   <tal:main-macro metal:define-macro="main">
 
-    Discount
+    <h1 class="documentFirstHeading"
+        tal:content="view/title">Discount Rules</h1>
+
+    <div class="discount_form_filter">
+      <tal:form replace="structure view/rendered_filter" />
+    </div>
+
+    <div class="disount_form_wrapper">
+      <tal:form replace="structure view/rendered_form" />
+    </div>
 
   </tal:main-macro>
 </metal:main>
