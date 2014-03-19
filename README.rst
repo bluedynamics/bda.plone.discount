@@ -2,6 +2,13 @@ bda.plone.discount
 ==================
 
 
+Restrictions with souper.plone
+------------------------------
+
+- Make sure you do not move discount rules soup away from portal root. This
+  will end up in unexpected behavior and errors.
+
+
 Requirements
 ------------
 

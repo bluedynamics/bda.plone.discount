@@ -16,13 +16,10 @@ from bda.plone.discount.interfaces import IUserCartDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
-from repoze.catalog.indexes.keyword import CatalogKeywordIndex
-from repoze.catalog.indexes.text import CatalogTextIndex
 from repoze.catalog.query import Any
 from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
 from souper.soup import NodeAttributeIndexer
-from souper.soup import NodeTextIndexer
 from souper.soup import Record
 from souper.soup import get_soup
 
@@ -75,41 +72,51 @@ class DiscountRulesCatalogFactory(object):
 @implementer(IDiscountSettings)
 class PersistendDiscountSettings(object):
     soup_name = 'bda_plone_discount_rules'
+    category = UNSET
 
     def __init__(self, context):
         self.context = context
 
     @property
     def rules(self):
-        return get_soup(self.soup_name)
+        return get_soup(self.soup_name, self.context)
 
-    def add_rule(self, context, category, kind, block,
-                 valid_from, valid_to, user, group):
+    def add_rule(self, context, kind, block, valid_from,
+                 valid_to, user=UNSET, group=UNSET):
         rule = Record()
         rule.attrs['uid'] = uuid.uuid4()
+        if self.category is not UNSET:
+            assert(isinstance(self.category, self.unicode))
+        rule.attrs['category'] = self.category
         rule.attrs['context_uid'] = uuid.UUID(IUUID(context))
         rule.attrs['creator'] = plone.api.user.get_current().getId()
         rule.attrs['created'] = datetime.datetime.now()
-        assert(isinstance(category, unicode))
-        rule.attrs['category'] = category
         assert(isinstance(kind, str))
         rule.attrs['kind'] = kind
         assert(isinstance(block, bool))
         rule.attrs['block'] = block
-        assert(isinstance(valid_from, datetime))
+        if valid_from is not UNSET:
+            assert(isinstance(valid_from, datetime))
+        else:
+            valid_from = FLOOR_DATETIME
         rule.attrs['valid_from'] = valid_from
-        assert(isinstance(valid_to, datetime))
+        if valid_to is not UNSET:
+            assert(isinstance(valid_to, datetime))
+        else:
+            valid_to = CEILING_DATETIME
         rule.attrs['valid_to'] = valid_to
-        assert(isinstance(user, unicode))
+        if user is not UNSET:
+            assert(isinstance(user, unicode))
         rule.attrs['user'] = user
-        assert(isinstance(group, unicode))
+        if group is not UNSET:
+            assert(isinstance(group, unicode))
         rule.attrs['group'] = group
         self.rules.add(rule)
 
 
 @implementer(ICartItemDiscountSettings)
 class CartItemDiscountSettings(PersistendDiscountSettings):
-    pass
+    category = 'cart_item'
 
 
 @implementer(IUserCartItemDiscountSettings)
@@ -125,7 +132,7 @@ class GroupCartItemDiscountSettings(CartItemDiscountSettings):
 @implementer(ICartDiscountSettings)
 @adapter(IPloneSiteRoot)
 class CartDiscountSettings(PersistendDiscountSettings):
-    pass
+    category = 'cart'
 
 
 @implementer(IUserCartDiscountSettings)
