@@ -12,6 +12,7 @@ widgets:
     value: expr:context.discount_value
     props:
         label: expr:context.discount_header
+        sort: False
     widgets:
     - array_fields:
         factory: compound
@@ -20,19 +21,25 @@ widgets:
             factory: field:select
             props:
                 label: i18n:discount_form_label_kind:Kind
-                class: array_field kind
+                field.class: array_field kind
                 vocabulary: expr:context.kind_vocabulary
+        - block:
+            factory: field:checkbox
+            props:
+                label: i18n:discount_form_label_block:Block parental
+                field.class: array_field block
         - value:
             factory: field:error:number
             props:
                 label: i18n:discount_form_label_value:Value
-                class: array_field value
+                required: i18n:discount_form_value_required:Value is required
+                field.class: array_field value
         - valid_from:
             factory: field:error:datetime
             props:
                 label: i18n:discount_form_label_valid_from:Valid From
-                class: array_field valid_from
-                #datepicker: True
+                field.class: array_field valid_from
+                datepicker: True
                 time: True
                 timepicker: True
                 locale: de
@@ -40,24 +47,21 @@ widgets:
             factory: field:error:datetime
             props:
                 label: i18n:discount_form_label_valid_to:Valid To
-                class: array_field valid_to
-                #datepicker: True
+                field.class: array_field valid_to
+                datepicker: True
                 time: True
                 timepicker: True
                 locale: de
         - for:
-            factory: field:autocomplete
+            factory: field:error:autocomplete
             props:
                 label: expr:context.for_label
-                class: array_field for
+                required: expr:context.for_required
+                field.class: array_field for
                 source: expr:context.for_callback
                 minLength: 1
                 delay: 300
             mode: expr:context.for_mode
-        - uid:
-            factory: hidden
-            props:
-                class: uid
 - save:
     factory: submit
     props:

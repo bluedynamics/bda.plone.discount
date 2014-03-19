@@ -6,6 +6,12 @@ from bda.plone.ajax import AjaxMessage
 from bda.plone.ajax import ajax_continue
 from bda.plone.ajax import ajax_form_fiddle
 from bda.plone.discount import message_factory as _
+from bda.plone.discount.interfaces import ICartItemDiscountSettings
+from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
+from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
+from bda.plone.discount.interfaces import ICartDiscountSettings
+from bda.plone.discount.interfaces import IUserCartDiscountSettings
+from bda.plone.discount.interfaces import IGroupCartDiscountSettings
 
 
 class UsersMixin(object):
@@ -43,12 +49,14 @@ class GroupsJson(JsonBase, GroupsMixin):
 class DiscountFormBase(YAMLBaseForm):
     """Abstract discount Form.
     """
+    settings_iface = None
     form_template = 'bda.plone.discount.browser:discount.yaml'
     form_name = ''
     message_factory = _
     action_resource = ''
     header_template = 'general_header.pt'
     for_label = ''
+    for_required = ''
     for_callback = ''
     for_mode = 'skip'
 
@@ -73,6 +81,10 @@ class DiscountFormBase(YAMLBaseForm):
             ('absolute', _('absolute', _('absolute', default=u'Absolute'))),
         ]
 
+    @property
+    def settings(self):
+        return self.settings_iface(self.context)
+
     def save(self, widget, data):
         raise NotImplementedError(u'Abstract ``DiscountFormBase`` does not '
                                   u'implement ``save``')
@@ -83,7 +95,7 @@ class DiscountFormBase(YAMLBaseForm):
             AjaxMessage(message, 'info', None)
         ]
         ajax_continue(self.request, continuation)
-        return True
+        return False
 
     def __call__(self):
         ajax_form_fiddle(self.request, 'div.disount_form_wrapper', 'inner')
@@ -93,6 +105,8 @@ class DiscountFormBase(YAMLBaseForm):
 class UserDiscountFormBase(DiscountFormBase, UsersMixin):
     header_template = 'user_header.pt'
     for_label = _('discount_form_label_user', default=u'User')
+    for_required = _('discount_form_user_required',
+                     default=u'User is required')
     for_callback = 'javascript:discount_form.autocomplete_user'
     for_mode = 'edit'
 
@@ -100,11 +114,14 @@ class UserDiscountFormBase(DiscountFormBase, UsersMixin):
 class GroupDiscountFormBase(DiscountFormBase, GroupsMixin):
     header_template = 'group_header.pt'
     for_label = _('discount_form_label_group', default=u'Group')
+    for_required = _('discount_form_group_required',
+                     default=u'Group is required')
     for_callback = 'javascript:discount_form.autocomplete_group'
     for_mode = 'edit'
 
 
 class CartItemDiscountForm(DiscountFormBase):
+    settings_iface = ICartItemDiscountSettings
     action_resource = 'cart_item_discount_form'
 
     @property
@@ -116,6 +133,7 @@ class CartItemDiscountForm(DiscountFormBase):
 
 
 class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
+    settings_iface = IUserCartItemDiscountSettings
     action_resource = 'user_cart_item_discount_form'
 
     @property
@@ -127,6 +145,7 @@ class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
 
 
 class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
+    settings_iface = IGroupCartItemDiscountSettings
     action_resource = 'group_cart_item_discount_form'
 
     @property
@@ -138,6 +157,7 @@ class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
 
 
 class CartDiscountForm(DiscountFormBase):
+    settings_iface = ICartDiscountSettings
     action_resource = 'cart_discount_form'
 
     @property
@@ -149,6 +169,7 @@ class CartDiscountForm(DiscountFormBase):
 
 
 class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
+    settings_iface = IUserCartDiscountSettings
     action_resource = 'user_cart_discount_form'
 
     @property
@@ -160,6 +181,7 @@ class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
 
 
 class GroupCartDiscountForm(GroupDiscountFormBase, CartDiscountForm):
+    settings_iface = IGroupCartDiscountSettings
     action_resource = 'group_cart_discount_form'
 
     @property

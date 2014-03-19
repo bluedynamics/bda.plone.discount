@@ -1,35 +1,73 @@
+#array-discount_form-discount table .error {
+    background-color:transparent;
+    border:none;
+    margin:0;
+}
+#array-discount_form-discount table .errormessage {
+    padding:0;
+}
 #array-discount_form-discount table {
     width:100%
 }
-#array-discount_form-discount div.form_header,
-#array-discount_form-discount div.array_field {
-    float:left;
+#array-discount_form-discount table th>div,
+#array-discount_form-discount table td>div {
+    display:table-cell;
+    padding-top:0.2em;
+    padding-bottom:0.2em;
+}
+div.form_header.kind,
+div.array_field.kind,
+div.form_header.block,
+div.array_field.block,
+div.form_header.value,
+div.array_field.value,
+div.form_header.valid_from,
+div.array_field.valid_from,
+div.form_header.valid_to,
+div.array_field.valid_to,
+div.form_header.user,
+div.array_field.user,
+div.form_header.group,
+div.array_field.group {
+    border-right:#ccc 1px solid;
+    text-align:center;
+    vertical-align:middle;
 }
 div.form_header.kind,
 div.array_field.kind {
     width:10%;
 }
+div.form_header.block,
+div.array_field.block {
+    width:10%;
+}
 div.form_header.value,
 div.array_field.value {
-    width:15%;
+    width:10%;
 }
 div.form_header.valid_from,
-div.array_field.valid_from {
-    width:22%;
-}
 div.form_header.valid_to,
+div.array_field.valid_from,
 div.array_field.valid_to {
-    width:22%;
+    width:20%;
 }
 div.form_header.user,
-div.array_field.user {
-    width:15%;
-}
 div.form_header.group,
+div.array_field.user,
 div.array_field.group {
     width:15%;
 }
-input.array_field.kind,
-input.array_field.value {
+div.array_field.kind select {
+    width:85%;
+}
+div.array_field.value input {
     width:90%;
+}
+div.array_field.valid_from .datepicker,
+div.array_field.valid_to .datepicker {
+    width:50%;
+}
+div.array_field.valid_from .timepicker,
+div.array_field.valid_to .timepicker {
+    width:32%;
 }
