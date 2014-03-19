@@ -13,6 +13,11 @@
   <include file="profiles.zcml"/>
   <include package=".browser"/>
 
+  <!-- souper soups -->
+  <utility
+    name="bda_plone_discount_rules"
+    factory=".settings.DiscountRulesCatalogFactory" />
+
   <!-- cart item discount settings -->
   <adapter factory=".settings.CartItemDiscountSettings"
            for=".interfaces.IDiscountEnabled"

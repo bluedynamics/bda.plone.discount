@@ -60,9 +60,9 @@ class DiscountFormBase(YAMLForm):
     @property
     def kind_vocabulary(self):
         return [
-            _('percent', _('percent', default=u'Percent')),
-            _('off', _('off', default=u'Off')),
-            _('absolute', _('absolute', default=u'Absolute')),
+            ('percent', _('percent', _('percent', default=u'Percent'))),
+            ('off', _('off', _('off', default=u'Off'))),
+            ('absolute', _('absolute', _('absolute', default=u'Absolute'))),
         ]
 
     def save(self, widget, data):
