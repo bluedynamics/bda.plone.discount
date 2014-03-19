@@ -1,0 +1,35 @@
+#array-discount_form-discount table {
+    width:100%
+}
+#array-discount_form-discount div.form_header,
+#array-discount_form-discount div.array_field {
+    float:left;
+}
+div.form_header.kind,
+div.array_field.kind {
+    width:10%;
+}
+div.form_header.value,
+div.array_field.value {
+    width:15%;
+}
+div.form_header.valid_from,
+div.array_field.valid_from {
+    width:22%;
+}
+div.form_header.valid_to,
+div.array_field.valid_to {
+    width:22%;
+}
+div.form_header.user,
+div.array_field.user {
+    width:15%;
+}
+div.form_header.group,
+div.array_field.group {
+    width:15%;
+}
+input.array_field.kind,
+input.array_field.value {
+    width:90%;
+}

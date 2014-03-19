@@ -94,7 +94,7 @@ class CartItemDiscountForm(DiscountFormBase):
 
     @property
     def discount_value(self):
-        pass
+        return []
 
     def save(self, widget, data):
         pass
@@ -108,7 +108,7 @@ class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
 
     @property
     def discount_value(self):
-        pass
+        return []
 
     def save(self, widget, data):
         pass
@@ -122,7 +122,7 @@ class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
 
     @property
     def discount_value(self):
-        pass
+        return []
 
     def save(self, widget, data):
         pass
@@ -136,7 +136,7 @@ class CartDiscountForm(DiscountFormBase):
 
     @property
     def discount_value(self):
-        pass
+        return []
 
     def save(self, widget, data):
         pass
@@ -150,7 +150,7 @@ class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
 
     @property
     def discount_value(self):
-        pass
+        return []
 
     def save(self, widget, data):
         pass
@@ -164,7 +164,7 @@ class GroupCartDiscountForm(GroupDiscountFormBase, CartDiscountForm):
 
     @property
     def discount_value(self):
-        pass
+        return []
 
     def save(self, widget, data):
         pass

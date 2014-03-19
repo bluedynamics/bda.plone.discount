@@ -20,6 +20,13 @@
     class=".views.ItemDiscountView"
     permission="bda.plone.discount.ManageDiscount" />
 
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="item_discount"
+    template="discount_view.pt"
+    class=".views.ItemDiscountView"
+    permission="bda.plone.discount.ManageDiscount" />
+
   <!-- cart discount view -->
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"

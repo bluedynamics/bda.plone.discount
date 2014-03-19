@@ -31,11 +31,19 @@ widgets:
             props:
                 label: i18n:discount_form_label_valid_from:Valid From
                 class: array_field valid_from
+                datepicker: True
+                time: True
+                timepicker: True
+                locale: de
         - valid_to:
             factory: field:error:datetime
             props:
                 label: i18n:discount_form_label_valid_to:Valid To
                 class: array_field valid_to
+                datepicker: True
+                time: True
+                timepicker: True
+                locale: de
         - for:
             factory: field:autocomplete
             props:
@@ -45,6 +53,10 @@ widgets:
                 minLength: 1
                 delay: 300
             mode: expr:context.for_mode
+        - uid:
+            factory: hidden
+            props:
+                class: uid
 - save:
     factory: submit
     props:
