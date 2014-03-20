@@ -33,6 +33,8 @@ setup(
     install_requires=[
         'setuptools',
         'Plone',
+        'souper.plone',
+        'yafowil.plone',
         'yafowil.widget.autocomplete',
         'bda.plone.cart',
     ],

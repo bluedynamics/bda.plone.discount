@@ -4,6 +4,8 @@
            xmlns:zcml="http://namespaces.zope.org/zcml"
            i18n_domain="bda.plone.discount">
 
+  <include package="yafowil.plone" />
+  <include package="souper.plone"/>
   <include package="bda.plone.cart"/>
 
   <i18n:registerTranslations directory="locales"/>
