@@ -28,6 +28,8 @@ div.form_header.block,
 div.array_field.block,
 div.form_header.value,
 div.array_field.value,
+div.form_header.threshold,
+div.array_field.threshold,
 div.form_header.valid_from,
 div.array_field.valid_from,
 div.form_header.valid_to,
@@ -40,21 +42,25 @@ div.array_field.for {
 }
 div.form_header.kind,
 div.array_field.kind {
-    width:10%;
+    width:8%;
 }
 div.form_header.block,
 div.array_field.block {
-    width:10%;
+    width:8%;
 }
 div.form_header.value,
 div.array_field.value {
-    width:10%;
+    width:8%;
+}
+div.form_header.threshold,
+div.array_field.threshold {
+    width:8%;
 }
 div.form_header.valid_from,
 div.array_field.valid_from,
 div.form_header.valid_to,
 div.array_field.valid_to {
-    width:20%;
+    width:19%;
 }
 div.form_header.for,
 div.array_field.for {
@@ -63,7 +69,8 @@ div.array_field.for {
 div.array_field.kind select {
     width:85%;
 }
-div.array_field.value input {
+div.array_field.value input,
+div.array_field.threshold input {
     width:90%;
 }
 div.array_field.valid_from .datepicker,

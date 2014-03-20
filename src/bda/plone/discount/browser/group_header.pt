@@ -21,6 +21,13 @@
            i18n:translate="discount_form_label_value">Value</label>
   </div>
 
+  <div id="field-discount_form-discount-label_threshold"
+       class="threshold form_header">
+    <label for="input-discount_form-discount-label_threshold"
+           class="threshold form_header"
+           i18n:translate="discount_form_label_threshold">Threshold</label>
+  </div>
+
   <div id="field-discount_form-discount-label_valid_from"
        class="valid_from form_header">
     <label for="input-discount_form-discount-label_valid_from"

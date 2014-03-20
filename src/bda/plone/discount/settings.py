@@ -93,8 +93,8 @@ class PersistendDiscountSettings(object):
         for rule in [_ for _ in rules]:
             del soup[rule]
 
-    def add_rule(self, context, kind, block, value, valid_from,
-                 valid_to, user=UNSET, group=UNSET):
+    def add_rule(self, context, kind, block, value, threshold,
+                 valid_from, valid_to, user=UNSET, group=UNSET):
         rule = Record()
         rule.attrs['uid'] = uuid.uuid4()
         if self.category is not UNSET:
@@ -109,6 +109,8 @@ class PersistendDiscountSettings(object):
         rule.attrs['block'] = block
         assert(isinstance(value, float))
         rule.attrs['value'] = value
+        assert(isinstance(threshold, float))
+        rule.attrs['threshold'] = threshold
         if valid_from:
             assert(isinstance(valid_from, datetime))
         else:

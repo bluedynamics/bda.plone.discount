@@ -31,6 +31,11 @@ widgets:
                 label: i18n:discount_form_label_value:Value
                 required: i18n:discount_form_value_required:Value is required
                 field.class: array_field value
+        - threshold:
+            factory: field:error:number
+            props:
+                label: i18n:discount_form_label_threshold:Threshold
+                field.class: array_field threshold
         - valid_from:
             factory: field:error:datetime
             props:

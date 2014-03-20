@@ -73,8 +73,9 @@ class DiscountFormBase(YAMLBaseForm):
     def discount_item(self, rule):
         value = dict()
         value['kind'] = rule.attrs.get('kind', UNSET)
-        value['block'] = rule.attrs.get('block', UNSET)
+        value['block'] = rule.attrs.get('block', True)
         value['value'] = rule.attrs.get('value', UNSET)
+        value['threshold'] = rule.attrs.get('threshold', UNSET)
         value['valid_from'] = UNSET
         valid_from = rule.attrs.get('valid_from', FLOOR_DATETIME)
         if valid_from != FLOOR_DATETIME:
@@ -127,6 +128,7 @@ class DiscountFormBase(YAMLBaseForm):
                               rule['kind'],
                               rule['block'],
                               rule['value'],
+                              rule['threshold'],
                               rule['valid_from'],
                               rule['valid_to'],
                               user=user,
