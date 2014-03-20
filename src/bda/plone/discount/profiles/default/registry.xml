@@ -9,7 +9,6 @@
     <value key="ui_draggable">True</value>
     <value key="ui_droppable">True</value>
     <value key="ui_resizable">True</value>
-    <value key="ui_datepicker">True</value>
     <value key="ui_autocomplete">True</value>
   </records>
 
