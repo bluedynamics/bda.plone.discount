@@ -1,9 +1,11 @@
 Settings
 ========
 
-::
+Get portal::
 
     >>> plone = layer['portal']
+
+Debug print helper::
 
     >>> def print_role(role):
     ...     print 'index: ' + str(role.attrs['index'])
@@ -20,6 +22,8 @@ Settings
     ...     print 'user: ' + role.attrs['user']
     ...     print 'group: ' + role.attrs['group']
 
+Lookup discount settings::
+
     >>> from datetime import datetime
     >>> from node.utils import UNSET
 
@@ -27,6 +31,8 @@ Settings
     >>> settings = ICartItemDiscountSettings(plone)
     >>> settings
     <bda.plone.discount.settings.CartItemDiscountSettings object at ...>
+
+Add some rules::
 
     >>> settings.add_rule(
     ...     plone, 0, 'percent', False, 10.0, UNSET, UNSET, UNSET)
@@ -43,6 +49,8 @@ Settings
     >>> len(roles)
     3
 
+Look at the rule data, here we have general cart item discount rule::
+
     >>> print_role(roles[0])
     index: 1
     category: cart_item
@@ -57,6 +65,8 @@ Settings
     valid_to: 2014-04-01 00:00:00
     user: 
     group: 
+
+Rules are returned sorted by valid_from, most recent first::
 
     >>> print_role(roles[1])
     index: 2
@@ -83,10 +93,17 @@ Settings
     block: False
     value: 10.0
     threshold: 
-    valid_from: 1970-01-01 00:00:00
+    valid_from: 2000-01-01 00:00:00
     valid_to: 2100-01-01 00:00:00
     user: 
     group: 
+
+Anchor rule lookup by date, which must be between valid_from and valid_to::
+
+    >>> roles = [_ for _ in settings.rules(
+    ...          plone, date=datetime(2013, 12, 1, 0, 0, 0))]
+    >>> len(roles)
+    1
 
     >>> from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
     >>> IUserCartItemDiscountSettings(plone)
