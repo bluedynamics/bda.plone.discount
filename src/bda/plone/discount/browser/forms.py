@@ -86,7 +86,7 @@ class DiscountFormBase(YAMLBaseForm):
             value['valid_to'] = valid_to
         for_attr = self.for_attribute
         if for_attr:
-            value['for'] = rule.attrs.get(for_attr, '')
+            value['for'] = rule.attrs.get(for_attr, UNSET)
         return value
 
     @property
@@ -96,7 +96,9 @@ class DiscountFormBase(YAMLBaseForm):
     @property
     def discount_value(self):
         values = list()
-        for rule in self.settings.rules(self.context):
+        rules = self.settings.rules(self.context)
+        rules = sorted(rules, key=lambda x: x.attrs.get('index', 0))
+        for rule in rules:
             values.append(self.discount_item(rule))
         return values
 
@@ -117,15 +119,17 @@ class DiscountFormBase(YAMLBaseForm):
         existing = self.settings.rules(self.context)
         settings.delete_rules(existing)
         extracted = data.fetch('discount_form.discount').extracted
+        index = 0
         for rule in extracted:
             user = ''
             group = ''
             if self.for_attribute == FOR_USER:
-                user = rule['for']
+                user = rule['for'] and rule['for'] or user
             if self.for_attribute == FOR_GROUP:
-                group = rule['for']
+                group = rule['for'] and rule['for'] or group
             print rule
             settings.add_rule(self.context,
+                              index,
                               rule['kind'],
                               rule['block'],
                               rule['value'],
@@ -134,6 +138,7 @@ class DiscountFormBase(YAMLBaseForm):
                               rule['valid_to'],
                               user=user,
                               group=group)
+            index += 1
 
     def next(self, request):
         message = _('changes_saved', default=u'Changes Saved')

@@ -9,7 +9,6 @@ widgets:
     value: expr:context.discount_value
     props:
         label: expr:context.discount_header
-        sort: False
     widgets:
     - array_fields:
         factory: compound

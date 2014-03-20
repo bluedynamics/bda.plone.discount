@@ -36,9 +36,6 @@ class DiscountRulesCatalogFactory(object):
 
     def __call__(self, context=None):
         catalog = Catalog()
-        # unique id of rule
-        uid_indexer = NodeAttributeIndexer('uid')
-        catalog[u'uid'] = CatalogFieldIndex(uid_indexer)
         # uid of context rule refers to
         context_uid_indexer = NodeAttributeIndexer('context_uid')
         catalog[u'context_uid'] = CatalogFieldIndex(context_uid_indexer)
@@ -93,10 +90,10 @@ class PersistendDiscountSettings(object):
         for rule in [_ for _ in rules]:
             del soup[rule]
 
-    def add_rule(self, context, kind, block, value, threshold,
+    def add_rule(self, context, index, kind, block, value, threshold,
                  valid_from, valid_to, user='', group=''):
         rule = Record()
-        rule.attrs['uid'] = uuid.uuid4()
+        rule.attrs['index'] = index
         assert(isinstance(self.category, str))
         rule.attrs['category'] = self.category
         rule.attrs['context_uid'] = uuid.UUID(IUUID(context))
