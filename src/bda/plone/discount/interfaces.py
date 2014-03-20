@@ -27,6 +27,11 @@ class IDiscountSettings(Interface):
     """Interface for discount settings.
     """
 
+    def rules(context, date=None):
+        """Return discount rules for context. Optional anchor date can be
+        given.
+        """
+
 
 class ICartItemDiscountSettings(IDiscountSettings):
     """Interface for cart item discount settings.
