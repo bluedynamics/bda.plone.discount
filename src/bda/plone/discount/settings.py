@@ -83,7 +83,7 @@ class PersistendDiscountSettings(object):
             query = query & Eq('user', '') & Eq('group', '')
         return self.rules_soup.query(query,
                                      sort_index='valid_from',
-                                     reverse=False)
+                                     reverse=True)
 
     def delete_rules(self, rules):
         soup = self.rules_soup

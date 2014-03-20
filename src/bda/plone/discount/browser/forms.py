@@ -11,6 +11,9 @@ from bda.plone.discount.interfaces import FLOOR_DATETIME
 from bda.plone.discount.interfaces import CEILING_DATETIME
 from bda.plone.discount.interfaces import FOR_USER
 from bda.plone.discount.interfaces import FOR_GROUP
+from bda.plone.discount.interfaces import KIND_PERCENT
+from bda.plone.discount.interfaces import KIND_OFF
+from bda.plone.discount.interfaces import KIND_ABSOLUTE
 from bda.plone.discount.interfaces import ICartItemDiscountSettings
 from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
@@ -109,9 +112,9 @@ class DiscountFormBase(YAMLBaseForm):
     @property
     def kind_vocabulary(self):
         return [
-            ('percent', _('percent', _('percent', default=u'Percent'))),
-            ('off', _('off', _('off', default=u'Off'))),
-            ('absolute', _('absolute', _('absolute', default=u'Absolute'))),
+            (KIND_PERCENT, _('percent', _('percent', default=u'Percent'))),
+            (KIND_OFF, _('off', _('off', default=u'Off'))),
+            (KIND_ABSOLUTE, _('absolute', _('absolute', default=u'Absolute'))),
         ]
 
     def save(self, widget, data):
@@ -127,7 +130,6 @@ class DiscountFormBase(YAMLBaseForm):
                 user = rule['for'] and rule['for'] or user
             if self.for_attribute == FOR_GROUP:
                 group = rule['for'] and rule['for'] or group
-            print rule
             settings.add_rule(self.context,
                               index,
                               rule['kind'],

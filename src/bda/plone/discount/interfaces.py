@@ -8,6 +8,9 @@ CATEGORY_CART_ITEM = 'cart_item'
 CATEGORY_CART = 'cart'
 FOR_USER = 'user'
 FOR_GROUP = 'group'
+KIND_PERCENT = 'percent'
+KIND_OFF = 'off'
+KIND_ABSOLUTE = 'absolute'
 
 
 class IDiscountExtensionLayer(Interface):

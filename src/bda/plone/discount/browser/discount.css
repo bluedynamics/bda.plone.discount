@@ -50,11 +50,11 @@ div.array_field.block {
 }
 div.form_header.value,
 div.array_field.value {
-    width:8%;
+    width:6%;
 }
 div.form_header.threshold,
 div.array_field.threshold {
-    width:8%;
+    width:6%;
 }
 div.form_header.valid_from,
 div.array_field.valid_from,
@@ -67,7 +67,7 @@ div.array_field.for {
     width:15%;
 }
 div.array_field.kind select {
-    width:85%;
+    width:90%;
 }
 div.array_field.value input,
 div.array_field.threshold input {
