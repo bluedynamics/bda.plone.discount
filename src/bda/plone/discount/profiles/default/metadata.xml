@@ -2,6 +2,7 @@
 <metadata>
   <version>1</version>
   <dependencies>
+    <dependency>profile-bda.plone.orders:default</dependency>
     <dependency>profile-yafowil.plone:default</dependency>
   </dependencies>
 </metadata>

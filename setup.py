@@ -33,11 +33,8 @@ setup(
     install_requires=[
         'setuptools',
         'Plone',
-        'bda.plone.ajax',
-        'yafowil.plone',
-        'yafowil.widget.array',
         'yafowil.widget.autocomplete',
-        'yafowil.widget.datetime',
+        'bda.plone.orders',
     ],
     extras_require={
         'test': [

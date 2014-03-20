@@ -13,14 +13,6 @@
     <value key="ui_autocomplete">True</value>
   </records>
 
-  <!-- yafowil.widget.array -->
-  <record name="yafowil.widget.array.common">
-    <field type="plone.registry.field.Bool">
-      <title>Array widget common resources</title>
-    </field>
-    <value>True</value>
-  </record>
-
   <!-- yafowil.widget.autocomplete -->
   <record name="yafowil.widget.autocomplete.dependencies">
     <field type="plone.registry.field.Bool">
@@ -32,28 +24,6 @@
   <record name="yafowil.widget.autocomplete.common">
     <field type="plone.registry.field.Bool">
       <title>Autocomplete widget common resources</title>
-    </field>
-    <value>True</value>
-  </record>
-
-  <!-- yafowil.widget.datetime -->
-  <record name="yafowil.widget.datetime.datepicker">
-    <field type="plone.registry.field.Bool">
-      <title>Datetime widget datepicker resources</title>
-    </field>
-    <value>False</value>
-  </record>
-
-  <record name="yafowil.widget.datetime.timepicker">
-    <field type="plone.registry.field.Bool">
-      <title>Datetime widget timepicker resources</title>
-    </field>
-    <value>True</value>
-  </record>
-
-  <record name="yafowil.widget.datetime.common">
-    <field type="plone.registry.field.Bool">
-      <title>Datetime widget common resources</title>
     </field>
     <value>True</value>
   </record>

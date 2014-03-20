@@ -20,7 +20,7 @@ from zope.component import queryAdapter
 import plone.api
 
 
-class RulesLookup(object):
+class RuleLookup(object):
     settings_iface = None
     for_attribute = None
 
@@ -53,30 +53,30 @@ class RulesLookup(object):
                 return rule
 
 
-class ItemRulesLookup(RulesLookup):
+class ItemRulesLookup(RuleLookup):
     settings_iface = ICartItemDiscountSettings
 
 
-class UserItemRulesLookup(RulesLookup):
+class UserItemRulesLookup(RuleLookup):
     settings_iface = IUserCartItemDiscountSettings
     for_attribute = FOR_USER
 
 
-class GroupItemRulesLookup(RulesLookup):
+class GroupItemRulesLookup(RuleLookup):
     settings_iface = IGroupCartItemDiscountSettings
     for_attribute = FOR_GROUP
 
 
-class CartRulesLookup(RulesLookup):
+class CartRulesLookup(RuleLookup):
     settings_iface = ICartDiscountSettings
 
 
-class UserCartRulesLookup(RulesLookup):
+class UserCartRulesLookup(RuleLookup):
     settings_iface = IUserCartDiscountSettings
     for_attribute = FOR_USER
 
 
-class GroupCartRulesLookup(RulesLookup):
+class GroupCartRulesLookup(RuleLookup):
     settings_iface = IGroupCartDiscountSettings
     for_attribute = FOR_GROUP
 
@@ -96,6 +96,7 @@ class RuleAcquierer(object):
             self.user = self.member.getId()
             self.groups = plone.api.group.get_groups(username=self.member)
 
+    @property
     def lookup_cascade(self):
         lookups = list()
         if self.user:
@@ -118,7 +119,10 @@ class RuleAcquierer(object):
                 rule = lookup.lookup()
                 if rule:
                     break
-            rules.append(rule)
+            if rule:
+                rules.append(rule)
+                if rule.attrs['block']:
+                    break
             if IPloneSiteRoot.providedBy(context):
                 break
             context = aq_parent(aq_inner(self.context))
