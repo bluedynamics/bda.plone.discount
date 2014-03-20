@@ -14,7 +14,7 @@
 
   <!-- item discount view -->
   <browser:page
-    for="..interfaces.IDiscountEnabled"
+    for="..interfaces.IDiscountSettingsEnabled"
     name="item_discount"
     template="discount_view.pt"
     class=".views.ItemDiscountView"
@@ -50,7 +50,7 @@
 
   <!-- cart item discount forms -->
   <browser:page
-    for="..interfaces.IDiscountEnabled"
+    for="..interfaces.IDiscountSettingsEnabled"
     name="cart_item_discount_form"
     class=".forms.CartItemDiscountForm"
     permission="bda.plone.discount.ManageDiscount" />
@@ -62,7 +62,7 @@
     permission="bda.plone.discount.ManageDiscount" />
 
   <browser:page
-    for="..interfaces.IDiscountEnabled"
+    for="..interfaces.IDiscountSettingsEnabled"
     name="user_cart_item_discount_form"
     class=".forms.UserCartItemDiscountForm"
     permission="bda.plone.discount.ManageDiscount" />
@@ -74,7 +74,7 @@
     permission="bda.plone.discount.ManageDiscount" />
 
   <browser:page
-    for="..interfaces.IDiscountEnabled"
+    for="..interfaces.IDiscountSettingsEnabled"
     name="group_cart_item_discount_form"
     class=".forms.GroupCartItemDiscountForm"
     permission="bda.plone.discount.ManageDiscount" />

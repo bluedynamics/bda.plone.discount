@@ -12,7 +12,6 @@ from bda.plone.discount.interfaces import CATEGORY_CART_ITEM
 from bda.plone.discount.interfaces import CATEGORY_CART
 from bda.plone.discount.interfaces import FOR_USER
 from bda.plone.discount.interfaces import FOR_GROUP
-from bda.plone.discount.interfaces import IDiscountEnabled
 from bda.plone.discount.interfaces import IDiscountSettings
 from bda.plone.discount.interfaces import ICartItemDiscountSettings
 from bda.plone.discount.interfaces import IUserCartItemDiscountSettings

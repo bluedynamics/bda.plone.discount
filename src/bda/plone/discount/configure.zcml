@@ -20,7 +20,7 @@
 
   <!-- cart item discount settings -->
   <adapter factory=".settings.CartItemDiscountSettings"
-           for=".interfaces.IDiscountEnabled"
+           for=".interfaces.IDiscountSettingsEnabled"
            provides=".interfaces.ICartItemDiscountSettings" />
 
   <adapter factory=".settings.CartItemDiscountSettings"
@@ -28,7 +28,7 @@
            provides=".interfaces.ICartItemDiscountSettings" />
 
   <adapter factory=".settings.UserCartItemDiscountSettings"
-           for=".interfaces.IDiscountEnabled"
+           for=".interfaces.IDiscountSettingsEnabled"
            provides=".interfaces.IUserCartItemDiscountSettings" />
 
   <adapter factory=".settings.UserCartItemDiscountSettings"
@@ -36,7 +36,7 @@
            provides=".interfaces.IUserCartItemDiscountSettings" />
 
   <adapter factory=".settings.GroupCartItemDiscountSettings"
-           for=".interfaces.IDiscountEnabled"
+           for=".interfaces.IDiscountSettingsEnabled"
            provides=".interfaces.IGroupCartItemDiscountSettings" />
 
   <adapter factory=".settings.GroupCartItemDiscountSettings"
@@ -52,5 +52,13 @@
 
   <adapter factory=".settings.GroupCartDiscountSettings"
            provides=".interfaces.IGroupCartDiscountSettings" />
+
+  <!-- cart item discount calculators -->
+  <adapter factory=".calculator.CartItemDiscount"
+           provides="bda.plone.cart.interfaces.ICartItemDiscount" />
+
+  <!-- cart discount calculators -->
+  <adapter factory=".calculator.CartDiscount"
+           provides="bda.plone.cart.interfaces.ICartDiscount" />
 
 </configure>

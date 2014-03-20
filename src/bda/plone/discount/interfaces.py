@@ -15,7 +15,7 @@ class IDiscountExtensionLayer(Interface):
     """
 
 
-class IDiscountEnabled(Interface):
+class IDiscountSettingsEnabled(Interface):
     """Interface for marking content having discount settings enabled.
     """
 
