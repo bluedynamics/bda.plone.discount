@@ -23,19 +23,33 @@
            provides=".interfaces.ICartItemDiscountSettings" />
 
   <adapter factory=".settings.CartItemDiscountSettings"
+           for="bda.plone.orders.interfaces.IVendor"
+           provides=".interfaces.ICartItemDiscountSettings" />
+
+  <adapter factory=".settings.CartItemDiscountSettings"
            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
            provides=".interfaces.ICartItemDiscountSettings" />
 
+  <!-- user cart item discount settings -->
   <adapter factory=".settings.UserCartItemDiscountSettings"
            for=".interfaces.IDiscountSettingsEnabled"
+           provides=".interfaces.IUserCartItemDiscountSettings" />
+
+  <adapter factory=".settings.UserCartItemDiscountSettings"
+           for="bda.plone.orders.interfaces.IVendor"
            provides=".interfaces.IUserCartItemDiscountSettings" />
 
   <adapter factory=".settings.UserCartItemDiscountSettings"
            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
            provides=".interfaces.IUserCartItemDiscountSettings" />
 
+  <!-- group cart item discount settings -->
   <adapter factory=".settings.GroupCartItemDiscountSettings"
            for=".interfaces.IDiscountSettingsEnabled"
+           provides=".interfaces.IGroupCartItemDiscountSettings" />
+
+  <adapter factory=".settings.GroupCartItemDiscountSettings"
+           for="bda.plone.orders.interfaces.IVendor"
            provides=".interfaces.IGroupCartItemDiscountSettings" />
 
   <adapter factory=".settings.GroupCartItemDiscountSettings"
@@ -46,9 +60,11 @@
   <adapter factory=".settings.CartDiscountSettings"
            provides=".interfaces.ICartDiscountSettings" />
 
+  <!-- user cart discount settings -->
   <adapter factory=".settings.UserCartDiscountSettings"
            provides=".interfaces.IUserCartDiscountSettings" />
 
+  <!-- group cart discount settings -->
   <adapter factory=".settings.GroupCartDiscountSettings"
            provides=".interfaces.IGroupCartDiscountSettings" />
 
