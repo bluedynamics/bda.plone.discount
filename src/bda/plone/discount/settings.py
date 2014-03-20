@@ -79,11 +79,11 @@ class PersistendDiscountSettings(object):
         if date is not None:
             query = query & Ge('valid_from', date) & Le('valid_to', date)
         if self.for_attribute == 'user':
-            query = query & NotEq('user', UNSET)
+            query = query & NotEq('user', '')
         elif self.for_attribute == 'group':
-            query = query & NotEq('group', UNSET)
+            query = query & NotEq('group', '')
         else:
-            query = query & Eq('user', UNSET) & Eq('group', UNSET)
+            query = query & Eq('user', '') & Eq('group', '')
         return self.rules_soup.query(query,
                                      sort_index='valid_from',
                                      reverse=False)
@@ -109,7 +109,8 @@ class PersistendDiscountSettings(object):
         rule.attrs['block'] = block
         assert(isinstance(value, float))
         rule.attrs['value'] = value
-        assert(isinstance(threshold, float))
+        if threshold:
+            assert(isinstance(threshold, float))
         rule.attrs['threshold'] = threshold
         if valid_from:
             assert(isinstance(valid_from, datetime))

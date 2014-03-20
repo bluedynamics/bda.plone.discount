@@ -34,7 +34,7 @@ setup(
         'setuptools',
         'Plone',
         'yafowil.widget.autocomplete',
-        'bda.plone.orders',
+        'bda.plone.cart',
     ],
     extras_require={
         'test': [

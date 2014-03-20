@@ -4,7 +4,7 @@
            xmlns:zcml="http://namespaces.zope.org/zcml"
            i18n_domain="bda.plone.discount">
 
-  <include package="bda.plone.orders"/>
+  <include package="bda.plone.cart"/>
 
   <i18n:registerTranslations directory="locales"/>
 
@@ -23,10 +23,6 @@
            provides=".interfaces.ICartItemDiscountSettings" />
 
   <adapter factory=".settings.CartItemDiscountSettings"
-           for="bda.plone.orders.interfaces.IVendor"
-           provides=".interfaces.ICartItemDiscountSettings" />
-
-  <adapter factory=".settings.CartItemDiscountSettings"
            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
            provides=".interfaces.ICartItemDiscountSettings" />
 
@@ -36,20 +32,12 @@
            provides=".interfaces.IUserCartItemDiscountSettings" />
 
   <adapter factory=".settings.UserCartItemDiscountSettings"
-           for="bda.plone.orders.interfaces.IVendor"
-           provides=".interfaces.IUserCartItemDiscountSettings" />
-
-  <adapter factory=".settings.UserCartItemDiscountSettings"
            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
            provides=".interfaces.IUserCartItemDiscountSettings" />
 
   <!-- group cart item discount settings -->
   <adapter factory=".settings.GroupCartItemDiscountSettings"
            for=".interfaces.IDiscountSettingsEnabled"
-           provides=".interfaces.IGroupCartItemDiscountSettings" />
-
-  <adapter factory=".settings.GroupCartItemDiscountSettings"
-           for="bda.plone.orders.interfaces.IVendor"
            provides=".interfaces.IGroupCartItemDiscountSettings" />
 
   <adapter factory=".settings.GroupCartItemDiscountSettings"
