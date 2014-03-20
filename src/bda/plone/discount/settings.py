@@ -63,8 +63,8 @@ class DiscountRulesCatalogFactory(object):
 @implementer(IDiscountSettings)
 class PersistendDiscountSettings(object):
     soup_name = 'bda_plone_discount_rules'
-    category = UNSET
-    for_attribute = UNSET
+    category = ''
+    for_attribute = None
 
     def __init__(self, context):
         self.context = context
@@ -94,11 +94,10 @@ class PersistendDiscountSettings(object):
             del soup[rule]
 
     def add_rule(self, context, kind, block, value, threshold,
-                 valid_from, valid_to, user=UNSET, group=UNSET):
+                 valid_from, valid_to, user='', group=''):
         rule = Record()
         rule.attrs['uid'] = uuid.uuid4()
-        if self.category is not UNSET:
-            assert(isinstance(self.category, str))
+        assert(isinstance(self.category, str))
         rule.attrs['category'] = self.category
         rule.attrs['context_uid'] = uuid.UUID(IUUID(context))
         rule.attrs['creator'] = plone.api.user.get_current().getId()
@@ -122,11 +121,9 @@ class PersistendDiscountSettings(object):
         else:
             valid_to = CEILING_DATETIME
         rule.attrs['valid_to'] = valid_to
-        if user is not UNSET:
-            assert(isinstance(user, str))
+        assert(isinstance(user, str))
         rule.attrs['user'] = user
-        if group is not UNSET:
-            assert(isinstance(group, str))
+        assert(isinstance(group, str))
         rule.attrs['group'] = group
         self.rules_soup.add(rule)
 

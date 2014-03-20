@@ -85,8 +85,8 @@ class DiscountFormBase(YAMLBaseForm):
         if valid_to != CEILING_DATETIME:
             value['valid_to'] = valid_to
         for_attr = self.for_attribute
-        if for_attr is not UNSET:
-            value['for'] = rule.attrs.get(for_attr, UNSET)
+        if for_attr:
+            value['for'] = rule.attrs.get(for_attr, '')
         return value
 
     @property
@@ -118,12 +118,13 @@ class DiscountFormBase(YAMLBaseForm):
         settings.delete_rules(existing)
         extracted = data.fetch('discount_form.discount').extracted
         for rule in extracted:
-            user = UNSET
-            group = UNSET
+            user = ''
+            group = ''
             if self.for_attribute == FOR_USER:
                 user = rule['for']
             if self.for_attribute == FOR_GROUP:
                 group = rule['for']
+            print rule
             settings.add_rule(self.context,
                               rule['kind'],
                               rule['block'],
