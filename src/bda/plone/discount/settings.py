@@ -24,7 +24,7 @@ from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.query import Eq
 from repoze.catalog.query import NotEq
 from repoze.catalog.query import Ge
-from repoze.catalog.query import Lt
+from repoze.catalog.query import Le
 from souper.interfaces import ICatalogFactory
 from souper.soup import NodeAttributeIndexer
 from souper.soup import Record
@@ -74,8 +74,7 @@ class PersistendDiscountSettings(object):
         context_uid = uuid.UUID(IUUID(context))
         query = Eq('context_uid', context_uid) & Eq('category', self.category)
         if date is not None:
-            # XXX: date range not taken
-            query = query & Ge('valid_from', date) & Lt('valid_to', date)
+            query = query & Le('valid_from', date) & Ge('valid_to', date)
         if self.for_attribute == 'user':
             query = query & NotEq('user', '')
         elif self.for_attribute == 'group':

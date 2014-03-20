@@ -22,7 +22,11 @@ Debug print helper::
     ...     print 'user: ' + role.attrs['user']
     ...     print 'group: ' + role.attrs['group']
 
-Lookup discount settings::
+
+ICartItemDiscountSettings
+-------------------------
+
+::
 
     >>> from datetime import datetime
     >>> from node.utils import UNSET
@@ -45,13 +49,13 @@ Add some rules::
     ...     plone, 2, 'absolute', False, 10.0, UNSET,
     ...     datetime(2014, 1, 1, 0, 0, 0), datetime(2014, 3, 1, 0, 0, 0))
 
-    >>> roles = [_ for _ in settings.rules(plone)]
-    >>> len(roles)
+    >>> rules = [_ for _ in settings.rules(plone)]
+    >>> len(rules)
     3
 
-Look at the rule data, here we have general cart item discount rule::
+Look at rule data::
 
-    >>> print_role(roles[0])
+    >>> print_role(rules[0])
     index: 1
     category: cart_item
     context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
@@ -68,62 +72,134 @@ Look at the rule data, here we have general cart item discount rule::
 
 Rules are returned sorted by valid_from, most recent first::
 
-    >>> print_role(roles[1])
-    index: 2
-    category: cart_item
-    context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
-    creator: test_user_1_
-    created: ...
-    kind: absolute
-    block: False
-    value: 10.0
-    threshold: 
-    valid_from: 2014-01-01 00:00:00
-    valid_to: 2014-03-01 00:00:00
-    user: 
-    group: 
+    >>> rules[1].attrs['valid_from']
+    datetime.datetime(2014, 1, 1, 0, 0)
+    >>> rules[1].attrs['valid_to']
+    datetime.datetime(2014, 3, 1, 0, 0)
 
-    >>> print_role(roles[2])
-    index: 0
-    category: cart_item
-    context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
-    creator: test_user_1_
-    created: ...
-    kind: percent
-    block: False
-    value: 10.0
-    threshold: 
-    valid_from: 2000-01-01 00:00:00
-    valid_to: 2100-01-01 00:00:00
-    user: 
-    group: 
+    >>> rules[2].attrs['valid_from']
+    datetime.datetime(2000, 1, 1, 0, 0)
+    >>> rules[2].attrs['valid_to']
+    datetime.datetime(2100, 1, 1, 0, 0)
 
 Anchor rule lookup by date, which must be between valid_from and valid_to::
 
-    >>> roles = [_ for _ in settings.rules(
+    >>> rules = [_ for _ in settings.rules(
     ...          plone, date=datetime(2013, 12, 1, 0, 0, 0))]
-    >>> len(roles)
+    >>> len(rules)
     1
 
+    >>> rules[0].attrs['valid_from']
+    datetime.datetime(2000, 1, 1, 0, 0)
+    >>> rules[0].attrs['valid_to']
+    datetime.datetime(2100, 1, 1, 0, 0)
+
+    >>> rules = [_ for _ in settings.rules(
+    ...          plone, date=datetime(2014, 1, 15, 0, 0, 0))]
+    >>> len(rules)
+    2
+
+    >>> rules[0].attrs['valid_from']
+    datetime.datetime(2014, 1, 1, 0, 0)
+    >>> rules[0].attrs['valid_to']
+    datetime.datetime(2014, 3, 1, 0, 0)
+    >>> rules[1].attrs['valid_from']
+    datetime.datetime(2000, 1, 1, 0, 0)
+    >>> rules[1].attrs['valid_to']
+    datetime.datetime(2100, 1, 1, 0, 0)
+
+    >>> rules = [_ for _ in settings.rules(
+    ...          plone, date=datetime(2014, 2, 15, 0, 0, 0))]
+    >>> len(rules)
+    3
+
+    >>> rules[0].attrs['valid_from']
+    datetime.datetime(2014, 2, 1, 0, 0)
+    >>> rules[0].attrs['valid_to']
+    datetime.datetime(2014, 4, 1, 0, 0)
+    >>> rules[1].attrs['valid_from']
+    datetime.datetime(2014, 1, 1, 0, 0)
+    >>> rules[1].attrs['valid_to']
+    datetime.datetime(2014, 3, 1, 0, 0)
+    >>> rules[2].attrs['valid_from']
+    datetime.datetime(2000, 1, 1, 0, 0)
+    >>> rules[2].attrs['valid_to']
+    datetime.datetime(2100, 1, 1, 0, 0)
+
+    >>> rules = [_ for _ in settings.rules(
+    ...          plone, date=datetime(2014, 3, 15, 0, 0, 0))]
+    >>> len(rules)
+    2
+
+    >>> rules[0].attrs['valid_from']
+    datetime.datetime(2014, 2, 1, 0, 0)
+    >>> rules[0].attrs['valid_to']
+    datetime.datetime(2014, 4, 1, 0, 0)
+    >>> rules[1].attrs['valid_from']
+    datetime.datetime(2000, 1, 1, 0, 0)
+    >>> rules[1].attrs['valid_to']
+    datetime.datetime(2100, 1, 1, 0, 0)
+
+
+IUserCartItemDiscountSettings
+-----------------------------
+
+::
+
     >>> from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
-    >>> IUserCartItemDiscountSettings(plone)
+    >>> settings = IUserCartItemDiscountSettings(plone)
+    >>> settings
     <bda.plone.discount.settings.UserCartItemDiscountSettings object at ...>
 
+
+IGroupCartItemDiscountSettings
+------------------------------
+
+::
+
     >>> from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
-    >>> IGroupCartItemDiscountSettings(plone)
+    >>> settings = IGroupCartItemDiscountSettings(plone)
+    >>> settings
     <bda.plone.discount.settings.GroupCartItemDiscountSettings object at ...>
 
+
+ICartDiscountSettings
+---------------------
+
+::
+
     >>> from bda.plone.discount.interfaces import ICartDiscountSettings
-    >>> ICartDiscountSettings(plone)
+    >>> settings = ICartDiscountSettings(plone)
+    >>> settings
     <bda.plone.discount.settings.CartDiscountSettings object at ...>
 
+
+IUserCartDiscountSettings
+-------------------------
+
+::
+
     >>> from bda.plone.discount.interfaces import IUserCartDiscountSettings
-    >>> IUserCartDiscountSettings(plone)
+    >>> settings = IUserCartDiscountSettings(plone)
+    >>> settings
     <bda.plone.discount.settings.UserCartDiscountSettings object at ...>
 
+
+IGroupCartDiscountSettings
+--------------------------
+
+::
+
     >>> from bda.plone.discount.interfaces import IGroupCartDiscountSettings
-    >>> IGroupCartDiscountSettings(plone)
+    >>> settings = IGroupCartDiscountSettings(plone)
+    >>> settings
     <bda.plone.discount.settings.GroupCartDiscountSettings object at ...>
+
+
+IDiscountSettingsEnabled
+------------------------
+
+::
 
     >>> from zope.interface import alsoProvides
     >>> from bda.plone.discount.interfaces import IDiscountSettingsEnabled
