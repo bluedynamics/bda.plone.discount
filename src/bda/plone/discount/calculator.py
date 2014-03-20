@@ -12,7 +12,7 @@ from bda.plone.discount.interfaces import ICartDiscountSettings
 from bda.plone.discount.interfaces import IUserCartDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
 from datetime import datetime
-from Products.CMFPlone.interface import IPloneSiteRoot
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.interface import Interface
 from zope.interface import implementer
 from zope.component import adapter
@@ -135,6 +135,12 @@ class CartRuleAcquirer(RuleAcquierer):
     lookup_factory = CartRulesLookup
     user_lookup_factory = UserCartRulesLookup
     group_lookup_factory = GroupCartRulesLookup
+
+
+class DiscountBase(object):
+
+    def __init__(self, context):
+        self.context = context
 
 
 @implementer(ICartDiscount)
