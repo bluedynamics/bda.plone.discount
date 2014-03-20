@@ -2,6 +2,10 @@ from zope.interface import alsoProvides
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import login
+from plone.app.testing import setRoles
 from bda.plone.discount.interfaces import IDiscountExtensionLayer
 
 
@@ -24,6 +28,8 @@ class DiscountLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         self.applyProfile(portal, 'bda.plone.discount:default')
+        setRoles(portal, TEST_USER_ID, ['Manager'])
+        login(portal, TEST_USER_NAME)
 
     def tearDownZope(self, app):
         pass

@@ -1,6 +1,7 @@
 from interlude import interact
 from plone.testing import layered
-from bda.plone.discount.tests import Discount_FIXTURE
+from plone.testing import z2
+from bda.plone.discount.tests import Discount_INTEGRATION_TESTING
 
 import doctest
 import os
@@ -10,22 +11,27 @@ import unittest
 
 optionflags = doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS
 
+
 TESTFILES = [
-    ('settings.rst', Discount_FIXTURE),
-    ('calculator.rst', Discount_FIXTURE)
+    'settings.rst',
+    'calculator.rst',
 ]
 
+
 def test_suite():
-    return unittest.TestSuite([
-        layered(
-            doctest.DocFileSuite(
-                filename,
-                optionflags=optionflags,
-                globs={
-                    'interact': interact,
-                    'pprint': pprint.pprint,
-                },
-            ), layer=layer
-        )
-        for filename, layer in TESTFILES]
-    )
+    suite = unittest.TestSuite()
+    suite.addTests([
+            layered(
+                doctest.DocFileSuite(
+                    docfile,
+                    globs={'interact': interact,
+                           'pprint': pprint.pprint,
+                           'z2': z2,
+                           },
+                    optionflags=optionflags,
+                    ),
+                layer=Discount_INTEGRATION_TESTING,
+                )
+            for docfile in TESTFILES
+            ])
+    return suite
