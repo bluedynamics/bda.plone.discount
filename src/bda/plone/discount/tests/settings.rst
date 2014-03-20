@@ -151,6 +151,29 @@ IUserCartItemDiscountSettings
     >>> settings
     <bda.plone.discount.settings.UserCartItemDiscountSettings object at ...>
 
+    >>> settings.add_rule(
+    ...     plone, 0, 'percent', False, 10.0,
+    ...     UNSET, UNSET, UNSET, user='max')
+
+    >>> rules = [_ for _ in settings.rules(plone)]
+    >>> len(rules)
+    1
+
+    >>> print_role(rules[0])
+    index: 0
+    category: cart_item
+    context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
+    creator: test_user_1_
+    created: ...
+    kind: percent
+    block: False
+    value: 10.0
+    threshold: 
+    valid_from: 2000-01-01 00:00:00
+    valid_to: 2100-01-01 00:00:00
+    user: max
+    group: 
+
 
 IGroupCartItemDiscountSettings
 ------------------------------
@@ -161,6 +184,29 @@ IGroupCartItemDiscountSettings
     >>> settings = IGroupCartItemDiscountSettings(plone)
     >>> settings
     <bda.plone.discount.settings.GroupCartItemDiscountSettings object at ...>
+
+    >>> settings.add_rule(
+    ...     plone, 0, 'percent', False, 10.0,
+    ...     UNSET, UNSET, UNSET, group='retailer')
+
+    >>> rules = [_ for _ in settings.rules(plone)]
+    >>> len(rules)
+    1
+
+    >>> print_role(rules[0])
+    index: 0
+    category: cart_item
+    context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
+    creator: test_user_1_
+    created: ...
+    kind: percent
+    block: False
+    value: 10.0
+    threshold: 
+    valid_from: 2000-01-01 00:00:00
+    valid_to: 2100-01-01 00:00:00
+    user: 
+    group: retailer
 
 
 ICartDiscountSettings
@@ -173,6 +219,28 @@ ICartDiscountSettings
     >>> settings
     <bda.plone.discount.settings.CartDiscountSettings object at ...>
 
+    >>> settings.add_rule(
+    ...     plone, 0, 'percent', False, 10.0, UNSET, UNSET, UNSET)
+
+    >>> rules = [_ for _ in settings.rules(plone)]
+    >>> len(rules)
+    1
+
+    >>> print_role(rules[0])
+    index: 0
+    category: cart
+    context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
+    creator: test_user_1_
+    created: ...
+    kind: percent
+    block: False
+    value: 10.0
+    threshold: 
+    valid_from: 2000-01-01 00:00:00
+    valid_to: 2100-01-01 00:00:00
+    user: 
+    group: 
+
 
 IUserCartDiscountSettings
 -------------------------
@@ -184,6 +252,29 @@ IUserCartDiscountSettings
     >>> settings
     <bda.plone.discount.settings.UserCartDiscountSettings object at ...>
 
+    >>> settings.add_rule(
+    ...     plone, 0, 'percent', False, 10.0,
+    ...     UNSET, UNSET, UNSET, user='sepp')
+
+    >>> rules = [_ for _ in settings.rules(plone)]
+    >>> len(rules)
+    1
+
+    >>> print_role(rules[0])
+    index: 0
+    category: cart
+    context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
+    creator: test_user_1_
+    created: ...
+    kind: percent
+    block: False
+    value: 10.0
+    threshold: 
+    valid_from: 2000-01-01 00:00:00
+    valid_to: 2100-01-01 00:00:00
+    user: sepp
+    group: 
+
 
 IGroupCartDiscountSettings
 --------------------------
@@ -194,6 +285,34 @@ IGroupCartDiscountSettings
     >>> settings = IGroupCartDiscountSettings(plone)
     >>> settings
     <bda.plone.discount.settings.GroupCartDiscountSettings object at ...>
+
+    >>> settings.add_rule(
+    ...     plone, 0, 'percent', False, 10.0,
+    ...     UNSET, UNSET, UNSET, group='master_dealer')
+
+    >>> rules = [_ for _ in settings.rules(plone)]
+    >>> len(rules)
+    1
+
+    >>> print_role(rules[0])
+    index: 0
+    category: cart
+    context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
+    creator: test_user_1_
+    created: ...
+    kind: percent
+    block: False
+    value: 10.0
+    threshold: 
+    valid_from: 2000-01-01 00:00:00
+    valid_to: 2100-01-01 00:00:00
+    user: 
+    group: master_dealer
+
+Overall rules in soup::
+
+    >>> len(settings.rules_soup.storage)
+    8
 
 
 IDiscountSettingsEnabled
