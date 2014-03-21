@@ -193,8 +193,9 @@ class CartItemDiscount(DiscountBase):
     aquirer_factory = CartItemRuleAcquirer
 
     def net(self, net, vat):
+        return 0.0
         # XXX: from gross
-        return net - self.apply_rules(net)
+        #return net - self.apply_rules(net)
 
 
 @implementer(ICartDiscount)
@@ -203,26 +204,28 @@ class CartDiscount(DiscountBase):
     aquirer_factory = CartRuleAcquirer
 
     def net(self, items):
+        return 0.0
         # XXX: from gross
-        net = 0.0
-        cat = api.portal.get_tool(name='portal_catalog')
-        for uid, count, comment in items:
-            brain = cat(UID=uid)
-            if not brain:
-                continue
-            data = get_item_data_provider(brain[0].getObject())
-            net += data.net - data.discount_net * float(count)
-        return self.apply_rules(net)
+        #net = 0.0
+        #cat = api.portal.get_tool(name='portal_catalog')
+        #for uid, count, comment in items:
+        #    brain = cat(UID=uid)
+        #    if not brain:
+        #        continue
+        #    data = get_item_data_provider(brain[0].getObject())
+        #    net += data.net - data.discount_net * float(count)
+        #return self.apply_rules(net)
 
     def vat(self, items):
+        return 0.0
         # XXX: from gross
-        vat = 0.0
-        cat = api.portal.get_tool(name='portal_catalog')
-        for uid, count, comment in items:
-            brain = cat(UID=uid)
-            if not brain:
-                continue
-            data = get_item_data_provider(brain[0].getObject())
-            net = self.apply_rules(data.net - data.discount_net)
-            vat += (net / 100.0 * data.vat) * float(count)
-        return vat
+        #vat = 0.0
+        #cat = api.portal.get_tool(name='portal_catalog')
+        #for uid, count, comment in items:
+        #    brain = cat(UID=uid)
+        #    if not brain:
+        #        continue
+        #    data = get_item_data_provider(brain[0].getObject())
+        #    net = self.apply_rules(data.net - data.discount_net)
+        #    vat += (net / 100.0 * data.vat) * float(count)
+        #return vat
