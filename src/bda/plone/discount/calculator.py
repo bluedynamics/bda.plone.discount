@@ -47,6 +47,7 @@ class RuleLookup(object):
         return []
 
     def lookup(self):
+        # XXX: return value as list of neighbor rules
         for_value = self.for_value
         # if for_value given check against for_attribute
         if for_value:
@@ -105,18 +106,17 @@ class RuleAcquierer(object):
             except UserNotFoundError:
                 self.groups = []
 
-    @property
-    def lookup_cascade(self):
+    def lookup_cascade(self, context):
         lookups = list()
         if self.user:
             user_lookup = self.user_lookup_factory(
-                self.context, self.date, self.user)
+                context, self.date, self.user)
             lookups.append(user_lookup)
         for group in self.groups:
             group_lookup = self.group_lookup_factory(
-                self.context, self.date, group)
+                context, self.date, group)
             lookups.append(group_lookup)
-        lookups.append(self.lookup_factory(self.context, self.date))
+        lookups.append(self.lookup_factory(context, self.date))
         return lookups
 
     @property
@@ -126,7 +126,7 @@ class RuleAcquierer(object):
         context = self.context
         while True:
             rule = None
-            for lookup in self.lookup_cascade:
+            for lookup in self.lookup_cascade(context):
                 rule = lookup.lookup()
                 if rule:
                     break
@@ -165,26 +165,31 @@ class DiscountBase(object):
     def apply_rule(self, value, rule):
         # return value after rule applied
         # if threshold not reached return unchanged value
-        if rule.attrs['threshold'] > value:
+        threshold = rule.attrs['threshold']
+        if threshold and Decimal(threshold) > value:
             return value
+        rule_value = Decimal(rule.attrs['value'])
         # calculate in percent
         if rule.attrs['kind'] == KIND_PERCENT:
-            value -= value / 100.0 * rule.attrs['value']
+            value -= value / Decimal(100) * rule_value
         # calculate decrement
         if rule.attrs['kind'] == KIND_OFF:
-            value -= rule.attrs['value']
+            value -= rule_value
         # rule defines absolute value
         if rule.attrs['kind'] == KIND_ABSOLUTE:
-            value = rule.attrs['value']
-        # price should never be < 0
-        if value < 0:
-            return 0.0
+            value = rule_value
+        # value never < 0
+        if value < Decimal(0):
+            value = Decimal(0)
         return value
 
     def apply_rules(self, value):
         rules = self.acquirer.rules
         for rule in rules:
-            value -= value - self.apply_rule(value, rule)
+            value = self.apply_rule(value, rule)
+        # value never < 0
+        if value < Decimal(0):
+            value = Decimal(0)
         return value
 
 
@@ -194,9 +199,10 @@ class CartItemDiscount(DiscountBase):
     aquirer_factory = CartItemRuleAcquirer
 
     def net(self, net, vat, count):
-        return Decimal(0)
+        # net discount for one item.
         # XXX: from gross
-        #return net - self.apply_rules(net)
+        net = Decimal(net)
+        return net - self.apply_rules(net * count) / count
 
 
 @implementer(ICartDiscount)
@@ -205,28 +211,30 @@ class CartDiscount(DiscountBase):
     aquirer_factory = CartRuleAcquirer
 
     def net(self, items):
-        return Decimal(0)
         # XXX: from gross
-        #net = 0.0
-        #cat = api.portal.get_tool(name='portal_catalog')
-        #for uid, count, comment in items:
-        #    brain = cat(UID=uid)
-        #    if not brain:
-        #        continue
-        #    data = get_item_data_provider(brain[0].getObject())
-        #    net += data.net - data.discount_net * float(count)
-        #return self.apply_rules(net)
+        net = Decimal(0)
+        cat = api.portal.get_tool(name='portal_catalog')
+        for uid, count, comment in items:
+            brain = cat(UID=uid)
+            if not brain:
+                continue
+            data = get_item_data_provider(brain[0].getObject())
+            discount_net = data.discount_net(count)
+            item_net = Decimal(str(data.net)) - discount_net
+            net += item_net * count
+        return net - self.apply_rules(net)
 
     def vat(self, items):
-        return Decimal(0)
         # XXX: from gross
-        #vat = 0.0
-        #cat = api.portal.get_tool(name='portal_catalog')
-        #for uid, count, comment in items:
-        #    brain = cat(UID=uid)
-        #    if not brain:
-        #        continue
-        #    data = get_item_data_provider(brain[0].getObject())
-        #    net = self.apply_rules(data.net - data.discount_net)
-        #    vat += (net / 100.0 * data.vat) * float(count)
-        #return vat
+        vat = Decimal(0)
+        cat = api.portal.get_tool(name='portal_catalog')
+        for uid, count, comment in items:
+            brain = cat(UID=uid)
+            if not brain:
+                continue
+            data = get_item_data_provider(brain[0].getObject())
+            discount_net = data.discount_net(count)
+            item_net = Decimal(str(data.net)) - discount_net
+            # XXX: aliquote vat calculation based on cart net discount
+            #vat += (price_net / Decimal(100)) * Decimal(str(data.vat)) * count
+        return vat

@@ -1,35 +1,34 @@
 Settings
 ========
 
-Get portal::
+::
 
+    >>> from datetime import datetime
+    >>> from node.utils import UNSET
     >>> plone = layer['portal']
 
 Debug print helper::
 
-    >>> def print_role(role):
-    ...     print 'index: ' + str(role.attrs['index'])
-    ...     print 'category: ' + str(role.attrs['category'])
-    ...     print 'context_uid: ' + str(role.attrs['context_uid'])
-    ...     print 'creator: ' + role.attrs['creator']
-    ...     print 'created: ' + str(role.attrs['created'])
-    ...     print 'kind: ' + role.attrs['kind']
-    ...     print 'block: ' + str(role.attrs['block'])
-    ...     print 'value: ' + str(role.attrs['value'])
-    ...     print 'threshold: ' + str(role.attrs['threshold'])
-    ...     print 'valid_from: ' + str(role.attrs['valid_from'])
-    ...     print 'valid_to: ' + str(role.attrs['valid_to'])
-    ...     print 'user: ' + role.attrs['user']
-    ...     print 'group: ' + role.attrs['group']
+    >>> def print_rule(rule):
+    ...     print 'index: ' + str(rule.attrs['index'])
+    ...     print 'category: ' + str(rule.attrs['category'])
+    ...     print 'context_uid: ' + str(rule.attrs['context_uid'])
+    ...     print 'creator: ' + rule.attrs['creator']
+    ...     print 'created: ' + str(rule.attrs['created'])
+    ...     print 'kind: ' + rule.attrs['kind']
+    ...     print 'block: ' + str(rule.attrs['block'])
+    ...     print 'value: ' + str(rule.attrs['value'])
+    ...     print 'threshold: ' + str(rule.attrs['threshold'])
+    ...     print 'valid_from: ' + str(rule.attrs['valid_from'])
+    ...     print 'valid_to: ' + str(rule.attrs['valid_to'])
+    ...     print 'user: ' + rule.attrs['user']
+    ...     print 'group: ' + rule.attrs['group']
 
 
 ICartItemDiscountSettings
 -------------------------
 
 ::
-
-    >>> from datetime import datetime
-    >>> from node.utils import UNSET
 
     >>> from bda.plone.discount.interfaces import ICartItemDiscountSettings
     >>> settings = ICartItemDiscountSettings(plone)
@@ -55,7 +54,7 @@ Add some rules::
 
 Look at rule data::
 
-    >>> print_role(rules[0])
+    >>> print_rule(rules[0])
     index: 1
     category: cart_item
     context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
@@ -159,7 +158,7 @@ IUserCartItemDiscountSettings
     >>> len(rules)
     1
 
-    >>> print_role(rules[0])
+    >>> print_rule(rules[0])
     index: 0
     category: cart_item
     context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
@@ -193,7 +192,7 @@ IGroupCartItemDiscountSettings
     >>> len(rules)
     1
 
-    >>> print_role(rules[0])
+    >>> print_rule(rules[0])
     index: 0
     category: cart_item
     context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
@@ -226,7 +225,7 @@ ICartDiscountSettings
     >>> len(rules)
     1
 
-    >>> print_role(rules[0])
+    >>> print_rule(rules[0])
     index: 0
     category: cart
     context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
@@ -260,7 +259,7 @@ IUserCartDiscountSettings
     >>> len(rules)
     1
 
-    >>> print_role(rules[0])
+    >>> print_rule(rules[0])
     index: 0
     category: cart
     context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
@@ -294,7 +293,7 @@ IGroupCartDiscountSettings
     >>> len(rules)
     1
 
-    >>> print_role(rules[0])
+    >>> print_rule(rules[0])
     index: 0
     category: cart
     context_uid: 77c4390d-1179-44ba-9d57-46d23ac292c6
@@ -308,11 +307,6 @@ IGroupCartDiscountSettings
     valid_to: 2100-01-01 00:00:00
     user: 
     group: master_dealer
-
-Overall rules in soup::
-
-    >>> len(settings.rules_soup.storage)
-    8
 
 
 IDiscountSettingsEnabled
@@ -360,3 +354,14 @@ IDiscountSettingsEnabled
     Traceback (most recent call last):
       ...
     TypeError: ...
+
+
+Cleanup
+-------
+
+Overall rules in soup::
+
+    >>> len(settings.rules_soup.storage)
+    8
+
+    >>> settings.rules_soup.clear()
