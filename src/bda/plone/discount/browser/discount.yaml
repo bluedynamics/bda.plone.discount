@@ -40,18 +40,18 @@ widgets:
             props:
                 label: i18n:discount_form_label_valid_from:Valid From
                 field.class: array_field valid_from
-                datepicker: True
+                #datepicker: True
                 time: True
-                timepicker: True
+                #timepicker: True
                 locale: de
         - valid_to:
             factory: field:error:datetime
             props:
                 label: i18n:discount_form_label_valid_to:Valid To
                 field.class: array_field valid_to
-                datepicker: True
+                #datepicker: True
                 time: True
-                timepicker: True
+                #timepicker: True
                 locale: de
         - for:
             factory: field:error:autocomplete
