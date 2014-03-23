@@ -16,6 +16,7 @@ from bda.plone.discount.interfaces import ICartDiscountSettings
 from bda.plone.discount.interfaces import IUserCartDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
 from datetime import datetime
+from decimal import Decimal
 from plone import api
 from plone.api.exc import UserNotFoundError
 from Products.CMFPlone.interfaces import IPloneSiteRoot
@@ -192,8 +193,8 @@ class DiscountBase(object):
 class CartItemDiscount(DiscountBase):
     aquirer_factory = CartItemRuleAcquirer
 
-    def net(self, net, vat):
-        return 0.0
+    def net(self, net, vat, count):
+        return Decimal(0)
         # XXX: from gross
         #return net - self.apply_rules(net)
 
@@ -204,7 +205,7 @@ class CartDiscount(DiscountBase):
     aquirer_factory = CartRuleAcquirer
 
     def net(self, items):
-        return 0.0
+        return Decimal(0)
         # XXX: from gross
         #net = 0.0
         #cat = api.portal.get_tool(name='portal_catalog')
@@ -217,7 +218,7 @@ class CartDiscount(DiscountBase):
         #return self.apply_rules(net)
 
     def vat(self, items):
-        return 0.0
+        return Decimal(0)
         # XXX: from gross
         #vat = 0.0
         #cat = api.portal.get_tool(name='portal_catalog')
