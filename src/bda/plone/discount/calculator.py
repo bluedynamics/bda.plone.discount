@@ -102,7 +102,8 @@ class RuleAcquierer(object):
         if self.member:
             self.user = self.member.getId()
             try:
-                self.groups = api.group.get_groups(username=self.member)
+                groups = api.group.get_groups(username=self.member)
+                self.groups = [group.getId() for group in groups]
             except UserNotFoundError:
                 self.groups = []
 

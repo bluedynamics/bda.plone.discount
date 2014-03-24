@@ -1,4 +1,5 @@
 import json
+import plone.api
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from yafowil.plone.form import YAMLBaseForm
@@ -22,35 +23,59 @@ from bda.plone.discount.interfaces import IUserCartDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
 
 
-class UsersMixin(object):
-    pass
-
-
-class GroupsMixin(object):
-    pass
-
-
 class JsonBase(BrowserView):
+
+    def _match(self, name, filter):
+        name = name.lower()
+        filter = filter.lower()
+        # wildcard match
+        if filter.find('*') != -1:
+            # everything matches
+            if filter == '*':
+                return True
+            # wildcard match like '*foo'
+            elif filter.startswith('*'):
+                if name.endswith(filter[1:]):
+                    return True
+            # wildcard match like 'foo*'
+            elif filter.endswith('*'):
+                if name.startswith(filter[:-1]):
+                    return True
+            # wildacard match like '*foo*'
+            else:
+                if name.find(filter[1:-1]) != -1:
+                    return True
+        # exact match
+        else:
+            if name == filter:
+                return True
+        return False
 
     def response(self, result):
         return json.dumps(result)
 
 
-class UsersJson(JsonBase, UsersMixin):
+class UsersJson(JsonBase):
 
     def __call__(self):
-        """search for user.
-        """
-        ret = ['John', 'Sepp', 'Max']
+        ret = list()
+        filter = self.request.form.get('filter')
+        for user in plone.api.user.get_users():
+            user_id = user.getId()
+            if self._match(user_id, filter):
+                ret.append(user_id)
         return self.response(ret)
 
 
-class GroupsJson(JsonBase, GroupsMixin):
+class GroupsJson(JsonBase):
 
     def __call__(self):
-        """search for group.
-        """
-        ret = ['Retail', 'Trade', 'Dealer', 'Master Dealer']
+        ret = list()
+        filter = self.request.form.get('filter')
+        for group in plone.api.group.get_groups():
+            group_id = group.getId()
+            if self._match(group_id, filter):
+                ret.append(group_id)
         return self.response(ret)
 
 
@@ -155,7 +180,7 @@ class DiscountFormBase(YAMLBaseForm):
         return self.render_form()
 
 
-class UserDiscountFormBase(DiscountFormBase, UsersMixin):
+class UserDiscountFormBase(DiscountFormBase):
     header_template = 'user_header.pt'
     for_attribute = FOR_USER
     for_label = _('discount_form_label_user', default=u'User')
@@ -165,7 +190,7 @@ class UserDiscountFormBase(DiscountFormBase, UsersMixin):
     for_mode = 'edit'
 
 
-class GroupDiscountFormBase(DiscountFormBase, GroupsMixin):
+class GroupDiscountFormBase(DiscountFormBase):
     header_template = 'group_header.pt'
     for_attribute = FOR_GROUP
     for_label = _('discount_form_label_group', default=u'Group')

@@ -23,7 +23,8 @@
 
         // set search criteria and execute source lookup
         _execute_source_lookup: function(request, callback, url) {
-            discount_form.query(url, function(data, status, request) {
+            var filter = request.term;
+            discount_form.query(url, filter, function(data, status, request) {
                 callback(data);
             });
         },
@@ -41,10 +42,13 @@
         },
 
         // query data for autocomplete dropdown criteria
-        query: function(url, success) {
+        query: function(url, filter, success) {
             $.ajax({
                 url: url,
                 dataType: 'json',
+                data: {
+                    'filter': filter
+                },
                 success: success,
                 error: discount_form.error,
                 cache: false
