@@ -193,6 +193,10 @@ class DiscountBase(object):
         return value
 
 
+# XXX
+DISCOUNT_FROM_GROSS = False
+
+
 @implementer(ICartItemDiscount)
 @adapter(ICartItem)
 class CartItemDiscount(DiscountBase):
@@ -202,7 +206,8 @@ class CartItemDiscount(DiscountBase):
         # net discount for one item.
         # XXX: from gross
         net = Decimal(net)
-        return net - self.apply_rules(net * count) / count
+        item_discount = net - self.apply_rules(net * count) / count
+        return item_discount
 
 
 @implementer(ICartDiscount)
@@ -210,31 +215,50 @@ class CartItemDiscount(DiscountBase):
 class CartDiscount(DiscountBase):
     aquirer_factory = CartRuleAcquirer
 
+    def _discounted_items(self, items):
+        # return list of 2-tuples containing (net, vat percent) of discounted
+        # items in cart. count is already considered.
+        # XXX: from gross
+        result = list()
+        cat = api.portal.get_tool(name='portal_catalog')
+        for uid, count, comment in items:
+            brain = cat(UID=uid)
+            if not brain:
+                continue
+            data = get_item_data_provider(brain[0].getObject())
+            discount_net = data.discount_net(count)
+            item_net = Decimal(str(data.net)) - discount_net
+            result.append((item_net * count, Decimal(str(data.vat))))
+        return result
+
     def net(self, items):
         # XXX: from gross
         net = Decimal(0)
-        cat = api.portal.get_tool(name='portal_catalog')
-        for uid, count, comment in items:
-            brain = cat(UID=uid)
-            if not brain:
-                continue
-            data = get_item_data_provider(brain[0].getObject())
-            discount_net = data.discount_net(count)
-            item_net = Decimal(str(data.net)) - discount_net
-            net += item_net * count
-        return net - self.apply_rules(net)
+        for item_net, _ in self._discounted_items(items):
+            net += item_net
+        cart_discount = net - self.apply_rules(net)
+        return cart_discount
 
     def vat(self, items):
         # XXX: from gross
-        vat = Decimal(0)
-        cat = api.portal.get_tool(name='portal_catalog')
-        for uid, count, comment in items:
-            brain = cat(UID=uid)
-            if not brain:
-                continue
-            data = get_item_data_provider(brain[0].getObject())
-            discount_net = data.discount_net(count)
-            item_net = Decimal(str(data.net)) - discount_net
-            # XXX: aliquote vat calculation based on cart net discount
-            #vat += (price_net / Decimal(100)) * Decimal(str(data.vat)) * count
-        return vat
+        discounted_items = self._discounted_items(items)
+        base_net = Decimal(0)
+        base_vat = Decimal(0)
+        # calculate cart base net and vat before cart discount has been applied
+        for item_net, item_vat in discounted_items:
+            base_net += item_net
+            base_vat += item_net / Decimal(100) * item_vat
+        # calculate total cart discount
+        cart_discount = base_net - self.apply_rules(base_net)
+        # cart net after discount calculation
+        cart_net = base_net - cart_discount
+        # calculate aliquot net percent for each item in cart and calculate
+        # item vat portion from discounted cart net
+        aliquot_vat = Decimal(0)
+        for item_net, item_vat in discounted_items:
+            aliquot_net_percent = item_net * Decimal(100) / base_net
+            aliquot_net = cart_net / Decimal(100) * aliquot_net_percent
+            aliquot_vat += aliquot_net / Decimal(100) * item_vat
+        # calculate vat difference
+        vat_diff = base_vat - aliquot_vat
+        return vat_diff
