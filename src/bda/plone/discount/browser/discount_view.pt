@@ -7,9 +7,12 @@
       i18n:domain="bda.plone.discount">
 
 <head>
-  <metal:top fill-slot="top_slot">
-    <tal:border define="dummy python:request.set('disable_border', True)" />
-  </metal:top>
+  <metal:override
+    fill-slot="top_slot"
+    tal:define="
+        border python:request.set('disable_border', True);
+        column_one python:request.set('disable_plone.leftcolumn', True);
+        column_two python:request.set('disable_plone.rightcolumn', True);" />
 </head>
 
 <body>
