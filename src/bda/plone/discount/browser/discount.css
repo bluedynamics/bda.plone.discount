@@ -22,9 +22,11 @@
     padding-top:0.2em;
     padding-bottom:0.2em;
 }
+
 #array-discount_form-discount div.array_actions {
-    width:80px;
+    width:90px;
 }
+
 div.form_header.kind,
 div.array_field.kind,
 div.form_header.block,
@@ -39,10 +41,10 @@ div.form_header.valid_to,
 div.array_field.valid_to,
 div.form_header.for,
 div.array_field.for {
-    border-right:#ccc 1px solid;
     text-align:center;
     vertical-align:middle;
 }
+
 div.form_header.kind,
 div.array_field.kind {
     width:8%;
@@ -63,7 +65,7 @@ div.form_header.valid_from,
 div.array_field.valid_from,
 div.form_header.valid_to,
 div.array_field.valid_to {
-    width:19%;
+    width:10%;
 }
 div.form_header.for,
 div.array_field.for {
@@ -83,4 +85,9 @@ div.array_field.valid_to .datepicker {
 div.array_field.valid_from .timepicker,
 div.array_field.valid_to .timepicker {
     width:32%;
+}
+
+.array_field.threshold,
+.array_field.value {
+    padding: 0 0.25em;
 }
