@@ -163,9 +163,12 @@ class DiscountBase(object):
     def acquirer(self):
         return self.aquirer_factory(self.context)
 
-    def apply_rule(self, value, rule):
+    def apply_rule(self, value, rule, count=Decimal(1)):
         # return value after rule applied
         # if threshold not reached return unchanged value
+        # count is needed for rule types KIND_OFF and KIND_ABSOLUTE
+        # anyway value needs to be the undiscounted total for this item
+        # in order for correct threshold consideration.
         threshold = rule.attrs['threshold']
         if threshold and Decimal(threshold) > value:
             return value
@@ -175,19 +178,19 @@ class DiscountBase(object):
             value -= value / Decimal(100) * rule_value
         # calculate decrement
         if rule.attrs['kind'] == KIND_OFF:
-            value -= rule_value
+            value -= rule_value * count
         # rule defines absolute value
         if rule.attrs['kind'] == KIND_ABSOLUTE:
-            value = rule_value
+            value = rule_value * count
         # value never < 0
         if value < Decimal(0):
             value = Decimal(0)
         return value
 
-    def apply_rules(self, value):
+    def apply_rules(self, value, count=Decimal(1)):
         rules = self.acquirer.rules
         for rule in rules:
-            value = self.apply_rule(value, rule)
+            value = self.apply_rule(value, rule, count=count)
         # value never < 0
         if value < Decimal(0):
             value = Decimal(0)
@@ -207,7 +210,7 @@ class CartItemDiscount(DiscountBase):
         # net discount for one item.
         # XXX: from gross
         net = Decimal(net)
-        item_discount = net - self.apply_rules(net * count) / count
+        item_discount = net - self.apply_rules(net * count, count) / count
         return item_discount
 
 

@@ -219,6 +219,12 @@ class CartDiscountForm(DiscountFormBase):
     settings_iface = ICartDiscountSettings
     action_resource = 'cart_discount_form'
 
+    @property
+    def kind_vocabulary(self):
+        return [
+            (KIND_PERCENT, _('percent', _('percent', default=u'Percent'))),
+            (KIND_OFF, _('off', _('off', default=u'Off'))),
+        ]
 
 class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
     settings_iface = IUserCartDiscountSettings
