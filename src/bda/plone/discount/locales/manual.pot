@@ -13,3 +13,9 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+
+msgid "discount_form_value_required"
+msgstr ""
+
+msgid "discount_form_save"
+msgstr ""

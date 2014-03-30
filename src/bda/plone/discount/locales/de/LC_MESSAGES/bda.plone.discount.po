@@ -17,135 +17,135 @@ msgstr ""
 #. Default: "absolute"
 #: ./browser/forms.py:142
 msgid "absolute"
-msgstr ""
+msgstr "Fixbetrag"
 
 #. Default: "General Rules for Cart"
 #: ./browser/views.py:48
 msgid "cart_discount_form"
-msgstr ""
+msgstr "Allgemeine Regeln für Warenkorb"
 
 #. Default: "Discount for Cart"
 #: ./browser/views.py:44
 msgid "cart_discount_title"
-msgstr ""
+msgstr "Rabatt für Warenkorb"
 
 #. Default: "General Rules for Cart Items"
 #: ./browser/views.py:32
 msgid "cart_item_discount_form"
-msgstr ""
+msgstr "Allgemeine Regeln für Artikel"
 
 #. Default: "Discount for Cart Items"
 #: ./browser/views.py:28
 msgid "cart_item_discount_title"
-msgstr ""
+msgstr "Rabatt für Artikel"
 
 #. Default: "Changes Saved"
 #: ./browser/forms.py:171
 msgid "changes_saved"
-msgstr ""
+msgstr "Änderungen gespeichert"
 
 #. Default: "Group is required"
 #: ./browser/forms.py:197
 msgid "discount_form_group_required"
-msgstr ""
+msgstr "Gruppe ist erforderlich"
 
 #. Default: "Block parental"
 #: ./browser/general_header.pt:12
 #: ./browser/group_header.pt:12
 #: ./browser/user_header.pt:12
 msgid "discount_form_label_block"
-msgstr ""
+msgstr "Übergeordnete blockieren"
 
 #. Default: "Group"
 #: ./browser/forms.py:196
 #: ./browser/group_header.pt:47
 msgid "discount_form_label_group"
-msgstr ""
+msgstr "Gruppe"
 
 #. Default: "Kind"
 #: ./browser/general_header.pt:5
 #: ./browser/group_header.pt:5
 #: ./browser/user_header.pt:5
 msgid "discount_form_label_kind"
-msgstr ""
+msgstr "Art"
 
 #. Default: "Threshold"
 #: ./browser/general_header.pt:26
 #: ./browser/group_header.pt:26
 #: ./browser/user_header.pt:26
 msgid "discount_form_label_threshold"
-msgstr ""
+msgstr "Grenzwert"
 
 #. Default: "User"
 #: ./browser/forms.py:186
 #: ./browser/user_header.pt:47
 msgid "discount_form_label_user"
-msgstr ""
+msgstr "Benutzer"
 
 #. Default: "Valid From"
 #: ./browser/general_header.pt:33
 #: ./browser/group_header.pt:33
 #: ./browser/user_header.pt:33
 msgid "discount_form_label_valid_from"
-msgstr ""
+msgstr "Gültig von"
 
 #. Default: "Valid To"
 #: ./browser/general_header.pt:40
 #: ./browser/group_header.pt:40
 #: ./browser/user_header.pt:40
 msgid "discount_form_label_valid_to"
-msgstr ""
+msgstr "Gültig bis"
 
 #. Default: "Value"
 #: ./browser/general_header.pt:19
 #: ./browser/group_header.pt:19
 #: ./browser/user_header.pt:19
 msgid "discount_form_label_value"
-msgstr ""
+msgstr "Wert"
 
 msgid "discount_form_save"
-msgstr ""
+msgstr "Speichern"
 
 #. Default: "User is required"
 #: ./browser/forms.py:187
 msgid "discount_form_user_required"
-msgstr ""
+msgstr "Benutzer ist erforderlich"
 
 msgid "discount_form_value_required"
-msgstr ""
+msgstr "Wert ist erforderlich"
 
 #. Default: "Discount Rules"
 #: ./browser/views.py:18
 msgid "discount_rules"
-msgstr ""
+msgstr "Rabatt Regeln"
 
 #. Default: "Group Rules for Cart"
 #: ./browser/views.py:54
 msgid "group_cart_discount_form"
-msgstr ""
+msgstr "Gruppenregeln für Warenkorb"
 
 #. Default: "Group Rules for Cart Items"
 #: ./browser/views.py:38
 msgid "group_cart_item_discount_form"
-msgstr ""
+msgstr "Gruppenregeln für Artikel"
 
 #. Default: "off"
 #: ./browser/forms.py:141
 msgid "off"
-msgstr ""
+msgstr "Abzug"
 
 #. Default: "percent"
 #: ./browser/forms.py:140
 msgid "percent"
-msgstr ""
+msgstr "Prozent"
 
 #. Default: "User Rules for Cart"
 #: ./browser/views.py:51
 msgid "user_cart_discount_form"
-msgstr ""
+msgstr "Benutzerregeln für Warenkorb"
 
 #. Default: "User Rules for Cart Items"
 #: ./browser/views.py:35
 msgid "user_cart_item_discount_form"
-msgstr ""
+msgstr "Benutzerregeln für Artikel"
 
