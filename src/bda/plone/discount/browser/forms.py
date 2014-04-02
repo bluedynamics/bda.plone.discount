@@ -176,6 +176,7 @@ class DiscountFormBase(YAMLBaseForm):
         return False
 
     def __call__(self):
+        self.request.response.setHeader('X-Theme-Disabled', 'True')
         ajax_form_fiddle(self.request, 'div.disount_form_wrapper', 'inner')
         return self.render_form()
 

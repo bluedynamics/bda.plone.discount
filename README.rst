@@ -37,3 +37,4 @@ Contributors
 ------------
 
 - Robert Niederreiter (Author)
+- Ezra Holder
