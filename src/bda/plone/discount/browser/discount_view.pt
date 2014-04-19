@@ -10,7 +10,7 @@
   <metal:override
     fill-slot="top_slot"
     tal:define="
-        border python:request.set('disable_border', True);
+        border view/disable_border;
         column_one python:request.set('disable_plone.leftcolumn', True)" />
 </head>
 

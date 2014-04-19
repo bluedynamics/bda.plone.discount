@@ -1,12 +1,17 @@
 from Products.Five import BrowserView
 from bda.plone.discount import message_factory as _
 from yafowil.base import factory
+from zope.component.interfaces import ISite
 
 
 class DiscountView(BrowserView):
     title = None
     related_forms = []
     default_form = None
+
+    def disable_border(self):
+        if ISite.providedBy(self.context):
+            self.request.set('disable_border', True)
 
     def rendered_filter(self):
         selection = factory(
