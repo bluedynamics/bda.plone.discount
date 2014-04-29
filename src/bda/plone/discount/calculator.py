@@ -260,6 +260,9 @@ class CartDiscount(DiscountBase):
         # item vat portion from discounted cart net
         aliquot_vat = Decimal(0)
         for item_net, item_vat in discounted_items:
+            # avoid division / 0 if price is 0
+            if not item_net:
+                continue
             aliquot_net_percent = item_net * Decimal(100) / base_net
             aliquot_net = cart_net / Decimal(100) * aliquot_net_percent
             aliquot_vat += aliquot_net / Decimal(100) * item_vat
