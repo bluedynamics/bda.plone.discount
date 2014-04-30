@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-30 12:41+0000\n"
+"POT-Creation-Date: 2014-04-30 09:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,22 +20,22 @@ msgid "absolute"
 msgstr "absolute"
 
 #. Default: "General Rules for Cart"
-#: ./browser/views.py:48
+#: ./browser/views.py:53
 msgid "cart_discount_form"
 msgstr "General Rules for Cart"
 
 #. Default: "Discount for Cart"
-#: ./browser/views.py:44
+#: ./browser/views.py:49
 msgid "cart_discount_title"
 msgstr "Discount for Cart"
 
 #. Default: "General Rules for Cart Items"
-#: ./browser/views.py:32
+#: ./browser/views.py:37
 msgid "cart_item_discount_form"
 msgstr "General Rules for Cart Items"
 
 #. Default: "Discount for Cart Items"
-#: ./browser/views.py:28
+#: ./browser/views.py:33
 msgid "cart_item_discount_title"
 msgstr "Discount for Cart Items"
 
@@ -45,7 +45,7 @@ msgid "changes_saved"
 msgstr "Changes Saved"
 
 #. Default: "Group is required"
-#: ./browser/forms.py:197
+#: ./browser/forms.py:200
 msgid "discount_form_group_required"
 msgstr "Group is required"
 
@@ -57,7 +57,7 @@ msgid "discount_form_label_block"
 msgstr "Block parental"
 
 #. Default: "Group"
-#: ./browser/forms.py:196
+#: ./browser/forms.py:199
 #: ./browser/group_header.pt:47
 msgid "discount_form_label_group"
 msgstr "Group"
@@ -77,7 +77,7 @@ msgid "discount_form_label_threshold"
 msgstr "Threshold"
 
 #. Default: "User"
-#: ./browser/forms.py:186
+#: ./browser/forms.py:189
 #: ./browser/user_header.pt:47
 msgid "discount_form_label_user"
 msgstr "User"
@@ -107,7 +107,7 @@ msgid "discount_form_save"
 msgstr "Save"
 
 #. Default: "User is required"
-#: ./browser/forms.py:187
+#: ./browser/forms.py:190
 msgid "discount_form_user_required"
 msgstr "User is required"
 
@@ -115,17 +115,17 @@ msgid "discount_form_value_required"
 msgstr "Value is required"
 
 #. Default: "Discount Rules"
-#: ./browser/views.py:18
+#: ./browser/views.py:23
 msgid "discount_rules"
 msgstr "Discount Rules"
 
 #. Default: "Group Rules for Cart"
-#: ./browser/views.py:54
+#: ./browser/views.py:59
 msgid "group_cart_discount_form"
 msgstr "Group Rules for Cart"
 
 #. Default: "Group Rules for Cart Items"
-#: ./browser/views.py:38
+#: ./browser/views.py:43
 msgid "group_cart_item_discount_form"
 msgstr "Group Rules for Cart Items"
 
@@ -140,12 +140,12 @@ msgid "percent"
 msgstr "percent"
 
 #. Default: "User Rules for Cart"
-#: ./browser/views.py:51
+#: ./browser/views.py:56
 msgid "user_cart_discount_form"
 msgstr "User Rules for Cart"
 
 #. Default: "User Rules for Cart Items"
-#: ./browser/views.py:35
+#: ./browser/views.py:40
 msgid "user_cart_item_discount_form"
 msgstr "User Rules for Cart Items"
 
