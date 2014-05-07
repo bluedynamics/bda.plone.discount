@@ -70,16 +70,32 @@ class PersistendDiscountSettings(object):
     def rules_soup(self):
         return get_soup(self.soup_name, self.context)
 
-    def rules(self, context, date=None):
+    def rules(self, context, date=None, user='', group=''):
         context_uid = uuid.UUID(IUUID(context))
         query = Eq('context_uid', context_uid) & Eq('category', self.category)
         if date is not None:
             query = query & Le('valid_from', date) & Ge('valid_to', date)
-        if self.for_attribute == 'user':
-            query = query & NotEq('user', '')
-        elif self.for_attribute == 'group':
-            query = query & NotEq('group', '')
+        if self.for_attribute == FOR_USER:
+            if group:
+                msg = u'``group`` keyword must not be given if scope is user'
+                raise ValueError(msg)
+            if user:
+                query = query & Eq('user', user)
+            else:
+                query = query & NotEq('user', '')
+        elif self.for_attribute == FOR_GROUP:
+            if user:
+                msg = u'``user`` keyword must not be given if scope is group'
+                raise ValueError(msg)
+            if group:
+                query = query & Eq('group', group)
+            else:
+                query = query & NotEq('group', '')
         else:
+            if user or group:
+                msg = u'``user`` and ``group`` keywords must not be given ' +\
+                      u'if scope is general'
+                raise ValueError(msg)
             query = query & Eq('user', '') & Eq('group', '')
         return self.rules_soup.query(query,
                                      sort_index='valid_from',
