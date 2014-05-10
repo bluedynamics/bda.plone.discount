@@ -4,6 +4,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from yafowil.plone.form import YAMLBaseForm
 from node.utils import UNSET
+from zope.i18n import translate
 from bda.plone.ajax import AjaxMessage
 from bda.plone.ajax import ajax_continue
 from bda.plone.ajax import ajax_form_fiddle
@@ -168,7 +169,8 @@ class DiscountFormBase(YAMLBaseForm):
             index += 1
 
     def next(self, request):
-        message = _('changes_saved', default=u'Changes Saved')
+        message = translate(_('changes_saved', default=u'Changes Saved'),
+                            context=self.request)
         continuation = [
             AjaxMessage(message, 'info', None)
         ]

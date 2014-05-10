@@ -5,6 +5,9 @@ Changelog
 0.2dev
 ------
 
+- Translate ``changes_saved`` ajax message directly in view class.
+  [rnix]
+
 - Add ``user`` and ``group`` keyword arguments to
   ``bda.plone.discount.settings.PersistendDiscountSettings.rules`` function.
   Restrict the use of these keywords by defined ``for_attribute`` scope.
