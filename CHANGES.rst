@@ -2,8 +2,8 @@
 Changelog
 =========
 
-0.2dev
-------
+0.2
+---
 
 - Translate ``changes_saved`` ajax message directly in view class.
   [rnix]
