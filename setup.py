@@ -3,7 +3,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 
-version = '0.3.dev0.sfama'
+version = '0.3.dev1'
 shortdesc = "Discounting Information for Content Items"
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 longdesc += open(os.path.join(os.path.dirname(__file__), 'CHANGES.rst')).read()
