@@ -91,3 +91,7 @@ div.array_field.valid_to .timepicker {
 .array_field.value {
     padding: 0 0.25em;
 }
+
+.array_field {
+display: table-cell
+}
