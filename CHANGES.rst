@@ -5,8 +5,8 @@ Changelog
 0.3.dev0
 --------
 
-- No changes yet.
-  [rnix]
+- JSHint JavaScript.
+  [thet]
 
 
 0.2
