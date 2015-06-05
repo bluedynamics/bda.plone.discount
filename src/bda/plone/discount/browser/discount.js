@@ -1,11 +1,9 @@
-(function ($) {
+/* jslint browser: true */
+/* global jQuery, bdajax */
+(function($, bdajax) {
+    "use strict";
 
-    $(document).ready(function () {
-        $('#input-discount_form_filter').bind(
-            'change', discount_form.switch_form);
-    });
-
-    discount_form = {
+    var discount_form = {
 
         switch_form: function(event) {
             event.preventDefault();
@@ -24,7 +22,8 @@
         // set search criteria and execute source lookup
         _execute_source_lookup: function(request, callback, url) {
             var filter = request.term;
-            discount_form.query(url, filter, function(data, status, request) {
+            discount_form.query(url, filter, function(data, status,
+                request) {
                 callback(data);
             });
         },
@@ -61,4 +60,9 @@
         }
     };
 
-})(jQuery);
+    $(document).ready(function() {
+        $('#input-discount_form_filter').bind(
+            'change', discount_form.switch_form);
+    });
+
+}(jQuery, bdajax));
