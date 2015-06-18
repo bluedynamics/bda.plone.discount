@@ -22,8 +22,7 @@
         // set search criteria and execute source lookup
         _execute_source_lookup: function(request, callback, url) {
             var filter = request.term;
-            discount_form.query(url, filter, function(data, status,
-                request) {
+            discount_form.query(url, filter, function(data, status, request) {
                 callback(data);
             });
         },
