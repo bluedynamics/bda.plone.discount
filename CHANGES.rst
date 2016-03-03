@@ -2,6 +2,13 @@
 Changelog
 =========
 
+0.4.dev0
+--------
+
+- Plone 5 update
+  [agitator]
+
+
 0.3.dev0
 --------
 
