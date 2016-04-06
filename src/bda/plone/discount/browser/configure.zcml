@@ -115,10 +115,16 @@
     file="discount_p5.less"
     layer="..interfaces.IDiscountExtensionLayer" />
 
-  <plone:static
+  <browser:resource
     zcml:condition="have plone-5"
-    directory="compiled"
-    type="plone"
-    name="bda.plone.discount" />
+    name="bda.plone.discount.css"
+    file="discount_p5.css"
+    layer="..interfaces.IDiscountExtensionLayer" />
+
+  <browser:resource
+    zcml:condition="have plone-5"
+    name="bda.plone.discount.css.map"
+    file="discount_p5.css.map"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
 </configure>
