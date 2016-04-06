@@ -1,16 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:browser="http://namespaces.zope.org/browser">
-
-  <!-- resources -->
-  <browser:resource
-    name="bda.plone.discount.js"
-    file="discount.js"
-    layer="..interfaces.IDiscountExtensionLayer"/>
-
-  <browser:resource
-    name="bda.plone.discount.css"
-    file="discount.css"
-    layer="..interfaces.IDiscountExtensionLayer"/>
+           xmlns:plone="http://namespaces.plone.org/plone"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <!-- item discount view -->
   <browser:page
@@ -103,5 +94,31 @@
     name="group_cart_discount_form"
     class=".forms.GroupCartDiscountForm"
     permission="bda.plone.discount.ManageDiscount" />
+
+  <!-- generic resources -->
+  <browser:resource
+    name="bda.plone.discount.js"
+    file="discount.js"
+    layer="..interfaces.IDiscountExtensionLayer"/>
+
+  <!-- plone 4 resources -->
+  <browser:resource
+    zcml:condition="not-have plone-5"
+    name="bda.plone.discount.css"
+    file="discount_p4.css"
+    layer="..interfaces.IDiscountExtensionLayer"/>
+
+  <!-- plone 5 resources -->
+  <browser:resource
+    zcml:condition="have plone-5"
+    name="bda.plone.discount.less"
+    file="discount_p5.less"
+    layer="..interfaces.IDiscountExtensionLayer" />
+
+  <plone:static
+    zcml:condition="have plone-5"
+    directory="compiled"
+    type="plone"
+    name="bda.plone.discount" />
 
 </configure>

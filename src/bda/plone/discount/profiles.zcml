@@ -32,5 +32,4 @@
   <utility factory=".setuphandlers.HiddenProfiles" name="bda.plone.discount" />
   <utility factory=".setuphandlers.HiddenProducts" name="bda.plone.discount" />
 
-
 </configure>
