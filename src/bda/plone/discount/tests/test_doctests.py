@@ -5,7 +5,6 @@ from plone.testing import layered
 from plone.testing import z2
 
 import doctest
-import os
 import pprint
 import unittest
 
@@ -22,17 +21,17 @@ TESTFILES = [
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTests([
-            layered(
-                doctest.DocFileSuite(
-                    docfile,
-                    globs={'interact': interact,
-                           'pprint': pprint.pprint,
-                           'z2': z2,
-                           },
-                    optionflags=optionflags,
-                    ),
-                layer=Discount_INTEGRATION_TESTING,
-                )
-            for docfile in TESTFILES
-            ])
+        layered(
+            doctest.DocFileSuite(
+                docfile,
+                globs={'interact': interact,
+                       'pprint': pprint.pprint,
+                       'z2': z2,
+                       },
+                optionflags=optionflags,
+            ),
+            layer=Discount_INTEGRATION_TESTING,
+        )
+        for docfile in TESTFILES
+    ])
     return suite

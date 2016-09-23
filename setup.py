@@ -48,4 +48,4 @@ setup(
     [z3c.autoinclude.plugin]
     target = plone
     """,
-    )
+)

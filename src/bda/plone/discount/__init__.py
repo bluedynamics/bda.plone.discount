@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from bda.plone.discount import permissions
+from bda.plone.discount import permissions  # noqa
 from plone.uuid.interfaces import IUUID
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import adapter
