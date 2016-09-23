@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bda.plone.discount.tests import Discount_INTEGRATION_TESTING
 from interlude import interact
 from plone.testing import layered

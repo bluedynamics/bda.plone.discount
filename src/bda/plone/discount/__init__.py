@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bda.plone.discount import permissions
 from plone.uuid.interfaces import IUUID
 from Products.CMFPlone.interfaces import IPloneSiteRoot

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bda.plone.discount.interfaces import CATEGORY_CART
 from bda.plone.discount.interfaces import CATEGORY_CART_ITEM
 from bda.plone.discount.interfaces import CEILING_DATETIME

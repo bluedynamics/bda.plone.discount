@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bda.plone.discount import message_factory as _
 from Products.Five import BrowserView
 from yafowil.base import factory

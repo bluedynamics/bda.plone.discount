@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bda.plone.discount import UUID_PLONE_ROOT
 from bda.plone.discount.tests import Discount_INTEGRATION_TESTING
 from bda.plone.discount.tests import set_browserlayer

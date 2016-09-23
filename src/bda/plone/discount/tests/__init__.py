@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bda.plone.discount.interfaces import IDiscountExtensionLayer
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import login

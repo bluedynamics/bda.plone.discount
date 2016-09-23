@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 from zope.interface import Interface
 

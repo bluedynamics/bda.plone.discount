@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from bda.plone.cart import get_item_data_provider

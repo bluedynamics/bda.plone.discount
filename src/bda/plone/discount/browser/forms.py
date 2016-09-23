@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bda.plone.ajax import ajax_continue
 from bda.plone.ajax import ajax_form_fiddle
 from bda.plone.ajax import AjaxMessage
