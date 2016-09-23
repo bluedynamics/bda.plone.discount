@@ -1,5 +1,5 @@
-from Products.Five import BrowserView
 from bda.plone.discount import message_factory as _
+from Products.Five import BrowserView
 from yafowil.base import factory
 from zope.component.interfaces import ISite
 
@@ -59,4 +59,3 @@ class CartDiscountView(DiscountView):
          _('group_cart_discount_form',
            default=u'Group Rules for Cart')),
     ]
-

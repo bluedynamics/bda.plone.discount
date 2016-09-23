@@ -1,34 +1,35 @@
-import uuid
-import plone.api
-from datetime import datetime
-from zope.interface import implementer
-from zope.component import adapter
-from node.utils import UNSET
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from plone.uuid.interfaces import IUUID
-from bda.plone.discount.interfaces import FLOOR_DATETIME
-from bda.plone.discount.interfaces import CEILING_DATETIME
-from bda.plone.discount.interfaces import CATEGORY_CART_ITEM
 from bda.plone.discount.interfaces import CATEGORY_CART
-from bda.plone.discount.interfaces import FOR_USER
+from bda.plone.discount.interfaces import CATEGORY_CART_ITEM
+from bda.plone.discount.interfaces import CEILING_DATETIME
+from bda.plone.discount.interfaces import FLOOR_DATETIME
 from bda.plone.discount.interfaces import FOR_GROUP
-from bda.plone.discount.interfaces import IDiscountSettings
-from bda.plone.discount.interfaces import ICartItemDiscountSettings
-from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
-from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
+from bda.plone.discount.interfaces import FOR_USER
 from bda.plone.discount.interfaces import ICartDiscountSettings
-from bda.plone.discount.interfaces import IUserCartDiscountSettings
+from bda.plone.discount.interfaces import ICartItemDiscountSettings
+from bda.plone.discount.interfaces import IDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
+from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
+from bda.plone.discount.interfaces import IUserCartDiscountSettings
+from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
+from datetime import datetime
+from node.utils import UNSET
+from plone.uuid.interfaces import IUUID
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.query import Eq
-from repoze.catalog.query import NotEq
 from repoze.catalog.query import Ge
 from repoze.catalog.query import Le
+from repoze.catalog.query import NotEq
 from souper.interfaces import ICatalogFactory
+from souper.soup import get_soup
 from souper.soup import NodeAttributeIndexer
 from souper.soup import Record
-from souper.soup import get_soup
+from zope.component import adapter
+from zope.interface import implementer
+
+import plone.api
+import uuid
 
 
 @implementer(ICatalogFactory)

@@ -1,9 +1,9 @@
-from zope.i18nmessageid import MessageFactory
 from bda.plone.discount import permissions
 from plone.uuid.interfaces import IUUID
 from Products.CMFPlone.interfaces import IPloneSiteRoot
-from zope.interface import implementer
 from zope.component import adapter
+from zope.i18nmessageid import MessageFactory
+from zope.interface import implementer
 
 
 message_factory = MessageFactory('bda.plone.discount')

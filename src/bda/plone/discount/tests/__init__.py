@@ -1,12 +1,12 @@
-from zope.interface import alsoProvides
+from bda.plone.discount.interfaces import IDiscountExtensionLayer
 from plone.app.testing import IntegrationTesting
+from plone.app.testing import login
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import login
 from plone.app.testing import setRoles
-from bda.plone.discount.interfaces import IDiscountExtensionLayer
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from zope.interface import alsoProvides
 
 
 def set_browserlayer(request):

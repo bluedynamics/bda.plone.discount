@@ -1,7 +1,7 @@
+from bda.plone.discount.tests import Discount_INTEGRATION_TESTING
 from interlude import interact
 from plone.testing import layered
 from plone.testing import z2
-from bda.plone.discount.tests import Discount_INTEGRATION_TESTING
 
 import doctest
 import os
