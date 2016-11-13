@@ -1,9 +1,12 @@
 /* jslint browser: true */
 /* global jQuery, bdajax */
+
+var discount_form;
+
 (function($, bdajax) {
     "use strict";
 
-    var discount_form = {
+    discount_form = {
 
         switch_form: function(event) {
             event.preventDefault();
@@ -64,4 +67,4 @@
             'change', discount_form.switch_form);
     });
 
-}(jQuery, bdajax));
+})(jQuery, bdajax);

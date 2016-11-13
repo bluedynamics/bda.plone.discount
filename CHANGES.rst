@@ -5,6 +5,17 @@ Changelog
 0.4.dev0
 --------
 
+- Bind all views to ``IDiscountExtensionLayer``.
+  [rnix]
+
+- Make ``discount_form`` global in ``discount.js`` in order to make discount
+  form switch work again.
+  [rnix]
+
+- Add actions to enable and disable item discount
+  (``IDiscountSettingsEnabled``) on context.
+  [rnix]
+
 - Plone 5 update
   [agitator]
 

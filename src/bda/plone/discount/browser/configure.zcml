@@ -3,20 +3,55 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:zcml="http://namespaces.zope.org/zcml">
 
+  <!-- enable and disable action -->
+  <browser:page
+    for="*"
+    name="enable_discount"
+    attribute="enable_discount"
+    class=".actions.EnableDisableDiscountAction"
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
+
+  <browser:page
+    for="*"
+    name="disable_discount"
+    attribute="disable_discount"
+    class=".actions.EnableDisableDiscountAction"
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
+
+  <browser:page
+    for="*"
+    name="can_enable_discount"
+    attribute="can_enable_discount"
+    class=".actions.EnableDisableDiscountAction"
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
+
+  <browser:page
+    for="*"
+    name="can_disable_discount"
+    attribute="can_disable_discount"
+    class=".actions.EnableDisableDiscountAction"
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
+
   <!-- item discount view -->
   <browser:page
     for="..interfaces.IDiscountSettingsEnabled"
     name="item_discount"
     template="discount_view.pt"
     class=".views.ItemDiscountView"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="zope.component.interfaces.ISite"
     name="item_discount"
     template="discount_view.pt"
     class=".views.ItemDiscountView"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <!-- cart discount view -->
   <browser:page
@@ -24,82 +59,94 @@
     name="cart_discount"
     template="discount_view.pt"
     class=".views.CartDiscountView"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <!-- users and groups JSON views -->
   <browser:page
     for="*"
     name="autocomplete_user"
     class=".forms.UsersJson"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="*"
     name="autocomplete_group"
     class=".forms.GroupsJson"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <!-- cart item discount forms -->
   <browser:page
     for="..interfaces.IDiscountSettingsEnabled"
     name="cart_item_discount_form"
     class=".forms.CartItemDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="zope.component.interfaces.ISite"
     name="cart_item_discount_form"
     class=".forms.CartItemDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="..interfaces.IDiscountSettingsEnabled"
     name="user_cart_item_discount_form"
     class=".forms.UserCartItemDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="zope.component.interfaces.ISite"
     name="user_cart_item_discount_form"
     class=".forms.UserCartItemDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="..interfaces.IDiscountSettingsEnabled"
     name="group_cart_item_discount_form"
     class=".forms.GroupCartItemDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="zope.component.interfaces.ISite"
     name="group_cart_item_discount_form"
     class=".forms.GroupCartItemDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <!-- cart discount forms -->
   <browser:page
     for="zope.component.interfaces.ISite"
     name="cart_discount_form"
     class=".forms.CartDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="zope.component.interfaces.ISite"
     name="user_cart_discount_form"
     class=".forms.UserCartDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:page
     for="zope.component.interfaces.ISite"
     name="group_cart_discount_form"
     class=".forms.GroupCartDiscountForm"
-    permission="bda.plone.discount.ManageDiscount" />
+    permission="bda.plone.discount.ManageDiscount"
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <!-- generic resources -->
   <browser:resource
     name="bda.plone.discount.js"
     file="discount.js"
-    layer="..interfaces.IDiscountExtensionLayer"/>
+    layer="..interfaces.IDiscountExtensionLayer" />
 
   <!-- plone 4 resources -->
   <browser:resource

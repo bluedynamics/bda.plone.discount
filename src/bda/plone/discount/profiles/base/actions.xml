@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<object name="portal_actions"
+        meta_type="Plone Actions Tool"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <object name="object_buttons" meta_type="CMF Action Category">
+
+    <object name="enable_discount"
+            meta_type="CMF Action"
+            i18n:domain="bda.plone.discount">
+      <property name="title" i18n:translate="">Enable discount</property>
+      <property name="description" i18n:translate="">
+        Enables discount settings for this context
+      </property>
+      <property name="url_expr">
+        string:${object/absolute_url}/@@enable_discount
+      </property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">object/@@can_enable_discount</property>
+      <property name="permissions">
+        <element value="bda.plone.discount: Manage Discount" />
+      </property>
+      <property name="visible">True</property>
+    </object>
+
+    <object name="disable_discount"
+            meta_type="CMF Action"
+            i18n:domain="bda.plone.productshop">
+      <property name="title" i18n:translate="">Disable discount</property>
+      <property name="description" i18n:translate="">
+        Disable discount settings for this context
+      </property>
+      <property name="url_expr">
+        string:${object/absolute_url}/@@disable_discount
+      </property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">object/@@can_disable_discount</property>
+      <property name="permissions">
+        <element value="bda.plone.discount: Manage Discount" />
+      </property>
+      <property name="visible">True</property>
+    </object>
+
+  </object>
+</object>
