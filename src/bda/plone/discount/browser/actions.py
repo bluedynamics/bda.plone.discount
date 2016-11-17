@@ -3,6 +3,7 @@ from Products.Five.browser import BrowserView
 from bda.plone.discount.interfaces import IDiscountSettingsEnabled
 from zope.component.interfaces import ISite
 from zope.i18nmessageid import MessageFactory
+from zope.interface import directlyProvidedBy
 from zope.interface import directlyProvides
 from zope.interface import noLongerProvides
 
@@ -33,4 +34,4 @@ class EnableDisableDiscountAction(BrowserView):
             and not IDiscountSettingsEnabled.providedBy(self.context)
 
     def can_disable_discount(self):
-        return IDiscountSettingsEnabled.providedBy(self.context)
+        return IDiscountSettingsEnabled in directlyProvidedBy(self.context)
