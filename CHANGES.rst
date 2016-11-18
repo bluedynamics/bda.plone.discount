@@ -5,6 +5,10 @@ Changelog
 0.4.dev0
 --------
 
+- Ignore all non ``IDiscountSettingsEnabled`` and non ``ISite`` providing
+  contexts in ``RuleAcquierer.rules``.
+  [rnix]
+
 - Bind all views to ``IDiscountExtensionLayer``.
   [rnix]
 

@@ -9,6 +9,7 @@ from bda.plone.discount.interfaces import FOR_GROUP
 from bda.plone.discount.interfaces import FOR_USER
 from bda.plone.discount.interfaces import ICartDiscountSettings
 from bda.plone.discount.interfaces import ICartItemDiscountSettings
+from bda.plone.discount.interfaces import IDiscountSettingsEnabled
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
 from bda.plone.discount.interfaces import IUserCartDiscountSettings
@@ -23,6 +24,7 @@ from plone.api.exc import UserNotFoundError
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import adapter
 from zope.component import queryAdapter
+from zope.component.interfaces import ISite
 from zope.interface import implementer
 from zope.interface import Interface
 
@@ -127,6 +129,10 @@ class RuleAcquierer(object):
         rules = list()
         context = self.context
         while True:
+            if not (IDiscountSettingsEnabled.providedBy(context)
+                    or ISite.providedBy(context)):
+                context = aq_parent(aq_inner(context))
+                continue
             rule = None
             for lookup in self.lookup_cascade(context):
                 rule = lookup.lookup()
