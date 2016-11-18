@@ -31,7 +31,6 @@ class DiscountView(BrowserView):
 
 
 class ItemDiscountView(DiscountView):
-    title = _('cart_item_discount_title', default=u'Discount for Cart Items')
     default_form = 'cart_item_discount_form'
     related_forms = [
         ('cart_item_discount_form',
@@ -44,6 +43,14 @@ class ItemDiscountView(DiscountView):
          _('group_cart_item_discount_form',
            default=u'Group Rules for Cart Items')),
     ]
+
+    @property
+    def title(self):
+        return _(
+            'cart_item_discount_title',
+            default=u'Discount for "${title}"',
+            mapping={'title': self.context.Title()}
+        )
 
 
 class CartDiscountView(DiscountView):
