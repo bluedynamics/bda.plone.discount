@@ -46,10 +46,15 @@ class ItemDiscountView(DiscountView):
 
     @property
     def title(self):
+        title = self.context.Title()
+        # Not sure whether Title() may already return unicode in some
+        # circumstance. If not, remove condition.
+        if not isinstance(title, unicode):
+            title = title.decode('utf-8')
         return _(
             'cart_item_discount_title',
             default=u'Discount for "${title}"',
-            mapping={'title': self.context.Title()}
+            mapping={'title': title}
         )
 
 
