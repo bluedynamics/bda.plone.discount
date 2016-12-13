@@ -60,7 +60,6 @@ msgstr "General Rules for Cart Items"
 
 #. Default: "Discount for \"${title}\""
 #: ./browser/views.py:49
-#, fuzzy
 msgid "cart_item_discount_title"
 msgstr "Discount for Cart Items"
 
