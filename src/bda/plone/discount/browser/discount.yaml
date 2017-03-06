@@ -30,11 +30,13 @@ widgets:
                 label: i18n:discount_form_label_value:Value
                 required: i18n:discount_form_value_required:Value is required
                 field.class: array_field value
+                error.position: after
         - threshold:
             factory: field:error:number
             props:
                 label: i18n:discount_form_label_threshold:Threshold
                 field.class: array_field threshold
+                error.position: after
         - valid_from:
             factory: field:error:datetime
             props:
@@ -44,6 +46,7 @@ widgets:
                 time: True
                 #timepicker: True
                 locale: de
+                error.position: after
         - valid_to:
             factory: field:error:datetime
             props:
@@ -53,6 +56,7 @@ widgets:
                 time: True
                 #timepicker: True
                 locale: de
+                error.position: after
         - for:
             factory: field:error:autocomplete
             props:
