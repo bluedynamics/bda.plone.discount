@@ -7,6 +7,8 @@ from bda.plone.discount.interfaces import CEILING_DATETIME
 from bda.plone.discount.interfaces import FLOOR_DATETIME
 from bda.plone.discount.interfaces import FOR_GROUP
 from bda.plone.discount.interfaces import FOR_USER
+from bda.plone.discount.interfaces import THRESHOLD_PRICE
+from bda.plone.discount.interfaces import THRESHOLD_ITEM_COUNT
 from bda.plone.discount.interfaces import ICartDiscountSettings
 from bda.plone.discount.interfaces import ICartItemDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
@@ -140,9 +142,16 @@ class DiscountFormBase(YAMLBaseForm):
     @property
     def kind_vocabulary(self):
         return [
-            (KIND_PERCENT, _('percent', _('percent', default=u'Percent'))),
-            (KIND_OFF, _('off', _('off', default=u'Off'))),
-            (KIND_ABSOLUTE, _('absolute', _('absolute', default=u'Absolute'))),
+            (KIND_PERCENT, _('percent', default=u'Percent')),
+            (KIND_OFF, _('off', default=u'Off')),
+            (KIND_ABSOLUTE, _('absolute', default=u'Absolute')),
+        ]
+
+    @property
+    def threshold_calculation_vocabulary(self):
+        return [
+            (THRESHOLD_PRICE, _('price', default=u'Price')),
+            (THRESHOLD_ITEM_COUNT, _('item_count', default=u'Item Count')),
         ]
 
     def save(self, widget, data):
@@ -229,8 +238,8 @@ class CartDiscountForm(DiscountFormBase):
     @property
     def kind_vocabulary(self):
         return [
-            (KIND_PERCENT, _('percent', _('percent', default=u'Percent'))),
-            (KIND_OFF, _('off', _('off', default=u'Off'))),
+            (KIND_PERCENT, _('percent', default=u'Percent')),
+            (KIND_OFF, _('off', default=u'Off')),
         ]
 
 class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):

@@ -12,6 +12,8 @@ FOR_GROUP = 'group'
 KIND_PERCENT = 'percent'
 KIND_OFF = 'off'
 KIND_ABSOLUTE = 'absolute'
+THRESHOLD_PRICE = 'price'
+THRESHOLD_ITEM_COUNT = 'count'
 
 
 class IDiscountExtensionLayer(Interface):
