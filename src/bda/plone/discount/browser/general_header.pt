@@ -37,6 +37,13 @@
     </label>
   </div>
 
+  <div id="field-discount_form-discount-label_portal_type"
+       class="portal_type form_header">
+    <label for="input-discount_form-discount-label_portal_type"
+           class="portal_type form_header"
+           i18n:translate="discount_form_label_portal_type">Portal Type</label>
+  </div>
+
   <div id="field-discount_form-discount-label_valid_from"
        class="valid_from form_header">
     <label for="input-discount_form-discount-label_valid_from"

@@ -11,7 +11,8 @@
     fill-slot="top_slot"
     tal:define="
         border view/disable_border;
-        column_one python:request.set('disable_plone.leftcolumn', True)" />
+        disable_left_column view/disable_left_column;
+        disable_right_column view/disable_right_column" />
 </head>
 
 <body>

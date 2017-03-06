@@ -43,6 +43,12 @@ widgets:
                 label: i18n:discount_form_label_threshold_calculation:Calculation
                 field.class: array_field threshold_calculation
                 vocabulary: expr:context.threshold_calculation_vocabulary
+        - portal_type:
+            factory: field:select
+            props:
+                label: i18n:discount_form_label_portal_type:Portal Type
+                field.class: array_field portal_type
+                vocabulary: expr:context.portal_type_vocabulary
         - valid_from:
             factory: field:error:datetime
             props:

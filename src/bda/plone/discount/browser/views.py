@@ -11,8 +11,17 @@ class DiscountView(BrowserView):
     default_form = None
 
     def disable_border(self):
-        if ISite.providedBy(self.context):
-            self.request.set('disable_border', True)
+        # XXX: check if plone 4
+        #if ISite.providedBy(self.context):
+        #    self.request.set('disable_border', True)
+        pass
+
+    def disable_left_column(self):
+        self.request.set('disable_plone.leftcolumn', True)
+
+    def disable_right_column(self):
+        # XXX: check if plone 4
+        self.request.set('disable_plone.rightcolumn', True)
 
     def rendered_filter(self):
         selection = factory(

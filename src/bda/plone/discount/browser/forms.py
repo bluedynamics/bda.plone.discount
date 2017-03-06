@@ -154,6 +154,12 @@ class DiscountFormBase(YAMLBaseForm):
             (THRESHOLD_ITEM_COUNT, _('item_count', default=u'Item Count')),
         ]
 
+    @property
+    def portal_type_vocabulary(self):
+        return [
+            ('all', _('all', default=u'All')),
+        ]
+
     def save(self, widget, data):
         settings = self.settings
         existing = self.settings.rules(self.context)
