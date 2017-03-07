@@ -23,6 +23,8 @@ from bda.plone.discount.interfaces import KIND_PERCENT
 from bda.plone.discount.interfaces import THRESHOLD_ITEM_COUNT
 from bda.plone.discount.interfaces import THRESHOLD_PRICE
 from node.utils import UNSET
+from plumber import plumbing
+from yafowil.plone.form import CSRFProtectionBehavior
 from yafowil.plone.form import YAMLBaseForm
 from zope.i18n import translate
 from zope.site.hooks import getSite
@@ -87,6 +89,7 @@ class GroupsJson(JsonBase):
         return self.response(ret)
 
 
+@plumbing(CSRFProtectionBehavior)
 class DiscountFormBase(YAMLBaseForm):
     """Abstract discount Form.
     """
