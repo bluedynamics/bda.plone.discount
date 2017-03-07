@@ -108,7 +108,8 @@ class PersistendDiscountSettings(object):
             del soup[rule]
 
     def add_rule(self, context, index, kind, block, value, threshold,
-                 valid_from, valid_to, user='', group=''):
+                 threshold_calculation, portal_type, valid_from, valid_to,
+                 user='', group=''):
         rule = Record()
         rule.attrs['index'] = index
         assert(isinstance(self.category, str))
@@ -125,6 +126,8 @@ class PersistendDiscountSettings(object):
         if threshold:
             assert(isinstance(threshold, float))
         rule.attrs['threshold'] = threshold
+        rule.attrs['threshold_calculation'] = threshold_calculation
+        rule.attrs['portal_type'] = portal_type
         if valid_from:
             assert(isinstance(valid_from, datetime))
         else:

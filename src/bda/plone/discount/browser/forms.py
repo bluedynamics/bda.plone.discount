@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
+from Acquisition import aq_get
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from bda.plone.ajax import AjaxMessage
 from bda.plone.ajax import ajax_continue
 from bda.plone.ajax import ajax_form_fiddle
-from bda.plone.ajax import AjaxMessage
 from bda.plone.discount import message_factory as _
 from bda.plone.discount.interfaces import CEILING_DATETIME
 from bda.plone.discount.interfaces import FLOOR_DATETIME
 from bda.plone.discount.interfaces import FOR_GROUP
 from bda.plone.discount.interfaces import FOR_USER
-from bda.plone.discount.interfaces import THRESHOLD_PRICE
-from bda.plone.discount.interfaces import THRESHOLD_ITEM_COUNT
 from bda.plone.discount.interfaces import ICartDiscountSettings
 from bda.plone.discount.interfaces import ICartItemDiscountSettings
 from bda.plone.discount.interfaces import IGroupCartDiscountSettings
@@ -18,11 +20,12 @@ from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
 from bda.plone.discount.interfaces import KIND_ABSOLUTE
 from bda.plone.discount.interfaces import KIND_OFF
 from bda.plone.discount.interfaces import KIND_PERCENT
+from bda.plone.discount.interfaces import THRESHOLD_ITEM_COUNT
+from bda.plone.discount.interfaces import THRESHOLD_PRICE
 from node.utils import UNSET
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from yafowil.plone.form import YAMLBaseForm
 from zope.i18n import translate
+from zope.site.hooks import getSite
 
 import json
 import plone.api
@@ -104,22 +107,25 @@ class DiscountFormBase(YAMLBaseForm):
             (self.context.absolute_url(), self.action_resource)
 
     def discount_item(self, rule):
+        get = rule.attrs.get
         value = dict()
-        value['kind'] = rule.attrs.get('kind', UNSET)
-        value['block'] = rule.attrs.get('block', True)
-        value['value'] = rule.attrs.get('value', UNSET)
-        value['threshold'] = rule.attrs.get('threshold', UNSET)
+        value['kind'] = get('kind', UNSET)
+        value['block'] = get('block', True)
+        value['value'] = get('value', UNSET)
+        value['threshold'] = get('threshold', UNSET)
+        value['threshold_calculation'] = get('threshold_calculation', UNSET)
+        value['portal_type'] = get('portal_type', UNSET)
         value['valid_from'] = UNSET
-        valid_from = rule.attrs.get('valid_from', FLOOR_DATETIME)
+        valid_from = get('valid_from', FLOOR_DATETIME)
         if valid_from != FLOOR_DATETIME:
             value['valid_from'] = valid_from
         value['valid_to'] = UNSET
-        valid_to = rule.attrs.get('valid_to', CEILING_DATETIME)
+        valid_to = get('valid_to', CEILING_DATETIME)
         if valid_to != CEILING_DATETIME:
             value['valid_to'] = valid_to
         for_attr = self.for_attribute
         if for_attr:
-            value['for'] = rule.attrs.get(for_attr, UNSET)
+            value['for'] = get(for_attr, UNSET)
         return value
 
     @property
@@ -156,9 +162,18 @@ class DiscountFormBase(YAMLBaseForm):
 
     @property
     def portal_type_vocabulary(self):
-        return [
-            ('all', _('all', default=u'All')),
+        site = getSite()
+        portal_types = getToolByName(site, 'portal_types', None)
+        request = aq_get(portal_types, 'REQUEST', None)
+        vocab = [
+            ('all', _('all', default=u'All'))
         ]
+        for portal_type in portal_types.listContentTypes():
+            vocab.append((
+                portal_type,
+                translate(portal_types[portal_type].Title(), context=request)
+            ))
+        return vocab
 
     def save(self, widget, data):
         settings = self.settings
@@ -179,6 +194,8 @@ class DiscountFormBase(YAMLBaseForm):
                               rule['block'],
                               rule['value'],
                               rule['threshold'],
+                              rule['threshold_calculation'],
+                              rule['portal_type'],
                               rule['valid_from'],
                               rule['valid_to'],
                               user=user,
