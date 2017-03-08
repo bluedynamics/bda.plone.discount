@@ -31,9 +31,9 @@ class IDiscountSettings(Interface):
     """Interface for discount settings.
     """
 
-    def rules(context, date=None):
-        """Return discount rules for context. Optional anchor date can be
-        given.
+    def rules(context, date=None, user='', group=''):
+        """Return discount rules for context. Optional anchor ``date`` and
+        ``user`` or group can be given as search criteria.
         """
 
 

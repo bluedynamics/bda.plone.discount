@@ -54,20 +54,42 @@ def threshold_calculation_from_rule(rule):
 
 
 class RuleLookup(object):
+    """Object for looking up discount rules on given context.
+    """
+
     settings_iface = None
+    """``IDiscountSettings`` deriving adapter interface.
+    """
+
     for_attribute = None
+    """Optional principal binding. can be ``FOR_USER`` or  ``FOR_GROUP``
+    """
 
     def __init__(self, context, date, for_value=None):
+        """Create rule lookup for context.
+
+        :param date: Optional anchor date for matching rule effective and
+        expiration date.
+        :param for_value: Optional principal rules must match.
+        ``RuleLookup.for_attribute`` defines whether principal name corresponds
+        to a user or a group.
+        """
         self.context = context
         self.date = date
         self.for_value = for_value
 
     @property
     def settings(self):
+        """Lookup concrete settings implementation by
+        ``RuleLookup.settings_iface``.
+        """
         return queryAdapter(self.context, self.settings_iface)
 
     @property
     def rules(self):
+        """Lookup all context related discount rules filtered by anchor date
+        and principal.
+        """
         settings = self.settings
         if settings:
             kw = dict()
@@ -77,6 +99,13 @@ class RuleLookup(object):
         return []
 
     def lookup(self, portal_type=None):
+        """Lookup recent discount rule to apply for context.
+
+        If no portal type given, return first rule bound to all portal types.
+
+        If portal type given, return first portal type bound rule found,
+        otherwise return first rule bound to all portal types.
+        """
         # rules maching all portal types
         general = list()
         # specific portal type bound rules
@@ -98,42 +127,74 @@ class RuleLookup(object):
 
 
 class ItemRulesLookup(RuleLookup):
+    """General item discount rule lookup.
+    """
     settings_iface = ICartItemDiscountSettings
 
 
 class UserItemRulesLookup(RuleLookup):
+    """User bound item discount rule lookup.
+    """
     settings_iface = IUserCartItemDiscountSettings
     for_attribute = FOR_USER
 
 
 class GroupItemRulesLookup(RuleLookup):
+    """Group bound item discount rule lookup.
+    """
     settings_iface = IGroupCartItemDiscountSettings
     for_attribute = FOR_GROUP
 
 
 class CartRulesLookup(RuleLookup):
+    """General overall cart discount rule lookup.
+    """
     settings_iface = ICartDiscountSettings
 
 
 class UserCartRulesLookup(RuleLookup):
+    """User bound overall cart discount rule lookup.
+    """
     settings_iface = IUserCartDiscountSettings
     for_attribute = FOR_USER
 
 
 class GroupCartRulesLookup(RuleLookup):
+    """Group bound overall cart discount rule lookup.
+    """
     settings_iface = IGroupCartDiscountSettings
     for_attribute = FOR_GROUP
 
 
 class RuleAcquierer(object):
+    """Object to acquire discount rules to apply for discount calculation.
+    """
+
     lookup_factory = None
+    """General discount rule related factory creating a ``RuleLookup`` deriving
+    object.
+    """
+
     user_lookup_factory = None
+    """User bound discount rule related factory creating a ``RuleLookup``
+    deriving object.
+    """
+
     group_lookup_factory = None
+    """Group bound discount rule related factory creating a ``RuleLookup``
+    deriving object.
+    """
 
     def __init__(self, context):
+        """Create rule acquierer for given context.
+        """
+        # context to acquire rules from
         self.context = context
+        # rule anchor date
         self.date = datetime.now()
+        # get current authenticated member
         self.member = api.user.get_current()
+        # set user name and user groups if authenticated member found
         self.user = None
         self.groups = None
         if self.member:
@@ -144,68 +205,119 @@ class RuleAcquierer(object):
             except UserNotFoundError:
                 self.groups = []
 
-    def lookup_cascade(self, context):
+    def lookup_chain(self, context):
+        """Return list of ``RuleLookup`` objects to search for discount rules.
+
+        Lookup chain priority:
+
+            1: User related rule lookup
+            2: Group related rule lookup
+            3: General rule lookup
+        """
         lookups = list()
         if self.user:
-            user_lookup = self.user_lookup_factory(
-                context, self.date, self.user)
-            lookups.append(user_lookup)
+            lookups.append(self.user_lookup_factory(
+                context=context,
+                date=self.date,
+                for_value=self.user
+            ))
         for group in self.groups:
-            group_lookup = self.group_lookup_factory(
-                context, self.date, group)
-            lookups.append(group_lookup)
-        lookups.append(self.lookup_factory(context, self.date))
+            lookups.append(self.group_lookup_factory(
+                context=context,
+                date=self.date,
+                for_value=group
+            ))
+        lookups.append(self.lookup_factory(context=context, date=self.date))
         return lookups
 
     def rules(self, portal_type=None):
-        # return rules to apply, most outer first
+        """Return rules to apply, most outer first.
+
+        Aggregate rules through hierarchy until Plone root is reached.
+
+        Container objects get ignored if ``IDiscountSettingsEnabled`` not
+        provided.
+
+        For each context only the first found rule from lookup chain is
+        considered.
+
+        Stops hierarchical lookup if found rule for context sets it's ``block``
+        flag.
+        """
         rules = list()
         context = self.context
+        # traverse down at most until plone root
         while True:
+            # ignore context if no discount settings enabled or no site
             if not (IDiscountSettingsEnabled.providedBy(context)
                     or ISite.providedBy(context)):
                 context = aq_parent(aq_inner(context))
                 continue
             rule = None
-            for lookup in self.lookup_cascade(context):
+            # iterate lookup chain, break on first rule found
+            for lookup in self.lookup_chain(context):
                 rule = lookup.lookup(portal_type=portal_type)
                 if rule:
                     break
+            # add rule if found
             if rule:
                 rules.append(rule)
+                # break aggregating if defined
                 if rule.attrs['block']:
                     break
+            # plone root reached
             if IPloneSiteRoot.providedBy(context):
                 break
             context = aq_parent(aq_inner(context))
+        # aggregated rules are applied most outer first
         return reversed(rules)
 
 
 class CartItemRuleAcquirer(RuleAcquierer):
+    """Object to acquire cart item discount rules.
+    """
     lookup_factory = ItemRulesLookup
     user_lookup_factory = UserItemRulesLookup
     group_lookup_factory = GroupItemRulesLookup
 
 
 class CartRuleAcquirer(RuleAcquierer):
+    """Object to acquire overall cart discount rules.
+    """
     lookup_factory = CartRulesLookup
     user_lookup_factory = UserCartRulesLookup
     group_lookup_factory = GroupCartRulesLookup
 
 
 class DiscountBase(object):
+    """Object for calculating discount.
+    """
+
     aquirer_factory = None
+    """Factory for creating ``RuleAcquierer`` deriving object.
+    """
 
     def __init__(self, context):
+        """Create discount object for context.
+        """
         self.context = context
 
     @property
     def acquirer(self):
+        """Return concrete ``RuleAcquierer`` implementation instance.
+        """
         return self.aquirer_factory(self.context)
 
     def apply_rule(self, value, rule, count=Decimal(1), portal_type=None):
-        """Return discounted value by rule for one item. Count is used for
-        threshold calculation if necessary.
+        """Return discounted value from given value by rule for one item.
+
+        Count is used for threshold calculation. If threshold is calculated
+        from price and threshold is lower or equal value * count, value
+        is returned unchanged. If threshold is calculated from item count and
+        threshold is lower or equal count, value is retured unchanged.
+
+        If portal type is given, rule applies only if matches to given or all
+        portal types.
         """
         # check portal type if given
         if portal_type is not None:
@@ -244,6 +356,9 @@ class DiscountBase(object):
         return value
 
     def apply_rules(self, value, count=Decimal(1), portal_type=None):
+        """Apply all rules from rule acquirer on given value. Optional count
+        and portal type is considered.
+        """
         rules = self.acquirer.rules(portal_type=portal_type)
         for rule in rules:
             value = self.apply_rule(
@@ -259,12 +374,14 @@ class DiscountBase(object):
 
 
 # XXX
-DISCOUNT_FROM_GROSS = False
+# DISCOUNT_FROM_GROSS = False
 
 
 @implementer(ICartItemDiscount)
 @adapter(ICartItem)
 class CartItemDiscount(DiscountBase):
+    """Discount calculator for cart items.
+    """
     aquirer_factory = CartItemRuleAcquirer
 
     def net(self, net, vat, count):
@@ -282,6 +399,8 @@ class CartItemDiscount(DiscountBase):
 @implementer(ICartDiscount)
 @adapter(Interface)
 class CartDiscount(DiscountBase):
+    """Discount calculator for overall cart.
+    """
     aquirer_factory = CartRuleAcquirer
 
     def _discounted_items(self, items):
