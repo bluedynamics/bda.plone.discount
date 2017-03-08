@@ -5,6 +5,7 @@ from bda.plone.cart import get_item_data_provider
 from bda.plone.cart.interfaces import ICartDiscount
 from bda.plone.cart.interfaces import ICartItem
 from bda.plone.cart.interfaces import ICartItemDiscount
+from bda.plone.discount.interfaces import ALL_PORTAL_TYPES
 from bda.plone.discount.interfaces import FOR_GROUP
 from bda.plone.discount.interfaces import FOR_USER
 from bda.plone.discount.interfaces import ICartDiscountSettings
@@ -17,6 +18,8 @@ from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
 from bda.plone.discount.interfaces import KIND_ABSOLUTE
 from bda.plone.discount.interfaces import KIND_OFF
 from bda.plone.discount.interfaces import KIND_PERCENT
+from bda.plone.discount.interfaces import THRESHOLD_ITEM_COUNT
+from bda.plone.discount.interfaces import THRESHOLD_PRICE
 from datetime import datetime
 from decimal import Decimal
 from plone import api
@@ -170,34 +173,62 @@ class DiscountBase(object):
     def acquirer(self):
         return self.aquirer_factory(self.context)
 
-    def apply_rule(self, value, rule, count=Decimal(1)):
-        # return value after rule applied
-        # if threshold not reached return unchanged value
-        # count is needed for rule types KIND_OFF and KIND_ABSOLUTE
-        # anyway value needs to be the undiscounted total for this item
-        # in order for correct threshold consideration.
+    def apply_rule(self, value, rule, count=Decimal(1), portal_type=None):
+        """Return discounted value by rule for one item. Count is used for
+        threshold calculation if necessary.
+        """
+        # check portal type if given
+        if portal_type is not None:
+            # lookup portal type on rule, fall back to ALL_PORTAL_TYPES
+            # for B/C reasons
+            rule_pt = rule.attrs.get('portal_type')
+            if not rule_pt:
+                rule_pt = ALL_PORTAL_TYPES
+            # return value as is if rule portal type not matches given portal
+            # type
+            if rule_pt != ALL_PORTAL_TYPES and rule_pt != portal_type:
+                return value
+        # check discount application threshold
         threshold = rule.attrs['threshold']
-        if threshold and Decimal(threshold) > value:
-            return value
+        if threshold:
+            threshold = Decimal(threshold)
+            # lookup threshold calculation type, fall back to THRESHOLD_PRICE
+            # for B/C reasons
+            calculation = rule.attrs.get('threshold_calculation')
+            if not calculation:
+                calculation = THRESHOLD_PRICE
+            # threshold triggers on price
+            if calculation == THRESHOLD_PRICE and threshold > value * count:
+                return value
+            # threshold triggers on item count
+            if calculation == THRESHOLD_ITEM_COUNT and threshold > count:
+                return value
+        # get discount rule value
         rule_value = Decimal(rule.attrs['value'])
         # calculate in percent
         if rule.attrs['kind'] == KIND_PERCENT:
             value -= value / Decimal(100) * rule_value
         # calculate decrement
         if rule.attrs['kind'] == KIND_OFF:
-            value -= rule_value * count
+            value -= rule_value
         # rule defines absolute value
         if rule.attrs['kind'] == KIND_ABSOLUTE:
-            value = rule_value * count
+            value = rule_value
         # value never < 0
         if value < Decimal(0):
             value = Decimal(0)
+        # return discounted value
         return value
 
-    def apply_rules(self, value, count=Decimal(1)):
+    def apply_rules(self, value, count=Decimal(1), portal_type=None):
         rules = self.acquirer.rules
         for rule in rules:
-            value = self.apply_rule(value, rule, count=count)
+            value = self.apply_rule(
+                value=value,
+                rule=rule,
+                count=count,
+                portal_type=portal_type
+            )
         # value never < 0
         if value < Decimal(0):
             value = Decimal(0)
@@ -216,12 +247,12 @@ class CartItemDiscount(DiscountBase):
     def net(self, net, vat, count):
         # net discount for one item.
         # XXX: from gross
-
-        #print '##########################'
-        #print self.context
-
         net = Decimal(net)
-        item_discount = net - self.apply_rules(net * count, count) / count
+        item_discount = net - self.apply_rules(
+            value=net,
+            count=count,
+            portal_type=self.context.portal_type
+        )
         return item_discount
 
 
@@ -251,7 +282,7 @@ class CartDiscount(DiscountBase):
         net = Decimal(0)
         for item_net, _ in self._discounted_items(items):
             net += item_net
-        cart_discount = net - self.apply_rules(net)
+        cart_discount = net - self.apply_rules(value=net)
         return cart_discount
 
     def vat(self, items):
@@ -264,7 +295,7 @@ class CartDiscount(DiscountBase):
             base_net += item_net
             base_vat += item_net / Decimal(100) * item_vat
         # calculate total cart discount
-        cart_discount = base_net - self.apply_rules(base_net)
+        cart_discount = base_net - self.apply_rules(value=base_net)
         # cart net after discount calculation
         cart_net = base_net - cart_discount
         # calculate aliquot net percent for each item in cart and calculate

@@ -14,6 +14,7 @@ KIND_OFF = 'off'
 KIND_ABSOLUTE = 'absolute'
 THRESHOLD_PRICE = 'price'
 THRESHOLD_ITEM_COUNT = 'count'
+ALL_PORTAL_TYPES = 'all'
 
 
 class IDiscountExtensionLayer(Interface):

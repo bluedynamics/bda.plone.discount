@@ -7,6 +7,7 @@ from bda.plone.ajax import AjaxMessage
 from bda.plone.ajax import ajax_continue
 from bda.plone.ajax import ajax_form_fiddle
 from bda.plone.discount import message_factory as _
+from bda.plone.discount.interfaces import ALL_PORTAL_TYPES
 from bda.plone.discount.interfaces import CEILING_DATETIME
 from bda.plone.discount.interfaces import FLOOR_DATETIME
 from bda.plone.discount.interfaces import FOR_GROUP
@@ -170,7 +171,7 @@ class DiscountFormBase(YAMLBaseForm):
         portal_types = getToolByName(site, 'portal_types', None)
         request = aq_get(portal_types, 'REQUEST', None)
         vocab = [
-            ('all', _('all', default=u'All'))
+            (ALL_PORTAL_TYPES, _('all', default=u'All'))
         ]
         for portal_type in portal_types.listContentTypes():
             vocab.append((
@@ -268,8 +269,15 @@ class CartDiscountForm(DiscountFormBase):
     def kind_vocabulary(self):
         return [
             (KIND_PERCENT, _('percent', default=u'Percent')),
-            (KIND_OFF, _('off', default=u'Off')),
+            (KIND_OFF, _('off', default=u'Off'))
         ]
+
+    @property
+    def threshold_calculation_vocabulary(self):
+        return [
+            (THRESHOLD_PRICE, _('price', default=u'Price'))
+        ]
+
 
 class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
     settings_iface = IUserCartDiscountSettings

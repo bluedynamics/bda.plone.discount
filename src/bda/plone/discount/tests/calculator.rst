@@ -14,16 +14,24 @@ Imports:
     >>> from bda.plone.discount.calculator import ItemRulesLookup
     >>> from bda.plone.discount.calculator import UserCartRulesLookup
     >>> from bda.plone.discount.calculator import UserItemRulesLookup
+    >>> from bda.plone.discount.interfaces import ALL_PORTAL_TYPES
+    >>> from bda.plone.discount.interfaces import CATEGORY_CART_ITEM
     >>> from bda.plone.discount.interfaces import ICartDiscountSettings
     >>> from bda.plone.discount.interfaces import ICartItemDiscountSettings
     >>> from bda.plone.discount.interfaces import IGroupCartDiscountSettings
     >>> from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
     >>> from bda.plone.discount.interfaces import IUserCartDiscountSettings
     >>> from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
+    >>> from bda.plone.discount.interfaces import KIND_ABSOLUTE
     >>> from bda.plone.discount.interfaces import KIND_PERCENT
+    >>> from bda.plone.discount.interfaces import KIND_OFF
+    >>> from bda.plone.discount.interfaces import THRESHOLD_PRICE
+    >>> from bda.plone.discount.interfaces import THRESHOLD_ITEM_COUNT
     >>> from bda.plone.discount.settings import create_rule
     >>> from datetime import datetime
+    >>> from decimal import Decimal
     >>> from node.utils import UNSET
+    >>> import uuid
 
 Get portal from layer:
 
@@ -108,20 +116,119 @@ Test lookup objects:
 DiscountBase
 ------------
 
-Prepare:
+Test rule application:
+
+.. code-block:: pycon
+
+    >>> class TestDiscount(DiscountBase):
+    ...     acquirer = None
+
+    >>> discount = TestDiscount(plone)
+
+Rule always applies, no threshold, discount calculation by percent:
+
+.. code-block:: pycon
+
+    >>> rule = create_rule(
+    ...     uid=uuid.uuid4(), category=CATEGORY_CART_ITEM, creator='admin',
+    ...     index=0, kind=KIND_PERCENT, block=False, value=10.0,
+    ...     threshold=UNSET, threshold_calculation=THRESHOLD_PRICE,
+    ...     portal_type=UNSET, valid_from=UNSET, valid_to=UNSET)
+
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal(1))
+    Decimal('9.0')
+
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal(3))
+    Decimal('9.0')
+
+Threshold by price, applies as of total items price 20.0:
+
+.. code-block:: pycon
+
+    >>> rule.attrs['threshold'] = 20.0
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal(1))
+    Decimal('10.0')
+
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal(2))
+    Decimal('9.0')
+
+Threshold by item count, applies as of 2 items:
+
+.. code-block:: pycon
+
+    >>> rule.attrs['threshold'] = 2.0
+    >>> rule.attrs['threshold_calculation'] = THRESHOLD_ITEM_COUNT
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal(1))
+    Decimal('10.0')
+
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal(2))
+    Decimal('9.0')
+
+Rule application by portal type. Rule Applies to all portal types:
+
+.. code-block:: pycon
+
+    >>> rule.attrs['threshold'] = UNSET
+    >>> rule.attrs['threshold_calculation'] = THRESHOLD_PRICE
+    >>> rule.attrs['portal_type'] = ALL_PORTAL_TYPES
+    >>> discount.apply_rule(Decimal('10.0'), rule, portal_type='My Type')
+    Decimal('9.0')
+
+Rule Applies to ``My Type``:
+
+.. code-block:: pycon
+
+    >>> rule.attrs['portal_type'] = 'My Type'
+    >>> discount.apply_rule(Decimal('10.0'), rule, portal_type='Other Type')
+    Decimal('10.0')
+
+    >>> discount.apply_rule(Decimal('10.0'), rule, portal_type='My Type')
+    Decimal('9.0')
+
+Discount calculation as value reduced from price:
+
+.. code-block:: pycon
+
+    >>> rule.attrs['portal_type'] = ALL_PORTAL_TYPES
+    >>> rule.attrs['kind'] = KIND_OFF
+    >>> rule.attrs['value'] = 3.0
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal('5.0'))
+    Decimal('7.0')
+
+Discount calculation as absolute new price:
+
+.. code-block:: pycon
+
+    >>> rule.attrs['kind'] = KIND_ABSOLUTE
+    >>> rule.attrs['value'] = 5.5
+    >>> discount.apply_rule(Decimal('10.0'), rule, count=Decimal('5.0'))
+    Decimal('5.5')
+
+Test applying multiple rules. First rule discounts 10%, second reduces price by
+1:
 
 .. code-block:: pycon
 
     >>> class TestRuleAcquirer(object):
     ...     rules = list()
 
-    >>> acquirer = TestRuleAcquirer()
+    >>> acquirer = discount.acquirer = TestRuleAcquirer()
 
-    >>> class TestDiscount(DiscountBase):
-    ...     acquirer = acquirer
+    >>> rule_1 = create_rule(
+    ...     uid=uuid.uuid4(), category=CATEGORY_CART_ITEM, creator='admin',
+    ...     index=0, kind=KIND_PERCENT, block=False, value=10.0,
+    ...     threshold=UNSET, threshold_calculation=THRESHOLD_PRICE,
+    ...     portal_type=UNSET, valid_from=UNSET, valid_to=UNSET)
 
-Test rule application:
+    >>> rule_2 = create_rule(
+    ...     uid=uuid.uuid4(), category=CATEGORY_CART_ITEM, creator='admin',
+    ...     index=1, kind=KIND_OFF, block=False, value=1.0, threshold=UNSET,
+    ...     threshold_calculation=THRESHOLD_PRICE, portal_type=UNSET,
+    ...     valid_from=UNSET, valid_to=UNSET)
 
-.. code-block:: pycon
+    >>> acquirer.rules = [rule_1, rule_2]
+    >>> discount.apply_rules(Decimal('10.0'))
+    Decimal('8.0')
 
-    >>> discount = TestDiscount(plone)
+    >>> discount.apply_rules(Decimal('10.0'), count=Decimal('5.0'))
+    Decimal('8.0')
