@@ -1,49 +1,59 @@
 Calculator
 ==========
 
-::
+Imports:
 
-    >>> from datetime import datetime
-    >>> from node.utils import UNSET
-    >>> plone = layer['portal']
+.. code-block:: pycon
 
-Import settings related interfaces::
-
-    >>> from bda.plone.discount.interfaces import ICartItemDiscountSettings
-    >>> from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
-    >>> from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
-    >>> from bda.plone.discount.interfaces import ICartDiscountSettings
-    >>> from bda.plone.discount.interfaces import IUserCartDiscountSettings
-    >>> from bda.plone.discount.interfaces import IGroupCartDiscountSettings
-
-
-RuleLookup
-----------
-
-Import rules lookup implementations::
-
+    >>> from bda.plone.discount.calculator import CartItemRuleAcquirer
+    >>> from bda.plone.discount.calculator import CartRuleAcquirer
     >>> from bda.plone.discount.calculator import ItemRulesLookup
     >>> from bda.plone.discount.calculator import UserItemRulesLookup
     >>> from bda.plone.discount.calculator import GroupItemRulesLookup
     >>> from bda.plone.discount.calculator import CartRulesLookup
     >>> from bda.plone.discount.calculator import UserCartRulesLookup
     >>> from bda.plone.discount.calculator import GroupCartRulesLookup
+    >>> from bda.plone.discount.interfaces import ICartItemDiscountSettings
+    >>> from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
+    >>> from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
+    >>> from bda.plone.discount.interfaces import ICartDiscountSettings
+    >>> from bda.plone.discount.interfaces import IUserCartDiscountSettings
+    >>> from bda.plone.discount.interfaces import IGroupCartDiscountSettings
+    >>> from bda.plone.discount.interfaces import KIND_PERCENT
+    >>> from datetime import datetime
+    >>> from node.utils import UNSET
 
-Test lookup objects::
+Get portal from layer:
+
+.. code-block:: pycon
+
+    >>> plone = layer['portal']
+
+
+RuleLookup
+----------
+
+Test lookup objects:
+
+.. code-block:: pycon
 
     >>> date = datetime(2014, 1, 1)
     >>> ItemRulesLookup(plone, date).lookup()
 
     >>> settings = ICartItemDiscountSettings(plone)
-    >>> settings.add_rule(
-    ...     plone, 0, 'percent', False, 5.0, UNSET, UNSET, UNSET)
+    >>> settings.add_rule(context=plone, index=0, kind=KIND_PERCENT,
+    ...                   block=False, value=5.0, threshold=UNSET,
+    ...                   threshold_calculation=UNSET, portal_type=UNSET,
+    ...                   valid_from=UNSET, valid_to=UNSET)
 
     >>> ItemRulesLookup(plone, date).lookup()
     <Record object 'None' at ...>
 
     >>> settings = IUserCartItemDiscountSettings(plone)
-    >>> settings.add_rule(
-    ...     plone, 0, 'percent', False, 10.0, UNSET, UNSET, UNSET, user='usr1')
+    >>> settings.add_rule(context=plone, index=0, kind=KIND_PERCENT,
+    ...                   block=False, value=10.0, threshold=UNSET,
+    ...                   threshold_calculation=UNSET, portal_type=UNSET,
+    ...                   valid_from=UNSET, valid_to=UNSET, user='usr1')
 
     >>> UserItemRulesLookup(plone, date, for_value='usr1').lookup()
     <Record object 'None' at ...>
@@ -51,8 +61,10 @@ Test lookup objects::
     >>> UserItemRulesLookup(plone, date, for_value='usr2').lookup()
 
     >>> settings = IGroupCartItemDiscountSettings(plone)
-    >>> settings.add_rule(
-    ...     plone, 0, 'percent', False, 15.0, UNSET, UNSET, UNSET, group='grp1')
+    >>> settings.add_rule(context=plone, index=0, kind=KIND_PERCENT,
+    ...                   block=False, value=15.0, threshold=UNSET,
+    ...                   threshold_calculation=UNSET, portal_type=UNSET,
+    ...                   valid_from=UNSET, valid_to=UNSET, group='grp1')
 
     >>> GroupItemRulesLookup(plone, date, for_value='grp1').lookup()
     <Record object 'None' at ...>
@@ -60,15 +72,19 @@ Test lookup objects::
     >>> GroupItemRulesLookup(plone, date, for_value='grp2').lookup()
 
     >>> settings = ICartDiscountSettings(plone)
-    >>> settings.add_rule(
-    ...     plone, 0, 'percent', False, 20.0, UNSET, UNSET, UNSET)
+    >>> settings.add_rule(context=plone, index=0, kind=KIND_PERCENT,
+    ...                   block=False, value=20.0, threshold=UNSET,
+    ...                   threshold_calculation=UNSET, portal_type=UNSET,
+    ...                   valid_from=UNSET, valid_to=UNSET)
 
     >>> CartRulesLookup(plone, date).lookup()
     <Record object 'None' at ...>
 
     >>> settings = IUserCartDiscountSettings(plone)
-    >>> settings.add_rule(
-    ...     plone, 0, 'percent', False, 25.0, UNSET, UNSET, UNSET, user='usr2')
+    >>> settings.add_rule(context=plone, index=0, kind=KIND_PERCENT,
+    ...                   block=False, value=25.0, threshold=UNSET,
+    ...                   threshold_calculation=UNSET, portal_type=UNSET,
+    ...                   valid_from=UNSET, valid_to=UNSET, user='usr2')
 
     >>> UserCartRulesLookup(plone, date, for_value='usr1').lookup()
 
@@ -76,8 +92,10 @@ Test lookup objects::
     <Record object 'None' at ...>
 
     >>> settings = IGroupCartDiscountSettings(plone)
-    >>> settings.add_rule(
-    ...     plone, 0, 'percent', False, 30.0, UNSET, UNSET, UNSET, group='grp2')
+    >>> settings.add_rule(context=plone, index=0, kind=KIND_PERCENT,
+    ...                   block=False, value=30.0, threshold=UNSET,
+    ...                   threshold_calculation=UNSET, portal_type=UNSET,
+    ...                   valid_from=UNSET, valid_to=UNSET, group='grp2')
 
     >>> GroupCartRulesLookup(plone, date, for_value='grp1').lookup()
 
@@ -88,7 +106,6 @@ Test lookup objects::
 RuleAcquierer
 -------------
 
-Import rule acquirer implementations::
+Import rule acquirer implementations:
 
-    >>> from bda.plone.discount.calculator import CartItemRuleAcquirer
-    >>> from bda.plone.discount.calculator import CartRuleAcquirer
+.. code-block:: pycon

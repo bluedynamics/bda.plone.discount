@@ -216,6 +216,10 @@ class CartItemDiscount(DiscountBase):
     def net(self, net, vat, count):
         # net discount for one item.
         # XXX: from gross
+
+        #print '##########################'
+        #print self.context
+
         net = Decimal(net)
         item_discount = net - self.apply_rules(net * count, count) / count
         return item_discount

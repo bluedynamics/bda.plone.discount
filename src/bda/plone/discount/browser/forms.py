@@ -99,6 +99,7 @@ class DiscountFormBase(YAMLBaseForm):
     message_factory = _
     action_resource = ''
     header_template = 'general_header.pt'
+    portal_type_mode = 'edit'
     for_attribute = UNSET
     for_label = ''
     for_required = ''
@@ -191,18 +192,19 @@ class DiscountFormBase(YAMLBaseForm):
                 user = rule['for'] and rule['for'] or user
             if self.for_attribute == FOR_GROUP:
                 group = rule['for'] and rule['for'] or group
-            settings.add_rule(self.context,
-                              index,
-                              rule['kind'],
-                              rule['block'],
-                              rule['value'],
-                              rule['threshold'],
-                              rule['threshold_calculation'],
-                              rule['portal_type'],
-                              rule['valid_from'],
-                              rule['valid_to'],
-                              user=user,
-                              group=group)
+            settings.add_rule(
+                context=self.context,
+                index=index,
+                kind=rule['kind'],
+                block=rule['block'],
+                value=rule['value'],
+                threshold=rule['threshold'],
+                threshold_calculation=rule['threshold_calculation'],
+                portal_type=rule.get('portal_type', UNSET),
+                valid_from=rule['valid_from'],
+                valid_to=rule['valid_to'],
+                user=user,
+                group=group)
             index += 1
 
     def next(self, request):
@@ -260,6 +262,7 @@ class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
 class CartDiscountForm(DiscountFormBase):
     settings_iface = ICartDiscountSettings
     action_resource = 'cart_discount_form'
+    portal_type_mode = 'skip'
 
     @property
     def kind_vocabulary(self):

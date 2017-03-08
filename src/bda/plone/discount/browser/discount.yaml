@@ -49,6 +49,7 @@ widgets:
                 label: i18n:discount_form_label_portal_type:Portal Type
                 field.class: array_field portal_type
                 vocabulary: expr:context.portal_type_vocabulary
+            mode: expr:context.portal_type_mode
         - valid_from:
             factory: field:error:datetime
             props:
