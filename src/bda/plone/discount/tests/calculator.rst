@@ -7,19 +7,21 @@ Imports:
 
     >>> from bda.plone.discount.calculator import CartItemRuleAcquirer
     >>> from bda.plone.discount.calculator import CartRuleAcquirer
-    >>> from bda.plone.discount.calculator import ItemRulesLookup
-    >>> from bda.plone.discount.calculator import UserItemRulesLookup
-    >>> from bda.plone.discount.calculator import GroupItemRulesLookup
     >>> from bda.plone.discount.calculator import CartRulesLookup
-    >>> from bda.plone.discount.calculator import UserCartRulesLookup
+    >>> from bda.plone.discount.calculator import DiscountBase
     >>> from bda.plone.discount.calculator import GroupCartRulesLookup
-    >>> from bda.plone.discount.interfaces import ICartItemDiscountSettings
-    >>> from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
-    >>> from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
+    >>> from bda.plone.discount.calculator import GroupItemRulesLookup
+    >>> from bda.plone.discount.calculator import ItemRulesLookup
+    >>> from bda.plone.discount.calculator import UserCartRulesLookup
+    >>> from bda.plone.discount.calculator import UserItemRulesLookup
     >>> from bda.plone.discount.interfaces import ICartDiscountSettings
-    >>> from bda.plone.discount.interfaces import IUserCartDiscountSettings
+    >>> from bda.plone.discount.interfaces import ICartItemDiscountSettings
     >>> from bda.plone.discount.interfaces import IGroupCartDiscountSettings
+    >>> from bda.plone.discount.interfaces import IGroupCartItemDiscountSettings
+    >>> from bda.plone.discount.interfaces import IUserCartDiscountSettings
+    >>> from bda.plone.discount.interfaces import IUserCartItemDiscountSettings
     >>> from bda.plone.discount.interfaces import KIND_PERCENT
+    >>> from bda.plone.discount.settings import create_rule
     >>> from datetime import datetime
     >>> from node.utils import UNSET
 
@@ -103,9 +105,23 @@ Test lookup objects:
     <Record object 'None' at ...>
 
 
-RuleAcquierer
--------------
+DiscountBase
+------------
 
-Import rule acquirer implementations:
+Prepare:
 
 .. code-block:: pycon
+
+    >>> class TestRuleAcquirer(object):
+    ...     rules = list()
+
+    >>> acquirer = TestRuleAcquirer()
+
+    >>> class TestDiscount(DiscountBase):
+    ...     acquirer = acquirer
+
+Test rule application:
+
+.. code-block:: pycon
+
+    >>> discount = TestDiscount(plone)
