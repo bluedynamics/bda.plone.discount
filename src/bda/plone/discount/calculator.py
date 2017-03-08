@@ -32,6 +32,27 @@ from zope.interface import implementer
 from zope.interface import Interface
 
 
+def value_from_rule(rule, key, fallback):
+    """Utility for B/C rules not providing key on rule.
+    """
+    val = rule.attrs.get(key)
+    if not val:
+        return fallback
+    return val
+
+
+def portal_type_from_rule(rule):
+    """Utility for B/C rules providing no portal_type on rule.
+    """
+    return value_from_rule(rule, 'portal_type', ALL_PORTAL_TYPES)
+
+
+def threshold_calculation_from_rule(rule):
+    """Utility for B/C rules providing no threshold_calculation on rule.
+    """
+    return value_from_rule(rule, 'threshold_calculation', THRESHOLD_PRICE)
+
+
 class RuleLookup(object):
     settings_iface = None
     for_attribute = None
@@ -49,21 +70,31 @@ class RuleLookup(object):
     def rules(self):
         settings = self.settings
         if settings:
-            return settings.rules(self.context, date=self.date)
+            kw = dict()
+            if self.for_value:
+                kw[self.for_attribute] = self.for_value
+            return settings.rules(self.context, date=self.date, **kw)
         return []
 
-    def lookup(self):
-        # XXX: return value as list of neighbor rules
-        for_value = self.for_value
-        # if for_value given check against for_attribute
-        if for_value:
-            for rule in self.rules:
-                if rule.attrs[self.for_attribute] == for_value:
+    def lookup(self, portal_type=None):
+        # rules maching all portal types
+        general = list()
+        # specific portal type bound rules
+        type_bound = list()
+        # collect rules
+        for rule in self.rules:
+            if portal_type_from_rule(rule) == ALL_PORTAL_TYPES:
+                general.append(rule)
+            else:
+                type_bound.append(rule)
+        # search for rule matching given portal type and return first matching
+        if portal_type:
+            for rule in type_bound:
+                if portal_type_from_rule(rule) == portal_type:
                     return rule
-        # no for filter
-        else:
-            for rule in self.rules:
-                return rule
+        # return first general rule
+        for rule in general:
+            return rule
 
 
 class ItemRulesLookup(RuleLookup):
@@ -126,8 +157,7 @@ class RuleAcquierer(object):
         lookups.append(self.lookup_factory(context, self.date))
         return lookups
 
-    @property
-    def rules(self):
+    def rules(self, portal_type=None):
         # return rules to apply, most outer first
         rules = list()
         context = self.context
@@ -138,7 +168,7 @@ class RuleAcquierer(object):
                 continue
             rule = None
             for lookup in self.lookup_cascade(context):
-                rule = lookup.lookup()
+                rule = lookup.lookup(portal_type=portal_type)
                 if rule:
                     break
             if rule:
@@ -179,24 +209,17 @@ class DiscountBase(object):
         """
         # check portal type if given
         if portal_type is not None:
-            # lookup portal type on rule, fall back to ALL_PORTAL_TYPES
-            # for B/C reasons
-            rule_pt = rule.attrs.get('portal_type')
-            if not rule_pt:
-                rule_pt = ALL_PORTAL_TYPES
-            # return value as is if rule portal type not matches given portal
-            # type
+            # lookup portal type on rule
+            rule_pt = portal_type_from_rule(rule)
+            # return value as is if rule portal type not matches given one
             if rule_pt != ALL_PORTAL_TYPES and rule_pt != portal_type:
                 return value
         # check discount application threshold
         threshold = rule.attrs['threshold']
         if threshold:
             threshold = Decimal(threshold)
-            # lookup threshold calculation type, fall back to THRESHOLD_PRICE
-            # for B/C reasons
-            calculation = rule.attrs.get('threshold_calculation')
-            if not calculation:
-                calculation = THRESHOLD_PRICE
+            # lookup threshold calculation on rule
+            calculation = threshold_calculation_from_rule(rule)
             # threshold triggers on price
             if calculation == THRESHOLD_PRICE and threshold > value * count:
                 return value
@@ -221,7 +244,7 @@ class DiscountBase(object):
         return value
 
     def apply_rules(self, value, count=Decimal(1), portal_type=None):
-        rules = self.acquirer.rules
+        rules = self.acquirer.rules(portal_type=portal_type)
         for rule in rules:
             value = self.apply_rule(
                 value=value,

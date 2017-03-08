@@ -210,9 +210,12 @@ Test applying multiple rules. First rule discounts 10%, second reduces price by
 .. code-block:: pycon
 
     >>> class TestRuleAcquirer(object):
-    ...     rules = list()
-
-    >>> acquirer = discount.acquirer = TestRuleAcquirer()
+    ... 
+    ...     def __init__(self, rules):
+    ...         self._rules = rules
+    ... 
+    ...     def rules(self, portal_type=None):
+    ...         return self._rules
 
     >>> rule_1 = create_rule(
     ...     uid=uuid.uuid4(), category=CATEGORY_CART_ITEM, creator='admin',
@@ -226,7 +229,8 @@ Test applying multiple rules. First rule discounts 10%, second reduces price by
     ...     threshold_calculation=THRESHOLD_PRICE, portal_type=UNSET,
     ...     valid_from=UNSET, valid_to=UNSET)
 
-    >>> acquirer.rules = [rule_1, rule_2]
+    >>> discount.acquirer = TestRuleAcquirer([rule_1, rule_2])
+
     >>> discount.apply_rules(Decimal('10.0'))
     Decimal('8.0')
 
