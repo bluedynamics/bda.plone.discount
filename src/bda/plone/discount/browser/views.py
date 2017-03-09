@@ -3,6 +3,10 @@ from bda.plone.discount import message_factory as _
 from Products.Five import BrowserView
 from yafowil.base import factory
 from zope.component.interfaces import ISite
+import pkg_resources
+
+
+IS_P4 = pkg_resources.require("Products.CMFPlone")[0].version[0] == '4'
 
 
 class DiscountView(BrowserView):
@@ -11,8 +15,14 @@ class DiscountView(BrowserView):
     default_form = None
 
     def disable_border(self):
-        if ISite.providedBy(self.context):
+        if IS_P4 and ISite.providedBy(self.context):
             self.request.set('disable_border', True)
+
+    def disable_left_column(self):
+        self.request.set('disable_plone.leftcolumn', True)
+
+    def disable_right_column(self):
+        self.request.set('disable_plone.rightcolumn', True)
 
     def rendered_filter(self):
         selection = factory(

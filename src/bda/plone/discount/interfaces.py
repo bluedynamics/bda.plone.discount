@@ -12,6 +12,9 @@ FOR_GROUP = 'group'
 KIND_PERCENT = 'percent'
 KIND_OFF = 'off'
 KIND_ABSOLUTE = 'absolute'
+THRESHOLD_PRICE = 'price'
+THRESHOLD_ITEM_COUNT = 'count'
+ALL_PORTAL_TYPES = 'all'
 
 
 class IDiscountExtensionLayer(Interface):
@@ -28,9 +31,9 @@ class IDiscountSettings(Interface):
     """Interface for discount settings.
     """
 
-    def rules(context, date=None):
-        """Return discount rules for context. Optional anchor date can be
-        given.
+    def rules(context, date=None, user='', group=''):
+        """Return discount rules for context. Optional anchor ``date`` and
+        ``user`` or group can be given as search criteria.
         """
 
 

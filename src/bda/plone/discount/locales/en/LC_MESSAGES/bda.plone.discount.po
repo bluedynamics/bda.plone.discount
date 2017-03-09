@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-11-18 07:55+0000\n"
+"POT-Creation-Date: 2017-03-09 08:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,10 +30,15 @@ msgstr ""
 msgid "Enables discount settings for this context"
 msgstr ""
 
-#. Default: "absolute"
-#: ./browser/forms.py:145
+#. Default: "Absolute"
+#: ./browser/forms.py:158
 msgid "absolute"
-msgstr "absolute"
+msgstr "Absolute"
+
+#. Default: "All"
+#: ./browser/forms.py:174
+msgid "all"
+msgstr "All"
 
 #: ./profiles.zcml:14
 msgid "bda.plone.discount"
@@ -44,59 +49,66 @@ msgid "bda.plone.discount base"
 msgstr ""
 
 #. Default: "General Rules for Cart"
-#: ./browser/views.py:61
+#: ./browser/views.py:76
 msgid "cart_discount_form"
 msgstr "General Rules for Cart"
 
 #. Default: "Discount for Cart"
-#: ./browser/views.py:57
+#: ./browser/views.py:72
 msgid "cart_discount_title"
 msgstr "Discount for Cart"
 
 #. Default: "General Rules for Cart Items"
-#: ./browser/views.py:37
+#: ./browser/views.py:47
 msgid "cart_item_discount_form"
 msgstr "General Rules for Cart Items"
 
 #. Default: "Discount for \"${title}\""
-#: ./browser/views.py:49
+#: ./browser/views.py:64
 msgid "cart_item_discount_title"
 msgstr "Discount for Cart Items"
 
 #. Default: "Changes Saved"
-#: ./browser/forms.py:174
+#: ./browser/forms.py:212
 msgid "changes_saved"
 msgstr "Changes Saved"
 
 #. Default: "Disabled discount on context."
 #: ./browser/actions.py:29
 msgid "disabled_discount"
-msgstr ""
+msgstr "Disabled discount on context."
 
 #. Default: "Group is required"
-#: ./browser/forms.py:204
+#: ./browser/forms.py:242
 msgid "discount_form_group_required"
 msgstr "Group is required"
 
 #. Default: "Block parental"
-#: ./browser/general_header.pt:12
-#: ./browser/group_header.pt:12
-#: ./browser/user_header.pt:12
+#: ./browser/general_header.pt:5
+#: ./browser/group_header.pt:5
+#: ./browser/user_header.pt:5
 msgid "discount_form_label_block"
 msgstr "Block parental"
 
 #. Default: "Group"
-#: ./browser/forms.py:203
-#: ./browser/group_header.pt:47
+#: ./browser/forms.py:241
+#: ./browser/group_header.pt:64
 msgid "discount_form_label_group"
 msgstr "Group"
 
 #. Default: "Kind"
-#: ./browser/general_header.pt:5
-#: ./browser/group_header.pt:5
-#: ./browser/user_header.pt:5
+#: ./browser/general_header.pt:19
+#: ./browser/group_header.pt:19
+#: ./browser/user_header.pt:19
 msgid "discount_form_label_kind"
 msgstr "Kind"
+
+#. Default: "Portal Type"
+#: ./browser/general_header.pt:43
+#: ./browser/group_header.pt:43
+#: ./browser/user_header.pt:43
+msgid "discount_form_label_portal_type"
+msgstr "Portal Type"
 
 #. Default: "Threshold"
 #: ./browser/general_header.pt:26
@@ -105,30 +117,37 @@ msgstr "Kind"
 msgid "discount_form_label_threshold"
 msgstr "Threshold"
 
+#. Default: "Calculation"
+#: ./browser/general_header.pt:33
+#: ./browser/group_header.pt:33
+#: ./browser/user_header.pt:33
+msgid "discount_form_label_threshold_calculation"
+msgstr "Calculation"
+
 #. Default: "User"
-#: ./browser/forms.py:193
-#: ./browser/user_header.pt:47
+#: ./browser/forms.py:231
+#: ./browser/user_header.pt:64
 msgid "discount_form_label_user"
 msgstr "User"
 
 #. Default: "Valid From"
-#: ./browser/general_header.pt:33
-#: ./browser/group_header.pt:33
-#: ./browser/user_header.pt:33
+#: ./browser/general_header.pt:50
+#: ./browser/group_header.pt:50
+#: ./browser/user_header.pt:50
 msgid "discount_form_label_valid_from"
 msgstr "Valid From"
 
 #. Default: "Valid To"
-#: ./browser/general_header.pt:40
-#: ./browser/group_header.pt:40
-#: ./browser/user_header.pt:40
+#: ./browser/general_header.pt:57
+#: ./browser/group_header.pt:57
+#: ./browser/user_header.pt:57
 msgid "discount_form_label_valid_to"
 msgstr "Valid To"
 
 #. Default: "Value"
-#: ./browser/general_header.pt:19
-#: ./browser/group_header.pt:19
-#: ./browser/user_header.pt:19
+#: ./browser/general_header.pt:12
+#: ./browser/group_header.pt:12
+#: ./browser/user_header.pt:12
 msgid "discount_form_label_value"
 msgstr "Value"
 
@@ -136,7 +155,7 @@ msgid "discount_form_save"
 msgstr "Save"
 
 #. Default: "User is required"
-#: ./browser/forms.py:194
+#: ./browser/forms.py:232
 msgid "discount_form_user_required"
 msgstr "User is required"
 
@@ -144,41 +163,51 @@ msgid "discount_form_value_required"
 msgstr "Value is required"
 
 #. Default: "Discount Rules"
-#: ./browser/views.py:24
+#: ./browser/views.py:34
 msgid "discount_rules"
 msgstr "Discount Rules"
 
 #. Default: "Enabled discount on context."
 #: ./browser/actions.py:21
 msgid "enabled_discount"
-msgstr ""
+msgstr "Enabled discount on context."
 
 #. Default: "Group Rules for Cart"
-#: ./browser/views.py:67
+#: ./browser/views.py:82
 msgid "group_cart_discount_form"
 msgstr "Group Rules for Cart"
 
 #. Default: "Group Rules for Cart Items"
-#: ./browser/views.py:43
+#: ./browser/views.py:53
 msgid "group_cart_item_discount_form"
 msgstr "Group Rules for Cart Items"
 
-#. Default: "off"
-#: ./browser/forms.py:144
-msgid "off"
-msgstr "off"
+#. Default: "Item Count"
+#: ./browser/forms.py:165
+msgid "item_count"
+msgstr "Item Count"
 
-#. Default: "percent"
-#: ./browser/forms.py:143
+#. Default: "Off"
+#: ./browser/forms.py:157
+msgid "off"
+msgstr "Off"
+
+#. Default: "Percent"
+#: ./browser/forms.py:156
 msgid "percent"
-msgstr "percent"
+msgstr "Percent"
+
+#. Default: "Price"
+#: ./browser/forms.py:164
+msgid "price"
+msgstr "Price"
 
 #. Default: "User Rules for Cart"
-#: ./browser/views.py:64
+#: ./browser/views.py:79
 msgid "user_cart_discount_form"
 msgstr "User Rules for Cart"
 
 #. Default: "User Rules for Cart Items"
-#: ./browser/views.py:40
+#: ./browser/views.py:50
 msgid "user_cart_item_discount_form"
 msgstr "User Rules for Cart Items"

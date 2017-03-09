@@ -13,12 +13,6 @@ widgets:
     - array_fields:
         factory: compound
         widgets:
-        - kind:
-            factory: field:select
-            props:
-                label: i18n:discount_form_label_kind:Kind
-                field.class: array_field kind
-                vocabulary: expr:context.kind_vocabulary
         - block:
             factory: field:checkbox
             props:
@@ -31,38 +25,58 @@ widgets:
                 required: i18n:discount_form_value_required:Value is required
                 field.class: array_field value
                 error.position: after
+        - kind:
+            factory: field:select
+            props:
+                label: i18n:discount_form_label_kind:Kind
+                field.class: array_field kind
+                vocabulary: expr:context.kind_vocabulary
         - threshold:
             factory: field:error:number
             props:
                 label: i18n:discount_form_label_threshold:Threshold
                 field.class: array_field threshold
                 error.position: after
+        - threshold_calculation:
+            factory: field:select
+            props:
+                label: i18n:discount_form_label_threshold_calculation:Calculation
+                field.class: array_field threshold_calculation
+                vocabulary: expr:context.threshold_calculation_vocabulary
+        - portal_type:
+            factory: field:select
+            props:
+                label: i18n:discount_form_label_portal_type:Portal Type
+                field.class: array_field portal_type
+                vocabulary: expr:context.portal_type_vocabulary
+            mode: expr:context.portal_type_mode
         - valid_from:
             factory: field:error:datetime
             props:
                 label: i18n:discount_form_label_valid_from:Valid From
                 field.class: array_field valid_from
+                error.position: after
                 #datepicker: True
                 time: True
                 #timepicker: True
                 locale: de
-                error.position: after
         - valid_to:
             factory: field:error:datetime
             props:
                 label: i18n:discount_form_label_valid_to:Valid To
                 field.class: array_field valid_to
+                error.position: after
                 #datepicker: True
                 time: True
                 #timepicker: True
                 locale: de
-                error.position: after
         - for:
             factory: field:error:autocomplete
             props:
                 label: expr:context.for_label
                 required: expr:context.for_required
                 field.class: array_field for
+                error.position: after
                 source: expr:context.for_callback
                 minLength: 1
                 delay: 300

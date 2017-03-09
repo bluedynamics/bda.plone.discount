@@ -13,6 +13,7 @@
 #array-discount_form-discount table .errormessage {
   padding: 0;
   color: red;
+  font-size: 80%;
 }
 #array-discount_form-discount table {
   width: 100%;
@@ -20,6 +21,7 @@
 #array-discount_form-discount table td > div,
 #array-discount_form-discount table th > div {
   display: table-cell;
+  text-align: center;
   vertical-align: top;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
@@ -27,38 +29,37 @@
 #array-discount_form-discount div.array_actions {
   width: 90px;
 }
-div.form_header.kind,
-div.array_field.kind,
-div.form_header.block,
-div.array_field.block,
-div.form_header.value,
-div.array_field.value,
-div.form_header.threshold,
-div.array_field.threshold,
-div.form_header.valid_from,
-div.array_field.valid_from,
-div.form_header.valid_to,
-div.array_field.valid_to,
-div.form_header.for,
-div.array_field.for {
-  text-align: center;
-  vertical-align: middle;
+#array-discount_form-discount div.array_field input,
+#array-discount_form-discount div.array_field select {
+  width: 90%;
 }
-div.form_header.kind,
-div.array_field.kind {
-  width: 8%;
+#array-discount_form-discount div.array_field input {
+  margin-left: auto;
+  margin-right: auto;
 }
 div.form_header.block,
 div.array_field.block {
-  width: 8%;
+  width: 6%;
 }
 div.form_header.value,
 div.array_field.value {
   width: 6%;
 }
+div.form_header.kind,
+div.array_field.kind {
+  width: 6%;
+}
 div.form_header.threshold,
 div.array_field.threshold {
   width: 6%;
+}
+div.form_header.threshold_calculation,
+div.array_field.threshold_calculation {
+  width: 8%;
+}
+div.form_header.portal_type,
+div.array_field.portal_type {
+  width: 8%;
 }
 div.form_header.valid_from,
 div.array_field.valid_from,
@@ -68,21 +69,15 @@ div.array_field.valid_to {
 }
 div.form_header.for,
 div.array_field.for {
-  width: 15%;
+  width: 10%;
 }
-div.array_field.kind select {
-  width: 90%;
-}
-div.array_field.valid_from .dateinput,
-div.array_field.valid_to .dateinput {
+#array-discount_form-discount div.array_field.valid_from .dateinput,
+#array-discount_form-discount div.array_field.valid_to .dateinput {
   width: 50%;
+  margin-right: 5px;
 }
-div.array_field.valid_from .timeinput,
-div.array_field.valid_to .timeinput {
-  width: 32%;
-}
-.array_field.threshold,
-.array_field.value {
-  padding: 0 0.25em;
+#array-discount_form-discount div.array_field.valid_from .timeinput,
+#array-discount_form-discount div.array_field.valid_to .timeinput {
+  width: 36%;
 }
 /*# sourceMappingURL=++resource++bda.plone.discount.css.map */

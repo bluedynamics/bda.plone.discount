@@ -58,6 +58,44 @@ class DiscountRulesCatalogFactory(object):
         return catalog
 
 
+def create_rule(uid, category, creator, index, kind, block, value, threshold,
+                threshold_calculation, portal_type, valid_from, valid_to,
+                user='', group=''):
+    rule = Record()
+    rule.attrs['index'] = index
+    assert(isinstance(category, str))
+    rule.attrs['category'] = category
+    rule.attrs['context_uid'] = uid
+    rule.attrs['creator'] = creator
+    rule.attrs['created'] = datetime.now()
+    assert(isinstance(kind, str))
+    rule.attrs['kind'] = kind
+    assert(isinstance(block, bool))
+    rule.attrs['block'] = block
+    assert(isinstance(value, float))
+    rule.attrs['value'] = value
+    if threshold:
+        assert(isinstance(threshold, float))
+    rule.attrs['threshold'] = threshold
+    rule.attrs['threshold_calculation'] = threshold_calculation
+    rule.attrs['portal_type'] = portal_type
+    if valid_from:
+        assert(isinstance(valid_from, datetime))
+    else:
+        valid_from = FLOOR_DATETIME
+    rule.attrs['valid_from'] = valid_from
+    if valid_to:
+        assert(isinstance(valid_to, datetime))
+    else:
+        valid_to = CEILING_DATETIME
+    rule.attrs['valid_to'] = valid_to
+    assert(isinstance(user, str))
+    rule.attrs['user'] = user
+    assert(isinstance(group, str))
+    rule.attrs['group'] = group
+    return rule
+
+
 @implementer(IDiscountSettings)
 class PersistendDiscountSettings(object):
     soup_name = 'bda_plone_discount_rules'
@@ -108,37 +146,23 @@ class PersistendDiscountSettings(object):
             del soup[rule]
 
     def add_rule(self, context, index, kind, block, value, threshold,
-                 valid_from, valid_to, user='', group=''):
-        rule = Record()
-        rule.attrs['index'] = index
-        assert(isinstance(self.category, str))
-        rule.attrs['category'] = self.category
-        rule.attrs['context_uid'] = uuid.UUID(IUUID(context))
-        rule.attrs['creator'] = plone.api.user.get_current().getId()
-        rule.attrs['created'] = datetime.now()
-        assert(isinstance(kind, str))
-        rule.attrs['kind'] = kind
-        assert(isinstance(block, bool))
-        rule.attrs['block'] = block
-        assert(isinstance(value, float))
-        rule.attrs['value'] = value
-        if threshold:
-            assert(isinstance(threshold, float))
-        rule.attrs['threshold'] = threshold
-        if valid_from:
-            assert(isinstance(valid_from, datetime))
-        else:
-            valid_from = FLOOR_DATETIME
-        rule.attrs['valid_from'] = valid_from
-        if valid_to:
-            assert(isinstance(valid_to, datetime))
-        else:
-            valid_to = CEILING_DATETIME
-        rule.attrs['valid_to'] = valid_to
-        assert(isinstance(user, str))
-        rule.attrs['user'] = user
-        assert(isinstance(group, str))
-        rule.attrs['group'] = group
+                 threshold_calculation, portal_type, valid_from, valid_to,
+                 user='', group=''):
+        rule = create_rule(
+            uid=uuid.UUID(IUUID(context)),
+            category=self.category,
+            creator=plone.api.user.get_current().getId(),
+            index=index,
+            kind=kind,
+            block=block,
+            value=value,
+            threshold=threshold,
+            threshold_calculation=threshold_calculation,
+            portal_type=portal_type,
+            valid_from=valid_from,
+            valid_to=valid_to,
+            user=user,
+            group=group)
         self.rules_soup.add(rule)
 
 

@@ -14,6 +14,12 @@ This package is part of the ``bda.plone.shop`` stack. Please refer to
 instructions.
 
 
+Usage
+-----
+
+XXX
+
+
 Restrictions with souper.plone
 ------------------------------
 
@@ -32,9 +38,15 @@ TODO
 - Implement "block neighbor" flag and consider neighbor rules as well as
   parental rules.
 
+- Implement portal type filter in cart discount rules. Usecase is to discount
+  by overall items of same type in cart.
+
 
 Contributors
 ------------
 
 - Robert Niederreiter (Author)
+- Peter Holzer
+- Jens Klein
+- Johannes Raggam
 - Ezra Holder

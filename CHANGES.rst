@@ -2,8 +2,14 @@
 Changelog
 =========
 
-0.4.dev0
---------
+0.4 (unreleased)
+----------------
+
+- Item discount threshold can be defined either by price or item count.
+  [rnix]
+
+- Add portal type filter support for cart item discount rules.
+  [rnix]
 
 - Ignore all non ``IDiscountSettingsEnabled`` and non ``ISite`` providing
   contexts in ``RuleAcquierer.rules``.
@@ -20,12 +26,12 @@ Changelog
   (``IDiscountSettingsEnabled``) on context.
   [rnix]
 
-- Plone 5 update
+- Plone 5 update.
   [agitator]
 
 
-0.3.dev0
---------
+0.3
+---
 
 - JSHint JavaScript.
   [thet]

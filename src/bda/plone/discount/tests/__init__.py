@@ -23,11 +23,15 @@ class DiscountLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
+        import plone.app.contenttypes
+        self.loadZCML(package=plone.app.contenttypes,
+                      context=configurationContext)
         import bda.plone.discount
         self.loadZCML(package=bda.plone.discount,
                       context=configurationContext)
 
     def setUpPloneSite(self, portal):
+        self.applyProfile(portal, 'plone.app.contenttypes:default')
         self.applyProfile(portal, 'bda.plone.discount:default')
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
