@@ -14,6 +14,12 @@ This package is part of the ``bda.plone.shop`` stack. Please refer to
 instructions.
 
 
+Usage
+-----
+
+XXX
+
+
 Restrictions with souper.plone
 ------------------------------
 
@@ -37,4 +43,7 @@ Contributors
 ------------
 
 - Robert Niederreiter (Author)
+- Peter Holzer
+- Jens Klein
+- Johannes Raggam
 - Ezra Holder
