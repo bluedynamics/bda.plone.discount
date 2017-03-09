@@ -38,6 +38,9 @@ TODO
 - Implement "block neighbor" flag and consider neighbor rules as well as
   parental rules.
 
+- Implement portal type filter in cart discount rules. Usecase is to discount
+  by overall items of same type in cart.
+
 
 Contributors
 ------------
