@@ -12,9 +12,7 @@
       <property name="description" i18n:translate="">
         Enables discount settings for this context
       </property>
-      <property name="url_expr">
-        string:${object/absolute_url}/@@enable_discount
-      </property>
+      <property name="url_expr">string:${object/absolute_url}/@@enable_discount</property>
       <property name="icon_expr"></property>
       <property name="available_expr">object/@@can_enable_discount</property>
       <property name="permissions">
@@ -30,9 +28,7 @@
       <property name="description" i18n:translate="">
         Disable discount settings for this context
       </property>
-      <property name="url_expr">
-        string:${object/absolute_url}/@@disable_discount
-      </property>
+      <property name="url_expr">string:${object/absolute_url}/@@disable_discount</property>
       <property name="icon_expr"></property>
       <property name="available_expr">object/@@can_disable_discount</property>
       <property name="permissions">
