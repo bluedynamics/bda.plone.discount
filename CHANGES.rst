@@ -5,6 +5,9 @@ Changelog
 0.4 (unreleased)
 ----------------
 
+- Item discount threshold can be defined either by price or item count.
+  [rnix]
+
 - Add portal type filter support for cart item discount rules.
   [rnix]
 
