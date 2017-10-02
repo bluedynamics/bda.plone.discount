@@ -17,7 +17,7 @@ instructions.
 Usage
 -----
 
-XXX
+XXX: Write me
 
 
 Restrictions with souper.plone
