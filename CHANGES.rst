@@ -2,8 +2,8 @@
 Changelog
 =========
 
-0.4 (unreleased)
-----------------
+1.0a1 (unreleased)
+------------------
 
 - Item discount threshold can be defined either by price or item count.
   [rnix]
