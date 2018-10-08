@@ -4,7 +4,7 @@ from bda.plone.discount.tests import Discount_INTEGRATION_TESTING
 from bda.plone.discount.tests import set_browserlayer
 from plone.uuid.interfaces import IUUID
 
-import unittest2 as unittest
+import unittest
 
 
 class TestDiscount(unittest.TestCase):

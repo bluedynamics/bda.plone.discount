@@ -5,6 +5,9 @@ Changelog
 1.0a1 (unreleased)
 ------------------
 
+- Replace unittest2 with untittest
+  [agitator]
+
 - Item discount threshold can be defined either by price or item count.
   [rnix]
 
