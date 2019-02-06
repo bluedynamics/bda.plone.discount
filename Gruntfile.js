@@ -10,26 +10,26 @@ module.exports = function (grunt) {
                     sourceMap: true,
                     outputSourceFiles: true,
                     sourceMapURL: '++resource++bda.plone.discount.css.map',
-                    sourceMapFilename: 'src/bda/plone/discount/browser/discount_p5.css.map',
+                    sourceMapFilename: 'src/bda/plone/discount/browser/discount.css.map',
                     modifyVars: {
                         "isPlone": "false"
                     }
                 },
                 files: {
-                    'src/bda/plone/discount/browser/discount_p5.css': 'src/bda/plone/discount/browser/discount_p5.less',
+                    'src/bda/plone/discount/browser/discount.css': 'src/bda/plone/discount/browser/discount.less',
                 }
             }
         },
         sed: {
             sed0: {
-                path: 'src/bda/plone/discount/browser/discount_p5.css.map',
-                pattern: 'src/bda/plone/discount/browser/discount_p5.less',
+                path: 'src/bda/plone/discount/browser/discount.css.map',
+                pattern: 'src/bda/plone/discount/browser/discount.less',
                 replacement: '++resource++bda.plone.discount.less',
             }
         },
         watch: {
             scripts: {
-                files: ['src/bda/plone/discount/browser/discount_p5.less'],
+                files: ['src/bda/plone/discount/browser/discount.less'],
                 tasks: ['less', 'sed']
             }
         }
