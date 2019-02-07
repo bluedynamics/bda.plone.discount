@@ -4,6 +4,7 @@ from Products.Five import BrowserView
 from yafowil.base import factory
 from zope.component.interfaces import ISite
 import pkg_resources
+import six
 
 
 IS_P4 = pkg_resources.require("Products.CMFPlone")[0].version[0] == '4'
@@ -59,7 +60,7 @@ class ItemDiscountView(DiscountView):
         title = self.context.Title()
         # Not sure whether Title() may already return unicode in some
         # circumstance. If not, remove condition.
-        if not isinstance(title, unicode):
+        if not isinstance(title, six.text_type):
             title = title.decode('utf-8')
         return _(
             'cart_item_discount_title',
