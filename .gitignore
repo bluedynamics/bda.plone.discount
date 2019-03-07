@@ -4,3 +4,4 @@
 /dist/
 /src/bda.plone.discount.egg-info/
 /node_modules/
+.DS_Store

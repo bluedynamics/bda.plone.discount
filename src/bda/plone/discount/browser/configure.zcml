@@ -148,30 +148,19 @@
     file="discount.js"
     layer="..interfaces.IDiscountExtensionLayer" />
 
-  <!-- plone 4 resources -->
   <browser:resource
-    zcml:condition="not-have plone-5"
-    name="bda.plone.discount.css"
-    file="discount_p4.css"
-    layer="..interfaces.IDiscountExtensionLayer"/>
-
-  <!-- plone 5 resources -->
-  <browser:resource
-    zcml:condition="have plone-5"
     name="bda.plone.discount.less"
-    file="discount_p5.less"
+    file="discount.less"
     layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:resource
-    zcml:condition="have plone-5"
     name="bda.plone.discount.css"
-    file="discount_p5.css"
+    file="discount.css"
     layer="..interfaces.IDiscountExtensionLayer" />
 
   <browser:resource
-    zcml:condition="have plone-5"
     name="bda.plone.discount.css.map"
-    file="discount_p5.css.map"
+    file="discount.css.map"
     layer="..interfaces.IDiscountExtensionLayer" />
 
 </configure>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-09 08:51+0000\n"
+"POT-Creation-Date: 2019-02-10 13:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,19 +14,19 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./profiles/base/actions.xml
+#: ./profiles/default/actions.xml
 msgid "Disable discount"
 msgstr ""
 
-#: ./profiles/base/actions.xml
+#: ./profiles/default/actions.xml
 msgid "Disable discount settings for this context"
 msgstr ""
 
-#: ./profiles/base/actions.xml
+#: ./profiles/default/actions.xml
 msgid "Enable discount"
 msgstr ""
 
-#: ./profiles/base/actions.xml
+#: ./profiles/default/actions.xml
 msgid "Enables discount settings for this context"
 msgstr ""
 
@@ -40,31 +40,27 @@ msgstr "Absolute"
 msgid "all"
 msgstr "All"
 
-#: ./profiles.zcml:14
+#: ./profiles.zcml:13
 msgid "bda.plone.discount"
 msgstr ""
 
-#: ./profiles.zcml:29
-msgid "bda.plone.discount base"
-msgstr ""
-
 #. Default: "General Rules for Cart"
-#: ./browser/views.py:76
+#: ./browser/views.py:77
 msgid "cart_discount_form"
 msgstr "General Rules for Cart"
 
 #. Default: "Discount for Cart"
-#: ./browser/views.py:72
+#: ./browser/views.py:73
 msgid "cart_discount_title"
 msgstr "Discount for Cart"
 
 #. Default: "General Rules for Cart Items"
-#: ./browser/views.py:47
+#: ./browser/views.py:48
 msgid "cart_item_discount_form"
 msgstr "General Rules for Cart Items"
 
 #. Default: "Discount for \"${title}\""
-#: ./browser/views.py:64
+#: ./browser/views.py:65
 msgid "cart_item_discount_title"
 msgstr "Discount for Cart Items"
 
@@ -163,7 +159,7 @@ msgid "discount_form_value_required"
 msgstr "Value is required"
 
 #. Default: "Discount Rules"
-#: ./browser/views.py:34
+#: ./browser/views.py:35
 msgid "discount_rules"
 msgstr "Discount Rules"
 
@@ -173,12 +169,12 @@ msgid "enabled_discount"
 msgstr "Enabled discount on context."
 
 #. Default: "Group Rules for Cart"
-#: ./browser/views.py:82
+#: ./browser/views.py:83
 msgid "group_cart_discount_form"
 msgstr "Group Rules for Cart"
 
 #. Default: "Group Rules for Cart Items"
-#: ./browser/views.py:53
+#: ./browser/views.py:54
 msgid "group_cart_item_discount_form"
 msgstr "Group Rules for Cart Items"
 
@@ -203,11 +199,11 @@ msgid "price"
 msgstr "Price"
 
 #. Default: "User Rules for Cart"
-#: ./browser/views.py:79
+#: ./browser/views.py:80
 msgid "user_cart_discount_form"
 msgstr "User Rules for Cart"
 
 #. Default: "User Rules for Cart Items"
-#: ./browser/views.py:50
+#: ./browser/views.py:51
 msgid "user_cart_item_discount_form"
 msgstr "User Rules for Cart Items"

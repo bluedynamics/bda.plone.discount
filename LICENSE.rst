@@ -2,7 +2,7 @@
 License
 =======
 
-Copyright (c) 2014-2017, BlueDynamics Alliance, Austria
+Copyright (c) 2014-2019, BlueDynamics Alliance, Austria
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
