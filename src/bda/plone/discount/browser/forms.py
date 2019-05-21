@@ -35,21 +35,20 @@ import plone.api
 
 
 class JsonBase(BrowserView):
-
     def _match(self, name, filter):
         name = name.lower()
         filter = filter.lower()
         # wildcard match
-        if filter.find('*') != -1:
+        if filter.find("*") != -1:
             # everything matches
-            if filter == '*':
+            if filter == "*":
                 return True
             # wildcard match like '*foo'
-            elif filter.startswith('*'):
+            elif filter.startswith("*"):
                 if name.endswith(filter[1:]):
                     return True
             # wildcard match like 'foo*'
-            elif filter.endswith('*'):
+            elif filter.endswith("*"):
                 if name.startswith(filter[:-1]):
                     return True
             # wildacard match like '*foo*'
@@ -67,10 +66,9 @@ class JsonBase(BrowserView):
 
 
 class UsersJson(JsonBase):
-
     def __call__(self):
         ret = list()
-        filter = self.request.form.get('filter')
+        filter = self.request.form.get("filter")
         for user in plone.api.user.get_users():
             user_id = user.getId()
             if self._match(user_id, filter):
@@ -79,10 +77,9 @@ class UsersJson(JsonBase):
 
 
 class GroupsJson(JsonBase):
-
     def __call__(self):
         ret = list()
-        filter = self.request.form.get('filter')
+        filter = self.request.form.get("filter")
         for group in plone.api.group.get_groups():
             group_id = group.getId()
             if self._match(group_id, filter):
@@ -94,43 +91,46 @@ class GroupsJson(JsonBase):
 class DiscountFormBase(YAMLBaseForm):
     """Abstract discount Form.
     """
+
     settings_iface = None
-    form_template = 'bda.plone.discount.browser:discount.yaml'
-    form_name = ''
+    form_template = "bda.plone.discount.browser:discount.yaml"
+    form_name = ""
     message_factory = _
-    action_resource = ''
-    header_template = 'general_header.pt'
-    portal_type_mode = 'edit'
+    action_resource = ""
+    header_template = "general_header.pt"
+    portal_type_mode = "edit"
     for_attribute = UNSET
-    for_label = ''
-    for_required = ''
-    for_callback = ''
-    for_mode = 'skip'
+    for_label = ""
+    for_required = ""
+    for_callback = ""
+    for_mode = "skip"
 
     def form_action(self, widget, data):
-        return '%s/ajaxform?form_name=%s' % \
-            (self.context.absolute_url(), self.action_resource)
+        return "%s/ajaxform?form_name=%s" % (
+            self.context.absolute_url(),
+            self.action_resource,
+        )
 
     def discount_item(self, rule):
         get = rule.attrs.get
         value = dict()
-        value['kind'] = get('kind', UNSET)
-        value['block'] = get('block', True)
-        value['value'] = get('value', UNSET)
-        value['threshold'] = get('threshold', UNSET)
-        value['threshold_calculation'] = get('threshold_calculation', UNSET)
-        value['portal_type'] = get('portal_type', UNSET)
-        value['valid_from'] = UNSET
-        valid_from = get('valid_from', FLOOR_DATETIME)
+        value["kind"] = get("kind", UNSET)
+        value["block"] = get("block", True)
+        value["value"] = get("value", UNSET)
+        value["threshold"] = get("threshold", UNSET)
+        value["threshold_calculation"] = get("threshold_calculation", UNSET)
+        value["portal_type"] = get("portal_type", UNSET)
+        value["valid_from"] = UNSET
+        valid_from = get("valid_from", FLOOR_DATETIME)
         if valid_from != FLOOR_DATETIME:
-            value['valid_from'] = valid_from
-        value['valid_to'] = UNSET
-        valid_to = get('valid_to', CEILING_DATETIME)
+            value["valid_from"] = valid_from
+        value["valid_to"] = UNSET
+        valid_to = get("valid_to", CEILING_DATETIME)
         if valid_to != CEILING_DATETIME:
-            value['valid_to'] = valid_to
+            value["valid_to"] = valid_to
         for_attr = self.for_attribute
         if for_attr:
-            value['for'] = get(for_attr, UNSET)
+            value["for"] = get(for_attr, UNSET)
         return value
 
     @property
@@ -141,7 +141,7 @@ class DiscountFormBase(YAMLBaseForm):
     def discount_value(self):
         values = list()
         rules = self.settings.rules(self.context)
-        rules = sorted(rules, key=lambda x: x.attrs.get('index', 0))
+        rules = sorted(rules, key=lambda x: x.attrs.get("index", 0))
         for rule in rules:
             values.append(self.discount_item(rule))
         return values
@@ -153,137 +153,133 @@ class DiscountFormBase(YAMLBaseForm):
     @property
     def kind_vocabulary(self):
         return [
-            (KIND_PERCENT, _('percent', default=u'Percent')),
-            (KIND_OFF, _('off', default=u'Off')),
-            (KIND_ABSOLUTE, _('absolute', default=u'Absolute')),
+            (KIND_PERCENT, _("percent", default=u"Percent")),
+            (KIND_OFF, _("off", default=u"Off")),
+            (KIND_ABSOLUTE, _("absolute", default=u"Absolute")),
         ]
 
     @property
     def threshold_calculation_vocabulary(self):
         return [
-            (THRESHOLD_PRICE, _('price', default=u'Price')),
-            (THRESHOLD_ITEM_COUNT, _('item_count', default=u'Item Count')),
+            (THRESHOLD_PRICE, _("price", default=u"Price")),
+            (THRESHOLD_ITEM_COUNT, _("item_count", default=u"Item Count")),
         ]
 
     @property
     def portal_type_vocabulary(self):
         site = getSite()
-        portal_types = getToolByName(site, 'portal_types', None)
-        request = aq_get(portal_types, 'REQUEST', None)
-        vocab = [
-            (ALL_PORTAL_TYPES, _('all', default=u'All'))
-        ]
+        portal_types = getToolByName(site, "portal_types", None)
+        request = aq_get(portal_types, "REQUEST", None)
+        vocab = [(ALL_PORTAL_TYPES, _("all", default=u"All"))]
         for portal_type in portal_types.listContentTypes():
-            vocab.append((
-                portal_type,
-                translate(portal_types[portal_type].Title(), context=request)
-            ))
+            vocab.append(
+                (
+                    portal_type,
+                    translate(portal_types[portal_type].Title(), context=request),
+                )
+            )
         return vocab
 
     def save(self, widget, data):
         settings = self.settings
         existing = self.settings.rules(self.context)
         settings.delete_rules(existing)
-        extracted = data.fetch('discount_form.discount').extracted
+        extracted = data.fetch("discount_form.discount").extracted
         index = 0
         for rule in extracted:
-            user = ''
-            group = ''
+            user = ""
+            group = ""
             if self.for_attribute == FOR_USER:
-                user = rule['for'] and rule['for'] or user
+                user = rule["for"] and rule["for"] or user
             if self.for_attribute == FOR_GROUP:
-                group = rule['for'] and rule['for'] or group
+                group = rule["for"] and rule["for"] or group
             settings.add_rule(
                 context=self.context,
                 index=index,
-                kind=rule['kind'],
-                block=rule['block'],
-                value=rule['value'],
-                threshold=rule['threshold'],
-                threshold_calculation=rule['threshold_calculation'],
-                portal_type=rule.get('portal_type', UNSET),
-                valid_from=rule['valid_from'],
-                valid_to=rule['valid_to'],
+                kind=rule["kind"],
+                block=rule["block"],
+                value=rule["value"],
+                threshold=rule["threshold"],
+                threshold_calculation=rule["threshold_calculation"],
+                portal_type=rule.get("portal_type", UNSET),
+                valid_from=rule["valid_from"],
+                valid_to=rule["valid_to"],
                 user=user,
-                group=group)
+                group=group,
+            )
             index += 1
 
     def next(self, request):
-        message = translate(_('changes_saved', default=u'Changes Saved'),
-                            context=self.request)
-        continuation = [
-            AjaxMessage(message, 'info', None)
-        ]
+        message = translate(
+            _("changes_saved", default=u"Changes Saved"), context=self.request
+        )
+        continuation = [AjaxMessage(message, "info", None)]
         ajax_continue(self.request, continuation)
         return False
 
     def __call__(self):
         # disable diazo theming if ajax call
-        if '_' in self.request.form:
-            self.request.response.setHeader('X-Theme-Disabled', 'True')
-        ajax_form_fiddle(self.request, 'div.disount_form_wrapper', 'inner')
+        if "_" in self.request.form:
+            self.request.response.setHeader("X-Theme-Disabled", "True")
+        ajax_form_fiddle(self.request, "div.disount_form_wrapper", "inner")
         return self.render_form()
 
 
 class UserDiscountFormBase(DiscountFormBase):
-    header_template = 'user_header.pt'
+    header_template = "user_header.pt"
     for_attribute = FOR_USER
-    for_label = _('discount_form_label_user', default=u'User')
-    for_required = _('discount_form_user_required',
-                     default=u'User is required')
-    for_callback = 'javascript:discount_form.autocomplete_user'
-    for_mode = 'edit'
+    for_label = _("discount_form_label_user", default=u"User")
+    for_required = _("discount_form_user_required", default=u"User is required")
+    for_callback = "javascript:discount_form.autocomplete_user"
+    for_mode = "edit"
 
 
 class GroupDiscountFormBase(DiscountFormBase):
-    header_template = 'group_header.pt'
+    header_template = "group_header.pt"
     for_attribute = FOR_GROUP
-    for_label = _('discount_form_label_group', default=u'Group')
-    for_required = _('discount_form_group_required',
-                     default=u'Group is required')
-    for_callback = 'javascript:discount_form.autocomplete_group'
-    for_mode = 'edit'
+    for_label = _("discount_form_label_group", default=u"Group")
+    for_required = _("discount_form_group_required", default=u"Group is required")
+    for_callback = "javascript:discount_form.autocomplete_group"
+    for_mode = "edit"
 
 
 class CartItemDiscountForm(DiscountFormBase):
     settings_iface = ICartItemDiscountSettings
-    action_resource = 'cart_item_discount_form'
+    action_resource = "cart_item_discount_form"
 
 
 class UserCartItemDiscountForm(UserDiscountFormBase, CartItemDiscountForm):
     settings_iface = IUserCartItemDiscountSettings
-    action_resource = 'user_cart_item_discount_form'
+    action_resource = "user_cart_item_discount_form"
 
 
 class GroupCartItemDiscountForm(GroupDiscountFormBase, CartItemDiscountForm):
     settings_iface = IGroupCartItemDiscountSettings
-    action_resource = 'group_cart_item_discount_form'
+    action_resource = "group_cart_item_discount_form"
 
 
 class CartDiscountForm(DiscountFormBase):
     settings_iface = ICartDiscountSettings
-    action_resource = 'cart_discount_form'
-    portal_type_mode = 'skip'
+    action_resource = "cart_discount_form"
+    portal_type_mode = "skip"
 
     @property
     def kind_vocabulary(self):
         return [
-            (KIND_PERCENT, _('percent', default=u'Percent')),
-            (KIND_OFF, _('off', default=u'Off'))
+            (KIND_PERCENT, _("percent", default=u"Percent")),
+            (KIND_OFF, _("off", default=u"Off")),
         ]
 
     @property
     def threshold_calculation_vocabulary(self):
-        return [
-            (THRESHOLD_PRICE, _('price', default=u'Price'))
-        ]
+        return [(THRESHOLD_PRICE, _("price", default=u"Price"))]
 
 
 class UserCartDiscountForm(UserDiscountFormBase, CartDiscountForm):
     settings_iface = IUserCartDiscountSettings
-    action_resource = 'user_cart_discount_form'
+    action_resource = "user_cart_discount_form"
 
 
 class GroupCartDiscountForm(GroupDiscountFormBase, CartDiscountForm):
     settings_iface = IGroupCartDiscountSettings
-    action_resource = 'group_cart_discount_form'
+    action_resource = "group_cart_discount_form"

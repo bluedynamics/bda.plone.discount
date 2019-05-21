@@ -24,16 +24,16 @@ class DiscountLayer(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         import plone.app.contenttypes
-        self.loadZCML(package=plone.app.contenttypes,
-                      context=configurationContext)
+
+        self.loadZCML(package=plone.app.contenttypes, context=configurationContext)
         import bda.plone.discount
-        self.loadZCML(package=bda.plone.discount,
-                      context=configurationContext)
+
+        self.loadZCML(package=bda.plone.discount, context=configurationContext)
 
     def setUpPloneSite(self, portal):
-        self.applyProfile(portal, 'plone.app.contenttypes:default')
-        self.applyProfile(portal, 'bda.plone.discount:default')
-        setRoles(portal, TEST_USER_ID, ['Manager'])
+        self.applyProfile(portal, "plone.app.contenttypes:default")
+        self.applyProfile(portal, "bda.plone.discount:default")
+        setRoles(portal, TEST_USER_ID, ["Manager"])
         login(portal, TEST_USER_NAME)
 
     def tearDownZope(self, app):
@@ -42,5 +42,5 @@ class DiscountLayer(PloneSandboxLayer):
 
 Discount_FIXTURE = DiscountLayer()
 Discount_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(Discount_FIXTURE,),
-    name="Discount:Integration")
+    bases=(Discount_FIXTURE,), name="Discount:Integration"
+)

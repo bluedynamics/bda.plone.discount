@@ -44,13 +44,13 @@ def value_from_rule(rule, key, fallback):
 def portal_type_from_rule(rule):
     """Utility for B/C rules providing no portal_type on rule.
     """
-    return value_from_rule(rule, 'portal_type', ALL_PORTAL_TYPES)
+    return value_from_rule(rule, "portal_type", ALL_PORTAL_TYPES)
 
 
 def threshold_calculation_from_rule(rule):
     """Utility for B/C rules providing no threshold_calculation on rule.
     """
-    return value_from_rule(rule, 'threshold_calculation', THRESHOLD_PRICE)
+    return value_from_rule(rule, "threshold_calculation", THRESHOLD_PRICE)
 
 
 class RuleLookup(object):
@@ -129,12 +129,14 @@ class RuleLookup(object):
 class ItemRulesLookup(RuleLookup):
     """General item discount rule lookup.
     """
+
     settings_iface = ICartItemDiscountSettings
 
 
 class UserItemRulesLookup(RuleLookup):
     """User bound item discount rule lookup.
     """
+
     settings_iface = IUserCartItemDiscountSettings
     for_attribute = FOR_USER
 
@@ -142,6 +144,7 @@ class UserItemRulesLookup(RuleLookup):
 class GroupItemRulesLookup(RuleLookup):
     """Group bound item discount rule lookup.
     """
+
     settings_iface = IGroupCartItemDiscountSettings
     for_attribute = FOR_GROUP
 
@@ -149,12 +152,14 @@ class GroupItemRulesLookup(RuleLookup):
 class CartRulesLookup(RuleLookup):
     """General overall cart discount rule lookup.
     """
+
     settings_iface = ICartDiscountSettings
 
 
 class UserCartRulesLookup(RuleLookup):
     """User bound overall cart discount rule lookup.
     """
+
     settings_iface = IUserCartDiscountSettings
     for_attribute = FOR_USER
 
@@ -162,6 +167,7 @@ class UserCartRulesLookup(RuleLookup):
 class GroupCartRulesLookup(RuleLookup):
     """Group bound overall cart discount rule lookup.
     """
+
     settings_iface = IGroupCartDiscountSettings
     for_attribute = FOR_GROUP
 
@@ -216,17 +222,17 @@ class RuleAcquierer(object):
         """
         lookups = list()
         if self.user:
-            lookups.append(self.user_lookup_factory(
-                context=context,
-                date=self.date,
-                for_value=self.user
-            ))
+            lookups.append(
+                self.user_lookup_factory(
+                    context=context, date=self.date, for_value=self.user
+                )
+            )
         for group in self.groups:
-            lookups.append(self.group_lookup_factory(
-                context=context,
-                date=self.date,
-                for_value=group
-            ))
+            lookups.append(
+                self.group_lookup_factory(
+                    context=context, date=self.date, for_value=group
+                )
+            )
         lookups.append(self.lookup_factory(context=context, date=self.date))
         return lookups
 
@@ -249,8 +255,10 @@ class RuleAcquierer(object):
         # traverse down at most until plone root
         while True:
             # ignore context if no discount settings enabled or no site
-            if not (IDiscountSettingsEnabled.providedBy(context)
-                    or ISite.providedBy(context)):
+            if not (
+                IDiscountSettingsEnabled.providedBy(context)
+                or ISite.providedBy(context)
+            ):
                 context = aq_parent(aq_inner(context))
                 continue
             rule = None
@@ -263,7 +271,7 @@ class RuleAcquierer(object):
             if rule:
                 rules.append(rule)
                 # break aggregating if defined
-                if rule.attrs['block']:
+                if rule.attrs["block"]:
                     break
             # plone root reached
             if IPloneSiteRoot.providedBy(context):
@@ -276,6 +284,7 @@ class RuleAcquierer(object):
 class CartItemRuleAcquirer(RuleAcquierer):
     """Object to acquire cart item discount rules.
     """
+
     lookup_factory = ItemRulesLookup
     user_lookup_factory = UserItemRulesLookup
     group_lookup_factory = GroupItemRulesLookup
@@ -284,6 +293,7 @@ class CartItemRuleAcquirer(RuleAcquierer):
 class CartRuleAcquirer(RuleAcquierer):
     """Object to acquire overall cart discount rules.
     """
+
     lookup_factory = CartRulesLookup
     user_lookup_factory = UserCartRulesLookup
     group_lookup_factory = GroupCartRulesLookup
@@ -327,7 +337,7 @@ class DiscountBase(object):
             if rule_pt != ALL_PORTAL_TYPES and rule_pt != portal_type:
                 return value
         # check discount application threshold
-        threshold = rule.attrs['threshold']
+        threshold = rule.attrs["threshold"]
         if threshold:
             threshold = Decimal(threshold)
             # lookup threshold calculation on rule
@@ -339,15 +349,15 @@ class DiscountBase(object):
             if calculation == THRESHOLD_ITEM_COUNT and threshold > count:
                 return value
         # get discount rule value
-        rule_value = Decimal(rule.attrs['value'])
+        rule_value = Decimal(rule.attrs["value"])
         # calculate in percent
-        if rule.attrs['kind'] == KIND_PERCENT:
+        if rule.attrs["kind"] == KIND_PERCENT:
             value -= value / Decimal(100) * rule_value
         # calculate decrement
-        if rule.attrs['kind'] == KIND_OFF:
+        if rule.attrs["kind"] == KIND_OFF:
             value -= rule_value
         # rule defines absolute value
-        if rule.attrs['kind'] == KIND_ABSOLUTE:
+        if rule.attrs["kind"] == KIND_ABSOLUTE:
             value = rule_value
         # value never < 0
         if value < Decimal(0):
@@ -362,10 +372,7 @@ class DiscountBase(object):
         rules = self.acquirer.rules(portal_type=portal_type)
         for rule in rules:
             value = self.apply_rule(
-                value=value,
-                rule=rule,
-                count=count,
-                portal_type=portal_type
+                value=value, rule=rule, count=count, portal_type=portal_type
             )
         # value never < 0
         if value < Decimal(0):
@@ -382,6 +389,7 @@ class DiscountBase(object):
 class CartItemDiscount(DiscountBase):
     """Discount calculator for cart items.
     """
+
     aquirer_factory = CartItemRuleAcquirer
 
     def net(self, net, vat, count):
@@ -389,9 +397,7 @@ class CartItemDiscount(DiscountBase):
         # XXX: from gross
         net = Decimal(net)
         item_discount = net - self.apply_rules(
-            value=net,
-            count=count,
-            portal_type=self.context.portal_type
+            value=net, count=count, portal_type=self.context.portal_type
         )
         return item_discount
 
@@ -401,6 +407,7 @@ class CartItemDiscount(DiscountBase):
 class CartDiscount(DiscountBase):
     """Discount calculator for overall cart.
     """
+
     aquirer_factory = CartRuleAcquirer
 
     def _discounted_items(self, items):
@@ -408,7 +415,7 @@ class CartDiscount(DiscountBase):
         # items in cart. count is already considered.
         # XXX: from gross
         result = list()
-        cat = api.portal.get_tool(name='portal_catalog')
+        cat = api.portal.get_tool(name="portal_catalog")
         for uid, count, comment in items:
             brain = cat(UID=uid)
             if not brain:

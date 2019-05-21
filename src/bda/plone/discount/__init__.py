@@ -7,11 +7,11 @@ from zope.i18nmessageid import MessageFactory
 from zope.interface import implementer
 
 
-message_factory = MessageFactory('bda.plone.discount')
+message_factory = MessageFactory("bda.plone.discount")
 
 
 # static uuid for the PortalRoot, as it doesn't have a uuid by default
-UUID_PLONE_ROOT = '77c4390d-1179-44ba-9d57-46d23ac292c6'
+UUID_PLONE_ROOT = "77c4390d-1179-44ba-9d57-46d23ac292c6"
 
 
 @implementer(IUUID)

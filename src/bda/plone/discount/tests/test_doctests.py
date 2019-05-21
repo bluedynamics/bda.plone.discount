@@ -12,26 +12,22 @@ import unittest
 optionflags = doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS
 
 
-TESTFILES = [
-    'settings.rst',
-    'calculator.rst',
-]
+TESTFILES = ["settings.rst", "calculator.rst"]
 
 
 def test_suite():
     suite = unittest.TestSuite()
-    suite.addTests([
-        layered(
-            doctest.DocFileSuite(
-                docfile,
-                globs={'interact': interact,
-                       'pprint': pprint.pprint,
-                       'z2': z2,
-                       },
-                optionflags=optionflags,
-            ),
-            layer=Discount_INTEGRATION_TESTING,
-        )
-        for docfile in TESTFILES
-    ])
+    suite.addTests(
+        [
+            layered(
+                doctest.DocFileSuite(
+                    docfile,
+                    globs={"interact": interact, "pprint": pprint.pprint, "z2": z2},
+                    optionflags=optionflags,
+                ),
+                layer=Discount_INTEGRATION_TESTING,
+            )
+            for docfile in TESTFILES
+        ]
+    )
     return suite
