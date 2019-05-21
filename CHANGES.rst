@@ -5,6 +5,9 @@ Changelog
 2.0.dev0 (unreleased)
 ---------------------
 
+- Adopt import to latest cart changes.
+  [jensens]
+
 - Code style black. isort imports.
   [jensens]
 

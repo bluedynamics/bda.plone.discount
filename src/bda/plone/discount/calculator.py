@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from bda.plone.cart import get_item_data_provider
+from bda.plone.cart.cartitem import get_item_data_provider
 from bda.plone.cart.interfaces import ICartDiscount
 from bda.plone.cart.interfaces import ICartItem
 from bda.plone.cart.interfaces import ICartItemDiscount
