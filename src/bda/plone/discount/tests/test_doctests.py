@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from bda.plone.discount.tests import Discount_INTEGRATION_TESTING
-from interlude import interact
 from plone.testing import layered
 from plone.testing import z2
 
@@ -22,7 +21,7 @@ def test_suite():
             layered(
                 doctest.DocFileSuite(
                     docfile,
-                    globs={"interact": interact, "pprint": pprint.pprint, "z2": z2},
+                    globs={"pprint": pprint.pprint, "z2": z2},
                     optionflags=optionflags,
                 ),
                 layer=Discount_INTEGRATION_TESTING,
