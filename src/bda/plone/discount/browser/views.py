@@ -3,6 +3,7 @@ from bda.plone.discount import message_factory as _
 from Products.Five import BrowserView
 from yafowil.base import factory
 from zope.component.interfaces import ISite
+
 import pkg_resources
 import six
 

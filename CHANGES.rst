@@ -5,7 +5,7 @@ Changelog
 2.0.dev0 (unreleased)
 ---------------------
 
-- Code style black.
+- Code style black. isort imports.
   [jensens]
 
 - Python 2/3 compatibility

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from Products.Five.browser import BrowserView
 from bda.plone.discount.interfaces import IDiscountSettingsEnabled
+from Products.Five.browser import BrowserView
 from zope.component.interfaces import ISite
 from zope.i18nmessageid import MessageFactory
 from zope.interface import directlyProvidedBy

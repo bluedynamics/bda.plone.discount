@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_get
-from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from bda.plone.ajax import AjaxMessage
 from bda.plone.ajax import ajax_continue
 from bda.plone.ajax import ajax_form_fiddle
+from bda.plone.ajax import AjaxMessage
 from bda.plone.discount import message_factory as _
 from bda.plone.discount.interfaces import ALL_PORTAL_TYPES
 from bda.plone.discount.interfaces import CEILING_DATETIME
@@ -25,6 +22,9 @@ from bda.plone.discount.interfaces import THRESHOLD_ITEM_COUNT
 from bda.plone.discount.interfaces import THRESHOLD_PRICE
 from node.utils import UNSET
 from plumber import plumbing
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from yafowil.plone.form import CSRFProtectionBehavior
 from yafowil.plone.form import YAMLBaseForm
 from zope.i18n import translate
