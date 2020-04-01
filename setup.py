@@ -41,8 +41,4 @@ setup(
         "bda.plone.cart",
     ],
     extras_require={"test": ["plone.app.testing", "mock"]},
-    entry_points="""
-    [z3c.autoinclude.plugin]
-    target = plone
-    """,
 )
