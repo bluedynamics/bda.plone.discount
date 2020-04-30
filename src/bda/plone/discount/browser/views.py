@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from bda.plone.discount import message_factory as _
+from Products.CMFPlone.resources import add_bundle_on_request
 from Products.Five import BrowserView
 from yafowil.base import factory
 from zope.component.interfaces import ISite
@@ -15,6 +16,10 @@ class DiscountView(BrowserView):
     title = None
     related_forms = []
     default_form = None
+
+    def __init__(self, context, request):
+        super(DiscountView, self).__init__(context, request)
+        add_bundle_on_request(request, 'yafowil')
 
     def disable_border(self):
         if IS_P4 and ISite.providedBy(self.context):
