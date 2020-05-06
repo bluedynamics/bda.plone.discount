@@ -30,21 +30,21 @@ Debug print helper:
 .. code-block:: pycon
 
     >>> def print_rule(rule):
-    ...     print 'index: ' + str(rule.attrs['index'])
-    ...     print 'category: ' + str(rule.attrs['category'])
-    ...     print 'context_uid: ' + str(rule.attrs['context_uid'])
-    ...     print 'creator: ' + rule.attrs['creator']
-    ...     print 'created: ' + str(rule.attrs['created'])
-    ...     print 'kind: ' + rule.attrs['kind']
-    ...     print 'block: ' + str(rule.attrs['block'])
-    ...     print 'value: ' + str(rule.attrs['value'])
-    ...     print 'threshold: ' + str(rule.attrs['threshold'])
-    ...     print 'threshold_calculation: ' + str(rule.attrs['threshold_calculation'])
-    ...     print 'portal_type: ' + str(rule.attrs['portal_type'])
-    ...     print 'valid_from: ' + str(rule.attrs['valid_from'])
-    ...     print 'valid_to: ' + str(rule.attrs['valid_to'])
-    ...     print 'user: ' + rule.attrs['user']
-    ...     print 'group: ' + rule.attrs['group']
+    ...     print('index: ' + str(rule.attrs['index']))
+    ...     print('category: ' + str(rule.attrs['category']))
+    ...     print('context_uid: ' + str(rule.attrs['context_uid']))
+    ...     print('creator: ' + rule.attrs['creator'])
+    ...     print('created: ' + str(rule.attrs['created']))
+    ...     print('kind: ' + rule.attrs['kind'])
+    ...     print('block: ' + str(rule.attrs['block']))
+    ...     print('value: ' + str(rule.attrs['value']))
+    ...     print('threshold: ' + str(rule.attrs['threshold']))
+    ...     print('threshold_calculation: ' + str(rule.attrs['threshold_calculation']))
+    ...     print('portal_type: ' + str(rule.attrs['portal_type']))
+    ...     print('valid_from: ' + str(rule.attrs['valid_from']))
+    ...     print('valid_to: ' + str(rule.attrs['valid_to']))
+    ...     print('user: ' + rule.attrs['user'])
+    ...     print('group: ' + rule.attrs['group'])
 
 
 ICartItemDiscountSettings
@@ -94,13 +94,13 @@ Look at rule data:
     kind: off
     block: False
     value: 1.0
-    threshold: 
-    threshold_calculation: 
-    portal_type: 
+    threshold:
+    threshold_calculation:
+    portal_type:
     valid_from: 2014-02-01 00:00:00
     valid_to: 2014-04-01 00:00:00
-    user: 
-    group: 
+    user:
+    group:
 
 Rules are returned sorted by valid_from, most recent first:
 
@@ -204,13 +204,13 @@ IUserCartItemDiscountSettings
     kind: percent
     block: False
     value: 10.0
-    threshold: 
-    threshold_calculation: 
-    portal_type: 
+    threshold:
+    threshold_calculation:
+    portal_type:
     valid_from: 2000-01-01 00:00:00
     valid_to: 2100-01-01 00:00:00
     user: max
-    group: 
+    group:
 
 
 IGroupCartItemDiscountSettings
@@ -240,12 +240,12 @@ IGroupCartItemDiscountSettings
     kind: percent
     block: False
     value: 10.0
-    threshold: 
-    threshold_calculation: 
-    portal_type: 
+    threshold:
+    threshold_calculation:
+    portal_type:
     valid_from: 2000-01-01 00:00:00
     valid_to: 2100-01-01 00:00:00
-    user: 
+    user:
     group: retailer
 
 
@@ -276,13 +276,13 @@ ICartDiscountSettings
     kind: percent
     block: False
     value: 10.0
-    threshold: 
-    threshold_calculation: 
-    portal_type: 
+    threshold:
+    threshold_calculation:
+    portal_type:
     valid_from: 2000-01-01 00:00:00
     valid_to: 2100-01-01 00:00:00
-    user: 
-    group: 
+    user:
+    group:
 
 
 IUserCartDiscountSettings
@@ -312,13 +312,13 @@ IUserCartDiscountSettings
     kind: percent
     block: False
     value: 10.0
-    threshold: 
-    threshold_calculation: 
-    portal_type: 
+    threshold:
+    threshold_calculation:
+    portal_type:
     valid_from: 2000-01-01 00:00:00
     valid_to: 2100-01-01 00:00:00
     user: sepp
-    group: 
+    group:
 
 
 IGroupCartDiscountSettings
@@ -349,12 +349,12 @@ IGroupCartDiscountSettings
     kind: percent
     block: False
     value: 10.0
-    threshold: 
-    threshold_calculation: 
-    portal_type: 
+    threshold:
+    threshold_calculation:
+    portal_type:
     valid_from: 2000-01-01 00:00:00
     valid_to: 2100-01-01 00:00:00
-    user: 
+    user:
     group: master_dealer
 
 

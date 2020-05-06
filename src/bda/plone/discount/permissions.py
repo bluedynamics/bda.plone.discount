@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.permissions import setDefaultRoles
-
+from AccessControl.Permission import addPermission
 
 # manage discount
 ManageDiscount = "bda.plone.discount: Manage Discount"
-setDefaultRoles(ManageDiscount, ("Manager", "Site Administrator"))
+addPermission(ManageDiscount, ("Manager", "Site Administrator"))

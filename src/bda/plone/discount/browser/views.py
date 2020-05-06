@@ -19,7 +19,7 @@ class DiscountView(BrowserView):
 
     def __init__(self, context, request):
         super(DiscountView, self).__init__(context, request)
-        add_bundle_on_request(request, 'yafowil')
+        add_bundle_on_request(request, "yafowil")
 
     def disable_border(self):
         if IS_P4 and ISite.providedBy(self.context):
