@@ -20,8 +20,10 @@
 <metal:main fill-slot="main">
   <tal:main-macro metal:define-macro="main">
 
-    <h1 class="documentFirstHeading"
+    <header>
+      <h1 class="documentFirstHeading"
         tal:content="view/title">Discount Rules</h1>
+    </header>
 
     <div class="discount_form_filter"
          tal:attributes="ajax:target context/absolute_url">
