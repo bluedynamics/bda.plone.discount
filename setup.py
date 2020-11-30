@@ -38,6 +38,7 @@ setup(
         "souper.plone",
         "yafowil.plone",
         "yafowil.widget.autocomplete",
+        "yafowil.widget.array",
         "bda.plone.cart",
     ],
     extras_require={"test": ["plone.app.testing", "mock"]},

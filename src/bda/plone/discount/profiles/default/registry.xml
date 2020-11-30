@@ -32,4 +32,13 @@
     <value>True</value>
   </record>
 
+  <!-- yafowil.widget.array -->
+  <record name="yafowil.widget.array.common">
+    <field type="plone.registry.field.Bool">
+      <title>Array widget common resources</title>
+    </field>
+    <value>True</value>
+  </record>
+
+
 </registry>
