@@ -24,6 +24,7 @@ widgets:
                 label: i18n:discount_form_label_value:Value
                 required: i18n:discount_form_value_required:Value is required
                 field.class: array_field value
+                datatype: float
                 error.position: after
         - kind:
             factory: field:select
