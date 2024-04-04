@@ -1,0 +1,178 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-11-18 07:55+0000\n"
+"PO-Revision-Date: 2017-02-06 15:39+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"Last-Translator: Espen Moe-Nilssen <espen@medialog.no>\n"
+"Language-Team: Grieg Medialog\n"
+"Language: nn_NO\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: profiles/base/actions.xml
+msgid "Disable discount"
+msgstr ""
+
+#: profiles/base/actions.xml
+msgid "Disable discount settings for this context"
+msgstr ""
+
+#: profiles/base/actions.xml
+msgid "Enable discount"
+msgstr "Aktiver rabatt"
+
+#: profiles/base/actions.xml
+msgid "Enables discount settings for this context"
+msgstr "Aktiverer rabatt betingelsar for  dette"
+
+#. Default: "absolute"
+#: browser/forms.py:145
+msgid "absolute"
+msgstr "Absolutt"
+
+#: profiles.zcml:14
+msgid "bda.plone.discount"
+msgstr ""
+
+#: profiles.zcml:29
+msgid "bda.plone.discount base"
+msgstr ""
+
+#. Default: "General Rules for Cart"
+#: browser/views.py:61
+msgid "cart_discount_form"
+msgstr "rabattskjema"
+
+#. Default: "Discount for Cart"
+#: browser/views.py:57
+msgid "cart_discount_title"
+msgstr "korg rabatt tittel"
+
+#. Default: "General Rules for Cart Items"
+#: browser/views.py:37
+msgid "cart_item_discount_form"
+msgstr "korg rabatt skjema"
+
+#. Default: "Discount for \"${title}\""
+#: browser/views.py:49
+msgid "cart_item_discount_title"
+msgstr "korg produkt rabatt tittel"
+
+#. Default: "Changes Saved"
+#: browser/forms.py:174
+msgid "changes_saved"
+msgstr "endringar lagra"
+
+#. Default: "Disabled discount on context."
+#: browser/actions.py:29
+msgid "disabled_discount"
+msgstr "deaktivert rabatt"
+
+#. Default: "Group is required"
+#: browser/forms.py:204
+msgid "discount_form_group_required"
+msgstr "grupperabatt skjema påkrevd"
+
+#. Default: "Block parental"
+#: browser/general_header.pt:12 browser/group_header.pt:12
+#: browser/user_header.pt:12
+msgid "discount_form_label_block"
+msgstr ""
+
+#. Default: "Group"
+#: browser/forms.py:203 browser/group_header.pt:47
+msgid "discount_form_label_group"
+msgstr "rabattskjema etikett gruppe"
+
+#. Default: "Kind"
+#: browser/general_header.pt:5 browser/group_header.pt:5
+#: browser/user_header.pt:5
+msgid "discount_form_label_kind"
+msgstr "rabattskjema etikett type"
+
+#. Default: "Threshold"
+#: browser/general_header.pt:26 browser/group_header.pt:26
+#: browser/user_header.pt:26
+msgid "discount_form_label_threshold"
+msgstr "rabattskjema etikett terskel"
+
+#. Default: "User"
+#: browser/forms.py:193 browser/user_header.pt:47
+msgid "discount_form_label_user"
+msgstr "rabattskjema etikett brukar"
+
+#. Default: "Valid From"
+#: browser/general_header.pt:33 browser/group_header.pt:33
+#: browser/user_header.pt:33
+msgid "discount_form_label_valid_from"
+msgstr "rabattskjema etikett gjeld frå"
+
+#. Default: "Valid To"
+#: browser/general_header.pt:40 browser/group_header.pt:40
+#: browser/user_header.pt:40
+msgid "discount_form_label_valid_to"
+msgstr "rabattskjema etikett gjeld til"
+
+#. Default: "Value"
+#: browser/general_header.pt:19 browser/group_header.pt:19
+#: browser/user_header.pt:19
+msgid "discount_form_label_value"
+msgstr "rabattskjema etikett verdi"
+
+msgid "discount_form_save"
+msgstr "rabattskjema etikett lagre"
+
+#. Default: "User is required"
+#: browser/forms.py:194
+msgid "discount_form_user_required"
+msgstr "rabattskjema etikett brukar påkrevd"
+
+msgid "discount_form_value_required"
+msgstr "rabattskjema verdi påkrevd"
+
+#. Default: "Discount Rules"
+#: browser/views.py:24
+msgid "discount_rules"
+msgstr "rabatt reglar"
+
+#. Default: "Enabled discount on context."
+#: browser/actions.py:21
+msgid "enabled_discount"
+msgstr "tilgjengeleg rabatt"
+
+#. Default: "Group Rules for Cart"
+#: browser/views.py:67
+msgid "group_cart_discount_form"
+msgstr "grupperabatt skjema"
+
+#. Default: "Group Rules for Cart Items"
+#: browser/views.py:43
+msgid "group_cart_item_discount_form"
+msgstr "grupperabatt produkt skjema"
+
+#. Default: "off"
+#: browser/forms.py:144
+msgid "off"
+msgstr "av"
+
+#. Default: "percent"
+#: browser/forms.py:143
+msgid "percent"
+msgstr "%"
+
+#. Default: "User Rules for Cart"
+#: browser/views.py:64
+msgid "user_cart_discount_form"
+msgstr "brukar korg rabatt skjema"
+
+#. Default: "User Rules for Cart Items"
+#: browser/views.py:40
+msgid "user_cart_item_discount_form"
+msgstr "brukar produkt rabatt skjema"
