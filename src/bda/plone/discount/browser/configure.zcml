@@ -143,24 +143,9 @@
     layer="..interfaces.IDiscountExtensionLayer" />
 
   <!-- generic resources -->
-  <browser:resource
-    name="bda.plone.discount.js"
-    file="discount.js"
-    layer="..interfaces.IDiscountExtensionLayer" />
-
-  <browser:resource
-    name="bda.plone.discount.less"
-    file="discount.less"
-    layer="..interfaces.IDiscountExtensionLayer" />
-
-  <browser:resource
-    name="bda.plone.discount.css"
-    file="discount.css"
-    layer="..interfaces.IDiscountExtensionLayer" />
-
-  <browser:resource
-    name="bda.plone.discount.css.map"
-    file="discount.css.map"
+  <browser:resourceDirectory
+    name="bda.plone.discount"
+    directory="static"
     layer="..interfaces.IDiscountExtensionLayer" />
 
 </configure>

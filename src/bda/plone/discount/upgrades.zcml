@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+    <genericsetup:upgradeDepends
+        title="Update registry"
+        source="1"
+        destination="2"
+        profile="bda.plone.discount:default"
+        import_steps="plone.app.registry"
+        run_deps="False" />
+
+</configure>
