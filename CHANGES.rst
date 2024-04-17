@@ -2,8 +2,8 @@
 Changelog
 =========
 
-2.0.dev0 (unreleased)
----------------------
+2.0b1 (unreleased)
+------------------
 
 - No longer support for z3c.autoinclude.
   [jensens]
