@@ -1,0 +1,7 @@
+<registry>
+
+  <records prefix="plone.bundles/bda-plone-discount"
+           interface='Products.CMFPlone.interfaces.IBundleRegistry'
+           remove="true" />
+
+</registry>

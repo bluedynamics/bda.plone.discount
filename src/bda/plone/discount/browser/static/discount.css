@@ -2,22 +2,27 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 .discount_form_filter select {
   margin-left: 1em;
 }
+
 #array-discount_form-discount table .error {
   background-color: transparent;
   border: none;
   margin: 0;
 }
+
 #array-discount_form-discount table .errormessage {
   padding: 0;
   color: red;
   font-size: 80%;
 }
+
 #array-discount_form-discount table {
   width: 100%;
 }
+
 #array-discount_form-discount table td > div,
 #array-discount_form-discount table th > div {
   display: table-cell;
@@ -26,58 +31,72 @@
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 }
+
 #array-discount_form-discount div.array_actions {
   width: 90px;
 }
+
 #array-discount_form-discount div.array_field input,
 #array-discount_form-discount div.array_field select {
   width: 90%;
 }
+
 #array-discount_form-discount div.array_field input {
   margin-left: auto;
   margin-right: auto;
 }
+
 div.form_header.block,
 div.array_field.block {
   width: 6%;
 }
+
 div.form_header.value,
 div.array_field.value {
   width: 6%;
 }
+
 div.form_header.kind,
 div.array_field.kind {
   width: 6%;
 }
+
 div.form_header.threshold,
 div.array_field.threshold {
   width: 6%;
 }
+
 div.form_header.threshold_calculation,
 div.array_field.threshold_calculation {
   width: 8%;
 }
+
 div.form_header.portal_type,
 div.array_field.portal_type {
   width: 8%;
 }
+
 div.form_header.valid_from,
 div.array_field.valid_from,
 div.form_header.valid_to,
 div.array_field.valid_to {
   width: 10%;
 }
+
 div.form_header.for,
 div.array_field.for {
   width: 10%;
 }
+
 #array-discount_form-discount div.array_field.valid_from .dateinput,
 #array-discount_form-discount div.array_field.valid_to .dateinput {
   width: 50%;
   margin-right: 5px;
 }
+
 #array-discount_form-discount div.array_field.valid_from .timeinput,
 #array-discount_form-discount div.array_field.valid_to .timeinput {
-  width: 36%;
+  width: 32%;
 }
-/*# sourceMappingURL=++resource++bda.plone.discount.css.map */
+
+/*# sourceMappingURL=discount.css.map */
