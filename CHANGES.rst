@@ -1,6 +1,5 @@
-
-Changelog
-=========
+Changes
+=======
 
 2.0b2 (unreleased)
 ------------------
@@ -29,8 +28,9 @@ Changelog
 - Update resource loading for discount view
   [agitator]
 
-1.0a1 (unreleased)
-------------------
+
+1.0a1
+-----
 
 - Replace unittest2 with untittest
   [agitator]
